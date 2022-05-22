@@ -17,12 +17,9 @@ namespace SVC
         {
             GameLocations gameLocations = new GameLocations();
             gameLocations.querySteamInstallLocation();
-            gameLocations.writeSteamInstallLocaiton();
-            gameLocations.readLibraryFolders();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new svcWindow());
-
         }
 
     }
