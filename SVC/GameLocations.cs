@@ -14,9 +14,11 @@ namespace SVC
         String steamFolderLocation;
         String currentDirectory = Directory.GetCurrentDirectory();
         bool fileExists = false;
+        String steamInstallQueryBat = "cmd /c REG QUERY HKCU\\SOFTWARE\\Valve\\Steam /f SteamExe >steaminstalllocation.txt";
 
         public void querySteamInstallLocation()
         {
+            File.WriteAllText(currentDirectory + "\\steam_install_query.bat", steamInstallQueryBat);
                 Process process = new Process();
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
@@ -25,9 +27,10 @@ namespace SVC
                 process.Start();
                 while(fileExists == false)
                 {
-                    if(File.Exists(currentDirectory + "\\steam_install_location.txt"))
+                    if(File.Exists(currentDirectory + "\\steaminstalllocation.txt"))
                     {
                         fileExists = true;
+                        process.WaitForExit();
                     }
                 }
                 writeSteamInstallLocaiton();
@@ -37,12 +40,12 @@ namespace SVC
 
         private void writeSteamInstallLocaiton()
         {
-                steamExeLocation = File.ReadAllText(currentDirectory + "\\steam_install_location.txt");
+                steamExeLocation = File.ReadAllText(currentDirectory + "\\steaminstalllocation.txt");
                 steamExeLocation = steamExeLocation.TextAfter("SZ");
                 steamExeLocation = steamExeLocation.GetUntilOrEmpty("End of search");
                 steamExeLocation = steamExeLocation.Trim();
                 steamFolderLocation = steamExeLocation.GetUntilOrEmpty("/steam.exe");
-                File.WriteAllText(currentDirectory + "\\steam_folder_location.txt", steamFolderLocation);
+                File.WriteAllText(currentDirectory + "\\steamfolderlocation.txt", steamFolderLocation);
         }
 
         private void readLibraryFolders()
@@ -57,7 +60,7 @@ namespace SVC
                 }
             }
             String libraryFoldersCombined = String.Join(",", libraryFolders);
-            File.WriteAllText(currentDirectory + "\\libraryfolders.txt", libraryFoldersCombined);
+            File.WriteAllText(currentDirectory + "\\steamlibraryfolders.txt", libraryFoldersCombined);
         }
 
     }
