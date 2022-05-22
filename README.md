@@ -12,7 +12,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
@@ -20,7 +20,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://rowanlees.co.uk/images/SVC_icon_500.png">
+  <a href="http://rowanlees.co.uk/images/SVC_icon_500.png">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -29,10 +29,8 @@
   <p align="center">
     Windows application that allows you to control some functionality in Steam using your voice
     <br />
-    <a href="https://github.com/reden96/steam-voice-commands-net-framework"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/reden96/steam-voice-commands-net-framework">View Demo</a>
     ·
     <a href="https://github.com/reden96/steam-voice-commands-net-framework/issues">Report Bug</a>
     ·
@@ -90,8 +88,6 @@ Requires .NET Framework 4.8 - uses Windows Speech Recognition so you will get be
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
@@ -152,4 +148,3 @@ Project Link: [https://github.com/reden96/steam-voice-commands-net-framework](ht
 [license-url]: https://github.com/reden96/steam-voice-commands-net-framework/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/rowan-lees
-[product-screenshot]: images/screenshot.png
