@@ -20,7 +20,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="http://rowanlees.co.uk/images/SVC_icon_500.png">
+  <a href="https://github.com/reden96/steam-voice-commands-net-framework/blob/master/SVC_icon_500.png">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -31,9 +31,9 @@
     <br />
     <br />
     <br />
-    ·
+    Â·
     <a href="https://github.com/reden96/steam-voice-commands-net-framework/issues">Report Bug</a>
-    ·
+    Â·
     <a href="https://github.com/reden96/steam-voice-commands-net-framework/issues">Request Feature</a>
   </p>
 </div>
