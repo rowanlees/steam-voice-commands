@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VoiceRecognition.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="GameLocations.cs" />
     <Compile Include="Form1.cs">
