@@ -11,6 +11,12 @@ namespace SVC
     {
 
         SpeechRecognitionEngine recognizer;
+        bool voiceRecognitionActive = true;
+
+        public bool getVoiceRecognitionActive()
+        {
+            return voiceRecognitionActive;
+        }
 
         public void loadSpeechRecognition()
         {
@@ -42,23 +48,43 @@ namespace SVC
 
         private void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            switch (e.Result.Text)
+            if (voiceRecognitionActive)
             {
-                case "open library":
-                    System.Diagnostics.Process.Start(@"steam://open/games");
-                    break;
-                case "open store":
-                    System.Diagnostics.Process.Start(@"steam://store");
-                    break;
-                case "open friends":
-                    System.Diagnostics.Process.Start(@"steam://open/friends");
-                    break;
-                case "open settings":
-                    System.Diagnostics.Process.Start(@"steam://open/settings");
-                    break;
-                case "open downloads":
-                    System.Diagnostics.Process.Start(@"steam://open/downloads");
-                    break;
+                switch (e.Result.Text)
+                {
+                    case "open library":
+                        System.Diagnostics.Process.Start(@"steam://open/games");
+                        break;
+                    case "open store":
+                        System.Diagnostics.Process.Start(@"steam://store");
+                        break;
+                    case "open friends":
+                        System.Diagnostics.Process.Start(@"steam://open/friends");
+                        break;
+                    case "open settings":
+                        System.Diagnostics.Process.Start(@"steam://open/settings");
+                        break;
+                    case "open downloads":
+                        System.Diagnostics.Process.Start(@"steam://open/downloads");
+                        break;
+                    case "stop voice recognition":
+                        SvcWindow svc = new SvcWindow();
+                        svc.setActivateButtonTextToStop();
+                        voiceRecognitionActive = false;
+                        break;
+                }
+            }
+            if (!voiceRecognitionActive)
+            {
+                switch (e.Result.Text)
+                {
+                    case "start voice recognition":
+                        SvcWindow svc = new SvcWindow();
+                        svc.setActivateButtonTextToStop();
+                        voiceRecognitionActive = true;
+                        break;
+                }
+                
             }
         }
 
@@ -70,6 +96,8 @@ namespace SVC
             myChoices.Add("open friends");
             myChoices.Add("open settings");
             myChoices.Add("open downloads");
+            myChoices.Add("start voice recognition");
+            myChoices.Add("stop voice recognition");
             return myChoices;
         }
     }

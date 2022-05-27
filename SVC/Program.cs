@@ -19,7 +19,7 @@ namespace SVC
             gameLocations.querySteamInstallLocation();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new svcWindow());
+            Application.Run(new SvcWindow());
         }
 
     }

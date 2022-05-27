@@ -13,11 +13,25 @@ using System.IO;
 
 namespace SVC
 {
-    public partial class svcWindow : Form
+    public partial class SvcWindow : Form
     {
-        public svcWindow()
+        public static SvcWindow currentForm;
+
+
+        public SvcWindow()
         {
+            currentForm = this;
             InitializeComponent();
+        }
+
+        public void setActivateButtonTextToStart()
+        {
+            this.ActivateButton.Text = "Start voice commands";
+        }
+
+        public void setActivateButtonTextToStop()
+        {
+            this.ActivateButton.Text = "Stop voice commands";
         }
 
         VoiceRecognition voiceRecognition = new VoiceRecognition();
