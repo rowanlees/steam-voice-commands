@@ -115,7 +115,7 @@ At the moment the program can handle the following speech inputs, more to follow
 - open games (say "open (game name)"
 - to see list of games detected on startup, click the "Open list of installed games" in the program
 
-You can also say "stop voice commands/stop voice recogntion" and "start voice commands/start voice recognition", or use the button in the program, to toggle voice commands on and off.
+You can also say "stop voice commands"/"stop voice recogntion" and "start voice commands"/"start voice recognition", or use the button in the program, to toggle voice commands on and off.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
