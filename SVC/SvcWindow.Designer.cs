@@ -30,7 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SvcWindow));
             this.ActivateButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonListVoiceCommands = new System.Windows.Forms.Button();
+            this.buttonListInstalledGames = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ActivateButton
@@ -45,23 +46,35 @@
             this.ActivateButton.UseVisualStyleBackColor = true;
             this.ActivateButton.Click += new System.EventHandler(this.activateButton_Click);
             // 
-            // button1
+            // buttonListVoiceCommands
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(208, 93);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Open list of currently available voice commands";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonListVoiceCommands.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.buttonListVoiceCommands.Location = new System.Drawing.Point(12, 12);
+            this.buttonListVoiceCommands.Name = "buttonListVoiceCommands";
+            this.buttonListVoiceCommands.Size = new System.Drawing.Size(208, 93);
+            this.buttonListVoiceCommands.TabIndex = 1;
+            this.buttonListVoiceCommands.Text = "Open list of currently available voice commands";
+            this.buttonListVoiceCommands.UseVisualStyleBackColor = true;
+            this.buttonListVoiceCommands.Click += new System.EventHandler(this.buttonListVoiceCommands_Click);
+            // 
+            // buttonListInstalledGames
+            // 
+            this.buttonListInstalledGames.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.buttonListInstalledGames.Location = new System.Drawing.Point(580, 12);
+            this.buttonListInstalledGames.Name = "buttonListInstalledGames";
+            this.buttonListInstalledGames.Size = new System.Drawing.Size(208, 93);
+            this.buttonListInstalledGames.TabIndex = 2;
+            this.buttonListInstalledGames.Text = "Open list of installed games";
+            this.buttonListInstalledGames.UseVisualStyleBackColor = true;
+            this.buttonListInstalledGames.Click += new System.EventHandler(this.buttonListInstalledGames_Click);
             // 
             // SvcWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 380);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonListInstalledGames);
+            this.Controls.Add(this.buttonListVoiceCommands);
             this.Controls.Add(this.ActivateButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SvcWindow";
@@ -73,8 +86,9 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonListVoiceCommands;
         private System.Windows.Forms.Button ActivateButton;
+        private System.Windows.Forms.Button buttonListInstalledGames;
     }
 }
 

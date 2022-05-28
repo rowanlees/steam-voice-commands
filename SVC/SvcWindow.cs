@@ -55,11 +55,17 @@ namespace SVC
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonListVoiceCommands_Click(object sender, EventArgs e)
         {
             string message = "Currently implemented voice commands:\nopen library\nopen store\nopen friends\nopen settings\nopen downloads\nopen gamename\n" +
                 "start voice recognition/start voice commands\nstop voice recognition/stop voice commands";
             MessageBox.Show(message);
+        }
+
+        private void buttonListInstalledGames_Click(object sender, EventArgs e)
+        {
+            FormListOfInstalledGames formListOfInstalledGames = new FormListOfInstalledGames();
+            formListOfInstalledGames.Show();
         }
     }
 }
