@@ -21,7 +21,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/reden96/steam-voice-commands-net-framework/blob/master/SVC_icon_500.png">
-    <img src="https://github.com/reden96/steam-voice-commands-net-framework/blob/master/SVC_icon_500.png" alt="Logo" width="150" height="150">
+    <img src="https://github.com/reden96/steam-voice-commands-net-framework/blob/master/SVC_icon_500.png" alt="Logo" width="200" height="200">
   </a>
 
 <h3 align="center">Steam Voice Commands</h3>
