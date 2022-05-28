@@ -106,12 +106,13 @@ Check the [releases](https://github.com/reden96/steam-voice-commands-net-framewo
 ## Usage
 
 Upon opening the program it will immediately begin active voice recognition. To stop, click the 'stop voice commands' button.
-At the moment the program can handle the following speech inputs, more to follow later in development (such as hopefully the ability to open games):
+At the moment the program can handle the following speech inputs, more to follow later in development:
 - open library
 - open store
 - open friends
 - open settings
 - open downloads
+- open games
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -120,7 +121,6 @@ At the moment the program can handle the following speech inputs, more to follow
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Add ability to open games
 - [ ] Add more functions to respond to, such as opening big picture mode
 - [ ] Grant user the ability to change keybindings for stopping and starting voice recogntion
 
