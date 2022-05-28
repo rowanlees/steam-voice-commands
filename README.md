@@ -124,6 +124,7 @@ At the moment the program can handle the following speech inputs, more to follow
 
 - [ ] Add more functions to respond to, such as opening big picture mode
 - [ ] Grant user the ability to change keybindings for stopping and starting voice recogntion
+- [ ] Add setting to choose whether program automatically begins speech recognition on launch
 
 See the [open issues](https://github.com/reden96/steam-voice-commands-net-framework/issues) for a full list of proposed features (and known issues).
 
