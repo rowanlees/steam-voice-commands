@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Speech.Recognition;
 using System.Text;
@@ -11,6 +12,7 @@ namespace SVC
     {
         SpeechRecognitionEngine recognizer;
         bool voiceRecognitionActive = true;
+        String currentDirectory = Directory.GetCurrentDirectory();
 
         public bool getVoiceRecognitionActive()
         {
@@ -52,8 +54,12 @@ namespace SVC
 
         private void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
+            var gamesList = File.ReadAllLines(currentDirectory + "/gameslist.txt");
+
             if (voiceRecognitionActive)
             {
+
+
                 switch (e.Result.Text)
                 {
                     case "open library":
@@ -79,7 +85,29 @@ namespace SVC
                         voiceRecognitionActive = false;
                         SvcWindow.currentForm.setActivateButtonText("Start voice commands");
                         break;
+                    default:
+                        int forEachIndexNo = 0;
+                        foreach (String line in gamesList)
+                        {
+                            if (line.Contains("Game Name: "))
+                            {
+                                String gameName = line;
+                                gameName = gameName.TextAfter("Game Name: ");
+                                if (e.Result.Text.Equals("open " + gameName))
+                                {
+                                    String appid = gamesList.ElementAt(forEachIndexNo + 1);
+                                    appid = appid.TextAfter("App ID: ");
+                                    appid = appid.Trim();
+                                    System.Diagnostics.Process.Start(@"steam://run/" + appid);
+                                    break;
+                                }
+                            }
+                            ++forEachIndexNo;
+                        }
+                        break;
                 }
+
+
             }
             if (!voiceRecognitionActive)
             {
@@ -101,6 +129,16 @@ namespace SVC
         private Choices getChoiceLibrary()
         {
             Choices myChoices = new Choices();
+            var lines = File.ReadAllLines(currentDirectory + "/gameslist.txt");
+            foreach (String line in lines)
+            {
+                if(line.Contains("Game Name: "))
+                {
+                    String gameName = line;
+                    gameName = gameName.TextAfter("Game Name: ");
+                    myChoices.Add("open " + gameName);
+                }
+            }
             myChoices.Add("open library");
             myChoices.Add("open store");
             myChoices.Add("open friends");

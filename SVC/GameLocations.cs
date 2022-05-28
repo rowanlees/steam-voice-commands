@@ -81,17 +81,21 @@ namespace SVC
                     appid = appid.GetUntilOrEmpty("Universe");
                     appid = appid.Trim();
                     appid = appid.Replace("\"", "");
+                    appid = appid.Trim();
+                    appid = appid.Insert(0, "App ID: ");
                     String gameName = lines.TextAfter("steam.exe");
                     gameName = gameName.TextAfter("name");
                     gameName = gameName.GetUntilOrEmpty("StateFlags");
                     gameName = gameName.Replace("\"", "");
+                    gameName = gameName.Trim();
+                    gameName = gameName.Insert(0, "Game Name: ");
 
                     gamesList.Add(gameName, appid);
                 }
             }
             using (StreamWriter file = new StreamWriter(currentDirectory + "\\gameslist.txt"))
                 foreach (var entry in gamesList)
-                    file.WriteLine("[{0} {1}]", entry.Key, entry.Value);
+                    file.WriteLine("{0}\n{1}", entry.Key, entry.Value);
         }
 
     }
