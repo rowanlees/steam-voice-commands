@@ -24,14 +24,9 @@ namespace SVC
             InitializeComponent();
         }
 
-        public void setActivateButtonTextToStart()
+        public void setActivateButtonText(String text)
         {
-            this.ActivateButton.Text = "Start voice commands";
-        }
-
-        public void setActivateButtonTextToStop()
-        {
-            this.ActivateButton.Text = "Stop voice commands";
+            ActivateButton.Text = text;
         }
 
         VoiceRecognition voiceRecognition = new VoiceRecognition();
@@ -40,7 +35,7 @@ namespace SVC
             if (ActivateButton.Text == "Stop voice commands")
             {
                 ActivateButton.Text = "Start voice commands";
-                voiceRecognition.cancel();
+                voiceRecognition.stop();
             }
             else if (ActivateButton.Text == "Start voice commands")
             {

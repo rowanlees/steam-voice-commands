@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace SVC
 {
-    internal static class Program
+    public static class Application
     {
         /// <summary>
         /// The main entry point for the application.
@@ -17,9 +17,9 @@ namespace SVC
         {
             GameLocations gameLocations = new GameLocations();
             gameLocations.querySteamInstallLocation();
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SvcWindow());
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+            System.Windows.Forms.Application.Run(new SvcWindow());
         }
 
     }

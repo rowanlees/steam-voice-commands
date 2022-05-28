@@ -9,7 +9,6 @@ namespace SVC
 {
     internal class VoiceRecognition
     {
-
         SpeechRecognitionEngine recognizer;
         bool voiceRecognitionActive = true;
 
@@ -42,7 +41,12 @@ namespace SVC
         }
 
         public void start(){
-            recognizer.RecognizeAsync(RecognizeMode.Multiple);
+            voiceRecognitionActive = true;
+        }
+
+        public void stop()
+        {
+            voiceRecognitionActive = false;
         }
         
 
@@ -68,9 +72,12 @@ namespace SVC
                         System.Diagnostics.Process.Start(@"steam://open/downloads");
                         break;
                     case "stop voice recognition":
-                        SvcWindow svc = new SvcWindow();
-                        svc.setActivateButtonTextToStop();
                         voiceRecognitionActive = false;
+                        SvcWindow.currentForm.setActivateButtonText("Start voice commands");
+                        break;
+                    case "stop voice commands":
+                        voiceRecognitionActive = false;
+                        SvcWindow.currentForm.setActivateButtonText("Start voice commands");
                         break;
                 }
             }
@@ -79,9 +86,12 @@ namespace SVC
                 switch (e.Result.Text)
                 {
                     case "start voice recognition":
-                        SvcWindow svc = new SvcWindow();
-                        svc.setActivateButtonTextToStop();
                         voiceRecognitionActive = true;
+                        SvcWindow.currentForm.setActivateButtonText("Stop voice commands");
+                        break;
+                    case "start voice commands":
+                        voiceRecognitionActive = true;
+                        SvcWindow.currentForm.setActivateButtonText("Stop voice commands");
                         break;
                 }
                 
@@ -97,7 +107,9 @@ namespace SVC
             myChoices.Add("open settings");
             myChoices.Add("open downloads");
             myChoices.Add("start voice recognition");
+            myChoices.Add("start voice commands");
             myChoices.Add("stop voice recognition");
+            myChoices.Add("stop voice commands");
             return myChoices;
         }
     }

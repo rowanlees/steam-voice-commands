@@ -56,7 +56,7 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // svcWindow
+            // SvcWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -64,7 +64,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.ActivateButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "svcWindow";
+            this.Name = "SvcWindow";
             this.Text = "Steam Voice Commands";
             this.Load += new System.EventHandler(this.svcWindow_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.svcWindow_KeyUp);
@@ -73,9 +73,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button ActivateButton;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ActivateButton;
     }
 }
 
