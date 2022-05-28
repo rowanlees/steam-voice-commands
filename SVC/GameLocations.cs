@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -15,6 +16,8 @@ namespace SVC
         String currentDirectory = Directory.GetCurrentDirectory();
         bool fileExists = false;
         String steamInstallQueryBat = "cmd /c REG QUERY HKCU\\SOFTWARE\\Valve\\Steam /f SteamExe >steaminstalllocation.txt";
+        Dictionary<String, String> gamesList = new Dictionary<String, String>();
+        List<String> libraryFolders = new List<String>();
 
         public void querySteamInstallLocation()
         {
@@ -33,12 +36,12 @@ namespace SVC
                         process.WaitForExit();
                     }
                 }
-                writeSteamInstallLocaiton();
+                writeSteamInstallLocation();
                 readLibraryFolders();
-
+            readManifestFiles();
         }
 
-        private void writeSteamInstallLocaiton()
+        private void writeSteamInstallLocation()
         {
                 steamExeLocation = File.ReadAllText(currentDirectory + "\\steaminstalllocation.txt");
                 steamExeLocation = steamExeLocation.TextAfter("SZ");
@@ -51,16 +54,44 @@ namespace SVC
         private void readLibraryFolders()
         {
             var lines = File.ReadLines(steamFolderLocation + "/steamapps/libraryfolders.vdf");
-            List<String> libraryFolders = new List<String>();
             foreach(String line in lines)
             {
                 if (line.Contains("path"))
                 {
-                    libraryFolders.Add(line);
+                    String path = line.TextAfter("path");
+                    path = path.TextAfter("\"");
+                    path = path.Trim();
+                    path = path.Replace("\"", "");
+                    libraryFolders.Add(path);
                 }
             }
             String libraryFoldersCombined = String.Join(",", libraryFolders);
             File.WriteAllText(currentDirectory + "\\steamlibraryfolders.txt", libraryFoldersCombined);
+        }
+
+        private void readManifestFiles()
+        { 
+            foreach (String library in libraryFolders)
+            {
+                string[] acfFiles = Directory.GetFiles(library + "\\\\" + "steamapps" + "\\\\", "*.acf");
+                foreach (String acfFile in acfFiles)
+                {
+                    var lines = File.ReadAllText(acfFile);
+                    String appid = lines.TextAfter("appid");
+                    appid = appid.GetUntilOrEmpty("Universe");
+                    appid = appid.Trim();
+                    appid = appid.Replace("\"", "");
+                    String gameName = lines.TextAfter("steam.exe");
+                    gameName = gameName.TextAfter("name");
+                    gameName = gameName.GetUntilOrEmpty("StateFlags");
+                    gameName = gameName.Replace("\"", "");
+
+                    gamesList.Add(gameName, appid);
+                }
+            }
+            using (StreamWriter file = new StreamWriter(currentDirectory + "\\gameslist.txt"))
+                foreach (var entry in gamesList)
+                    file.WriteLine("[{0} {1}]", entry.Key, entry.Value);
         }
 
     }
