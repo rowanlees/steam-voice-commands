@@ -112,7 +112,8 @@ At the moment the program can handle the following speech inputs, more to follow
 - open friends
 - open settings
 - open downloads
-- open games
+- open games (say "open (game name)"
+- to see list of games detected on startup, click the "Open list of installed games" in the program
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
