@@ -12,11 +12,13 @@ using System.IO;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Runtime.InteropServices;
 using System.Collections;
+using SVC.Properties;
 
 namespace SVC
 {
     public partial class SvcWindow : Form
     {
+
         [DllImport("user32.dll")]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifers, int vlc);
 
@@ -36,6 +38,10 @@ namespace SVC
             currentForm = this;
             InitializeComponent();
             setGlobalHotkey();
+            if(ActivateButton.Text.Equals("Stop voice commands"))
+            {
+                this.Icon = Resources.SVCRecording;
+            }
         }
 
         private void setGlobalHotkey()
@@ -44,7 +50,6 @@ namespace SVC
             {
                 int key = (int)Properties.Settings.Default.VoiceActivateKeybindKey[0];
                 int modifierSumValue = 0;
-                int test = (int)Keys.Alt;
                 KeysConverter keysConverter = new KeysConverter();
                 foreach (var item in keyBindModifierValues)
                 {
@@ -130,11 +135,14 @@ namespace SVC
             {
                 ActivateButton.Text = "Start voice commands";
                 voiceRecognition.stop();
+                this.Icon = Properties.Resources.SVCIcon;
             }
             else if (ActivateButton.Text == "Start voice commands")
             {
                 ActivateButton.Text = "Stop voice commands";
                 voiceRecognition.start();
+                this.Icon = Properties.Resources.SVCRecording;
+                
             }
         }
 
