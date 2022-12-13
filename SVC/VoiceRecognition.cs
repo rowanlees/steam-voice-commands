@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace SVC
         SpeechRecognitionEngine recognizer;
         bool voiceRecognitionActive = true;
         String currentDirectory = Directory.GetCurrentDirectory();
+        ArrayList gamesList = new ArrayList();
 
         public bool getVoiceRecognitionActive()
         {
@@ -34,7 +36,7 @@ namespace SVC
 
             recognizer.RecognizeAsync(RecognizeMode.Multiple);
 
-
+            gamesList.AddRange(File.ReadAllLines(currentDirectory + "/gameslist.txt"));
         }
 
         public void cancel()
@@ -54,11 +56,11 @@ namespace SVC
 
         private void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            var gamesList = File.ReadAllLines(currentDirectory + "/gameslist.txt");
+            
+            SvcWindow.currentForm.SetCurrentVoiceCommandLabelText("Current voice command: " + e.Result.Text);
 
             if (voiceRecognitionActive)
             {
-
 
                 switch (e.Result.Text)
                 {
@@ -95,7 +97,7 @@ namespace SVC
                                 gameName = gameName.TextAfter("Game Name: ");
                                 if (e.Result.Text.Equals("open " + gameName))
                                 {
-                                    String appid = gamesList.ElementAt(forEachIndexNo + 1);
+                                    String appid = (string)gamesList[forEachIndexNo + 1];
                                     appid = appid.TextAfter("App ID: ");
                                     appid = appid.Trim();
                                     System.Diagnostics.Process.Start(@"steam://run/" + appid);

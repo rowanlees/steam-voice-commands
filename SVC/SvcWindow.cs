@@ -29,6 +29,11 @@ namespace SVC
             ActivateButton.Text = text;
         }
 
+        public void SetCurrentVoiceCommandLabelText(String text)
+        {
+            currentVoiceCommandLabel.Text = text;
+        }
+
         VoiceRecognition voiceRecognition = new VoiceRecognition();
         private void activateButton_Click(object sender, EventArgs e)
         {
@@ -66,6 +71,11 @@ namespace SVC
         {
             FormListOfInstalledGames formListOfInstalledGames = new FormListOfInstalledGames();
             formListOfInstalledGames.Show();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
