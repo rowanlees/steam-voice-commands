@@ -44,5 +44,17 @@ namespace SVC.Properties {
                 this["VoiceActivateKeybindKey"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoListenOnLaunch {
+            get {
+                return ((bool)(this["AutoListenOnLaunch"]));
+            }
+            set {
+                this["AutoListenOnLaunch"] = value;
+            }
+        }
     }
 }

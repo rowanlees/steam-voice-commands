@@ -42,6 +42,20 @@ namespace SVC
             {
                 this.Icon = Resources.SVCRecording;
             }
+            if (Settings.Default.AutoListenOnLaunch == false)
+            {
+                autoListenCheckBox.Checked = false;
+                ActivateButton.Text = "Start voice commands";
+                voiceRecognition.stop();
+                this.Icon = Resources.SVCIcon;
+            }
+            if(Settings.Default.AutoListenOnLaunch == true)
+            {
+                autoListenCheckBox.Checked = true;
+                ActivateButton.Text = "Stop voice commands";
+                voiceRecognition.start();
+                this.Icon = Resources.SVCRecording;
+            }
         }
 
         private void setGlobalHotkey()
@@ -135,13 +149,13 @@ namespace SVC
             {
                 ActivateButton.Text = "Start voice commands";
                 voiceRecognition.stop();
-                this.Icon = Properties.Resources.SVCIcon;
+                this.Icon = Resources.SVCIcon;
             }
             else if (ActivateButton.Text == "Start voice commands")
             {
                 ActivateButton.Text = "Stop voice commands";
                 voiceRecognition.start();
-                this.Icon = Properties.Resources.SVCRecording;
+                this.Icon = Resources.SVCRecording;
                 
             }
         }
@@ -269,14 +283,35 @@ namespace SVC
         {
             if (keyBindModifierValues.Count > 0 && keyBindValue.Count > 0)
             {
-                Properties.Settings.Default.VoiceActivateKeybindModifiers = keyBindModifierValues;
-                Properties.Settings.Default.VoiceActivateKeybindKey = keyBindValue;
+                Settings.Default.VoiceActivateKeybindModifiers = keyBindModifierValues;
+                Settings.Default.VoiceActivateKeybindKey = keyBindValue;
+                Settings.Default.Save();
             }
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void autoListenCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckState checkState = autoListenCheckBox.CheckState;
+            switch (checkState)
+            {
+                case CheckState.Unchecked:
+                    Settings.Default.AutoListenOnLaunch = false;
+                    Settings.Default.Save();
+                    break;
+                case CheckState.Checked:
+                    Settings.Default.AutoListenOnLaunch = true;
+                    Settings.Default.Save();
+                    break;
+                case CheckState.Indeterminate:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

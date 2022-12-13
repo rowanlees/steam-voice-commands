@@ -38,6 +38,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.savedKeybindLabel = new System.Windows.Forms.Label();
+            this.autoListenCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // ActivateButton
@@ -79,9 +80,11 @@
             // 
             // currentVoiceCommandLabel
             // 
+            this.currentVoiceCommandLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.currentVoiceCommandLabel.AutoSize = true;
             this.currentVoiceCommandLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.currentVoiceCommandLabel.Location = new System.Drawing.Point(428, 523);
+            this.currentVoiceCommandLabel.Location = new System.Drawing.Point(262, 451);
             this.currentVoiceCommandLabel.Name = "currentVoiceCommandLabel";
             this.currentVoiceCommandLabel.Size = new System.Drawing.Size(466, 46);
             this.currentVoiceCommandLabel.TabIndex = 3;
@@ -137,11 +140,24 @@
             this.savedKeybindLabel.Text = "Saved keybind:";
             this.savedKeybindLabel.Click += new System.EventHandler(this.label2_Click);
             // 
+            // autoListenCheckBox
+            // 
+            this.autoListenCheckBox.AutoSize = true;
+            this.autoListenCheckBox.Location = new System.Drawing.Point(972, 227);
+            this.autoListenCheckBox.Name = "autoListenCheckBox";
+            this.autoListenCheckBox.Size = new System.Drawing.Size(604, 29);
+            this.autoListenCheckBox.TabIndex = 9;
+            this.autoListenCheckBox.Text = "Automatically start listening for voice commands on launch";
+            this.autoListenCheckBox.UseVisualStyleBackColor = true;
+            this.autoListenCheckBox.CheckedChanged += new System.EventHandler(this.autoListenCheckBox_CheckedChanged);
+            // 
             // SvcWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1600, 731);
+            this.Controls.Add(this.autoListenCheckBox);
             this.Controls.Add(this.savedKeybindLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
@@ -172,6 +188,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label savedKeybindLabel;
+        private System.Windows.Forms.CheckBox autoListenCheckBox;
     }
 }
 
