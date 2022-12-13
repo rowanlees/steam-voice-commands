@@ -80,13 +80,13 @@ namespace SVC
                             modifierSumValue += 1;
                             break;
                         case (Keys.RMenu):
-                            modifierSumValue+= 1;
+                            modifierSumValue += 1;
                             break;
                         case (Keys.ControlKey):
-                            modifierSumValue += 1;
+                            modifierSumValue += 2;
                             break;
                         case (Keys.Control):
-                            modifierSumValue += 1;
+                            modifierSumValue += 2;
                             break;
                         case (Keys.LControlKey):
                             modifierSumValue += 2;
