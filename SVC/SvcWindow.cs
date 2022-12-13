@@ -44,12 +44,67 @@ namespace SVC
             {
                 int key = (int)Properties.Settings.Default.VoiceActivateKeybindKey[0];
                 int modifierSumValue = 0;
-                foreach (int item in keyBindModifierValues)
+                int test = (int)Keys.Alt;
+                KeysConverter keysConverter = new KeysConverter();
+                foreach (var item in keyBindModifierValues)
                 {
-                    modifierSumValue += item;
+                    Keys keyconverted = (Keys)keysConverter.ConvertFromString(item.ToString());    
+                    switch (keyconverted)
+                    {
+                        case (Keys.Alt):
+                            modifierSumValue += 1;
+                            break;
+                        case (Keys.Menu):
+                            modifierSumValue += 1;
+                            break;
+                        case (Keys.LMenu):
+                            modifierSumValue += 1;
+                            break;
+                        case (Keys.RMenu):
+                            modifierSumValue+= 1;
+                            break;
+                        case (Keys.ControlKey):
+                            modifierSumValue += 1;
+                            break;
+                        case (Keys.Control):
+                            modifierSumValue += 1;
+                            break;
+                        case (Keys.LControlKey):
+                            modifierSumValue += 2;
+                            break;
+                        case (Keys.RControlKey):
+                            modifierSumValue += 2;
+                            break;
+                        case (Keys.Shift):
+                            modifierSumValue += 4;
+                            break;
+                        case (Keys.ShiftKey): 
+                            modifierSumValue += 4;
+                            break;
+                        case (Keys.LShiftKey):
+                            modifierSumValue += 4;
+                            break;
+                        case (Keys.RShiftKey):
+                            modifierSumValue += 4;
+                            break;
+                        default:
+                            break;
+                    }
+                    
                 }
                 RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, modifierSumValue, key);
             }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == MYACTION_HOTKEY_ID)
+            {
+                // My hotkey has been typed
+                toggleStopAndStartVoiceCommands();
+
+            }
+            base.WndProc(ref m);
         }
 
         public void setActivateButtonText(String text)
@@ -65,6 +120,12 @@ namespace SVC
         VoiceRecognition voiceRecognition = new VoiceRecognition();
         private void activateButton_Click(object sender, EventArgs e)
         {
+            toggleStopAndStartVoiceCommands();
+
+        }
+
+        private void toggleStopAndStartVoiceCommands()
+        {
             if (ActivateButton.Text == "Stop voice commands")
             {
                 ActivateButton.Text = "Start voice commands";
@@ -75,7 +136,6 @@ namespace SVC
                 ActivateButton.Text = "Stop voice commands";
                 voiceRecognition.start();
             }
-
         }
 
         private void svcWindow_Load(object sender, EventArgs e)
@@ -137,11 +197,11 @@ namespace SVC
             }
             if (!e.Modifiers.ToString().Equals("None"))
             {
-                keyBindModifierValues.Add(e.KeyValue);
+                keyBindModifierValues.Add(e.KeyCode);
             }
             if (e.Modifiers.ToString().Equals("None"))
             {
-                keyBindValue.Add(e.KeyValue);
+                keyBindValue.Add(e.KeyCode);
             }
 
 
@@ -162,11 +222,12 @@ namespace SVC
             }
             if (keyBindModifierValues.Count == 0 || keyBindValue.Count == 0)
             {
-                savedKeybindLabel.Text = "Keybind must container at least one modifier key (e.g. SHIFT) and one regular key";
+                savedKeybindLabel.Text = "Keybind must contain at least one modifier key (e.g. SHIFT) and one regular key";
                 return;
             }
             saveKeybindKeyAndModifiersToProperties();
             getSavedKeybindPropertiesAndUpdateSavedKeybindLabel();
+            UnregisterHotKey(this.Handle, MYACTION_HOTKEY_ID);
             setGlobalHotkey();
         }
 
