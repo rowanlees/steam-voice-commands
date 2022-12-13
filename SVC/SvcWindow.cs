@@ -35,9 +35,20 @@ namespace SVC
         {
             currentForm = this;
             InitializeComponent();
-            if (Properties.Settings.Default.VoiceActivateKeybindModifiers != null)
+            setGlobalHotkey();
+        }
+
+        private void setGlobalHotkey()
+        {
+            if (Properties.Settings.Default.VoiceActivateKeybindModifiers != null && Properties.Settings.Default.VoiceActivateKeybindKey != null)
             {
-                RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, 6, (int)Keys.F12);
+                int key = (int)Properties.Settings.Default.VoiceActivateKeybindKey[0];
+                int modifierSumValue = 0;
+                foreach (int item in keyBindModifierValues)
+                {
+                    modifierSumValue += item;
+                }
+                RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, modifierSumValue, key);
             }
         }
 
@@ -149,8 +160,18 @@ namespace SVC
             {
                 return;
             }
-            Properties.Settings.Default.VoiceActivateKeybindModifiers = keyBindModifierValues;
-            Properties.Settings.Default.VoiceActivateKeybindKey = keyBindValue;
+            if (keyBindModifierValues.Count == 0 || keyBindValue.Count == 0)
+            {
+                savedKeybindLabel.Text = "Keybind must container at least one modifier key (e.g. SHIFT) and one regular key";
+                return;
+            }
+            saveKeybindKeyAndModifiersToProperties();
+            getSavedKeybindPropertiesAndUpdateSavedKeybindLabel();
+            setGlobalHotkey();
+        }
+
+        private void getSavedKeybindPropertiesAndUpdateSavedKeybindLabel()
+        {
             ArrayList convertedSavedKeybind = new ArrayList();
             KeysConverter keysConverter = new KeysConverter();
             foreach (var modifier in Properties.Settings.Default.VoiceActivateKeybindModifiers)
@@ -172,6 +193,15 @@ namespace SVC
                 {
                     savedKeybindLabel.Text = savedKeybindLabel.Text + key;
                 }
+            }
+        }
+
+        private void saveKeybindKeyAndModifiersToProperties()
+        {
+            if (keyBindModifierValues.Count > 0 && keyBindValue.Count > 0)
+            {
+                Properties.Settings.Default.VoiceActivateKeybindModifiers = keyBindModifierValues;
+                Properties.Settings.Default.VoiceActivateKeybindKey = keyBindValue;
             }
         }
 
