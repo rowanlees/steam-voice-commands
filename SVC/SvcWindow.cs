@@ -60,9 +60,9 @@ namespace SVC
 
         private void setGlobalHotkey()
         {
-            if (Properties.Settings.Default.VoiceActivateKeybindModifiers != null && Properties.Settings.Default.VoiceActivateKeybindKey != null)
+            if (Settings.Default.VoiceActivateKeybindModifiers != null && Settings.Default.VoiceActivateKeybindKey != null)
             {
-                int key = (int)Properties.Settings.Default.VoiceActivateKeybindKey[0];
+                int key = (int)Settings.Default.VoiceActivateKeybindKey[0];
                 int modifierSumValue = 0;
                 KeysConverter keysConverter = new KeysConverter();
                 foreach (var item in keyBindModifierValues)
