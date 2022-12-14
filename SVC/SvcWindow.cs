@@ -56,6 +56,10 @@ namespace SVC
                 voiceRecognition.start();
                 this.Icon = Resources.SVCRecording;
             }
+            if (Settings.Default.VoiceActivateKeybindModifiers != null && Settings.Default.VoiceActivateKeybindKey != null && Settings.Default.KeyBindLabel != null)
+            {
+                savedKeybindLabel.Text = Settings.Default.KeyBindLabel;
+            }
         }
 
         private void setGlobalHotkey()
@@ -211,19 +215,27 @@ namespace SVC
             if (!keybindTextBox.Text.Equals(""))
             {
                 keybindTextBox.AppendText("+" + e.KeyCode.ToString());
+                if (keyIsNotModifier(e.KeyCode.ToString()))
+                {
+                    keyBindValue.Add(e.KeyCode);
+                }
+                else
+                {
+                    keyBindModifierValues.Add(e.KeyCode);
+                }
 
             }
             if (keybindTextBox.Text.Equals(""))
             {
                 keybindTextBox.AppendText(e.KeyCode.ToString());
-            }
-            if (!e.Modifiers.ToString().Equals("None"))
-            {
-                keyBindModifierValues.Add(e.KeyCode);
-            }
-            if (e.Modifiers.ToString().Equals("None"))
-            {
-                keyBindValue.Add(e.KeyCode);
+                if (keyIsNotModifier(e.KeyCode.ToString()))
+                {
+                    keyBindValue.Add(e.KeyCode);
+                }
+                else
+                {
+                    keyBindModifierValues.Add(e.KeyCode);
+                }
             }
 
 
@@ -238,6 +250,7 @@ namespace SVC
 
         private void saveKeybindButton_Click(object sender, EventArgs e)
         {
+            
             if (keybindTextBox.Text.Equals(""))
             {
                 return;
@@ -277,16 +290,50 @@ namespace SVC
                     savedKeybindLabel.Text = savedKeybindLabel.Text + key;
                 }
             }
+            Settings.Default.KeyBindLabel = savedKeybindLabel.Text;
+            Settings.Default.Save();
+        }
+
+        private bool keyIsNotModifier(string item)
+        {
+            KeysConverter keysConverter= new KeysConverter();
+            Keys key = (Keys)keysConverter.ConvertFromString(item);
+            switch (key)
+            {
+                case (Keys.Alt):
+                    return false;
+                case (Keys.Menu):
+                    return false;
+                case (Keys.LMenu):
+                    return false;
+                case (Keys.RMenu):
+                    return false;
+                case (Keys.ControlKey):
+                    return false;
+                case (Keys.Control):
+                    return false;
+                case (Keys.LControlKey):
+                    return false;
+                case (Keys.RControlKey):
+                    return false;
+                case (Keys.Shift):
+                    return false;
+                case (Keys.ShiftKey):
+                    return false;
+                case (Keys.LShiftKey):
+                    return false;
+                case (Keys.RShiftKey):
+                    return false;
+                default:
+                    return true;
+            }
         }
 
         private void saveKeybindKeyAndModifiersToProperties()
         {
-            if (keyBindModifierValues.Count > 0 && keyBindValue.Count > 0)
-            {
                 Settings.Default.VoiceActivateKeybindModifiers = keyBindModifierValues;
                 Settings.Default.VoiceActivateKeybindKey = keyBindValue;
                 Settings.Default.Save();
-            }
         }
 
         private void label2_Click(object sender, EventArgs e)

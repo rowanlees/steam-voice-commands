@@ -56,5 +56,17 @@ namespace SVC.Properties {
                 this["AutoListenOnLaunch"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string KeyBindLabel {
+            get {
+                return ((string)(this["KeyBindLabel"]));
+            }
+            set {
+                this["KeyBindLabel"] = value;
+            }
+        }
     }
 }
