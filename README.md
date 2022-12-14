@@ -96,7 +96,7 @@ Requires .NET Framework 4.8 - uses Windows Speech Recognition so you will get be
 
 ### Installation
 
-Check the [releases](https://github.com/reden96/steam-voice-commands-net-framework/releases) page and download the latest exe file.
+Check the [releases](https://github.com/reden96/steam-voice-commands-net-framework/releases) page and download the latest exe file. Recommend putting this file in its own folder, as it will generate some extra files upon launch.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
