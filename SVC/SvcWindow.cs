@@ -69,7 +69,7 @@ namespace SVC
                 int key = (int)Settings.Default.VoiceActivateKeybindKey[0];
                 int modifierSumValue = 0;
                 KeysConverter keysConverter = new KeysConverter();
-                foreach (var item in keyBindModifierValues)
+                foreach (var item in Settings.Default.VoiceActivateKeybindModifiers)
                 {
                     Keys keyconverted = (Keys)keysConverter.ConvertFromString(item.ToString());    
                     switch (keyconverted)
