@@ -9,7 +9,7 @@ namespace SVC.src.Services
         {
             if (string.IsNullOrWhiteSpace(acfContent))
             {
-                return; // No content to process
+                return;
             }
             string appid = acfContent.TextAfter("appid");
             appid = appid.GetUntilOrEmpty("\n");
