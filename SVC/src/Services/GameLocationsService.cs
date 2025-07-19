@@ -88,27 +88,5 @@ namespace SVC
                 foreach (var entry in _gamesList)
                     file.WriteLine("{0}\n{1}", entry.Key, entry.Value);
         }
-
-        public void AddGameDetailsFromAcfToList(string acfFileLines, Dictionary<string, string> gamesList)
-        {
-            if (string.IsNullOrWhiteSpace(acfFileLines))
-            {
-                return; // No content to process
-            }
-            string appid = acfFileLines.TextAfter("appid");
-            appid = appid.GetUntilOrEmpty("\n");
-            appid = appid.Trim();
-            appid = appid.Replace("\"", "");
-            appid = appid.Trim();
-            appid = appid.Insert(0, "App ID: ");
-            string gameName = acfFileLines.TextAfter("steam.exe");
-            gameName = gameName.TextAfter("name");
-            gameName = gameName.GetUntilOrEmpty("\n");
-            gameName = gameName.Replace("\"", "");
-            gameName = gameName.Trim();
-            gameName = gameName.Insert(0, "Game Name: ");
-
-            gamesList.Add(gameName, appid);
-        }
     }
 }
