@@ -9,6 +9,7 @@ namespace SVC
 {
     public partial class SvcWindow : Form
     {
+        private readonly VoiceRecognition voiceRecognition = new VoiceRecognition();
 
         [DllImport("user32.dll")]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifers, int vlc);
@@ -37,14 +38,14 @@ namespace SVC
             {
                 CheckBoxAutoListen.Checked = false;
                 ButtonActivate.Text = "Start voice commands";
-                voiceRecognition.stop();
+                voiceRecognition.Stop();
                 this.Icon = Resources.SVCIcon;
             }
             if (Settings.Default.AutoListenOnLaunch == true)
             {
                 CheckBoxAutoListen.Checked = true;
                 ButtonActivate.Text = "Stop voice commands";
-                voiceRecognition.start();
+                voiceRecognition.Start();
                 this.Icon = Resources.SVCRecording;
             }
             if (Settings.Default.VoiceActivateKeybindModifiers != null && Settings.Default.VoiceActivateKeybindKey != null && Settings.Default.KeyBindLabel != null)
@@ -131,7 +132,7 @@ namespace SVC
             currentVoiceCommandLabel.Text = text;
         }
 
-        VoiceRecognition voiceRecognition = new VoiceRecognition();
+
         private void ActivateButton_Click(object sender, EventArgs e)
         {
             ToggleStopAndStartVoiceCommands();
@@ -143,13 +144,13 @@ namespace SVC
             if (ButtonActivate.Text == "Stop voice commands")
             {
                 ButtonActivate.Text = "Start voice commands";
-                voiceRecognition.stop();
+                voiceRecognition.Stop();
                 this.Icon = Resources.SVCIcon;
             }
             else if (ButtonActivate.Text == "Start voice commands")
             {
                 ButtonActivate.Text = "Stop voice commands";
-                voiceRecognition.start();
+                voiceRecognition.Start();
                 this.Icon = Resources.SVCRecording;
 
             }
@@ -157,7 +158,7 @@ namespace SVC
 
         private void SvcWindow_Load(object sender, EventArgs e)
         {
-            voiceRecognition.loadSpeechRecognition();
+            voiceRecognition.LoadSpeechRecognition();
         }
 
         private void ButtonListVoiceCommands_Click(object sender, EventArgs e)

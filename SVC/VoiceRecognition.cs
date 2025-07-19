@@ -1,36 +1,32 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Speech.Recognition;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SVC
 {
     internal class VoiceRecognition
     {
-        SpeechRecognitionEngine recognizer;
-        bool voiceRecognitionActive = true;
-        String currentDirectory = Directory.GetCurrentDirectory();
-        ArrayList gamesList = new ArrayList();
+        private SpeechRecognitionEngine recognizer;
+        private bool voiceRecognitionActive = true;
+        private readonly String currentDirectory = Directory.GetCurrentDirectory();
+        private readonly ArrayList gamesList = new ArrayList();
 
-        public bool getVoiceRecognitionActive()
+        public bool GetVoiceRecognitionActive()
         {
             return voiceRecognitionActive;
         }
 
-        public void loadSpeechRecognition()
+        public void LoadSpeechRecognition()
         {
             recognizer = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
 
-            var c = getChoiceLibrary();
+            var c = GetChoiceLibrary();
             var gb = new GrammarBuilder(c);
             var g = new Grammar(gb);
             recognizer.LoadGrammar(g);
 
-            recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(recognizer_SpeechRecognized);
+            recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Recognizer_SpeechRecognized);
 
             recognizer.SetInputToDefaultAudioDevice();
 
@@ -39,24 +35,25 @@ namespace SVC
             gamesList.AddRange(File.ReadAllLines(currentDirectory + "/gameslist.txt"));
         }
 
-        public void cancel()
+        public void Cancel()
         {
             recognizer.RecognizeAsyncCancel();
         }
 
-        public void start(){
+        public void Start()
+        {
             voiceRecognitionActive = true;
         }
 
-        public void stop()
+        public void Stop()
         {
             voiceRecognitionActive = false;
         }
-        
 
-        private void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+
+        private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            
+
             SvcWindow.currentForm.SetCurrentVoiceCommandLabelText("Current voice command: " + e.Result.Text);
 
             if (voiceRecognitionActive)
@@ -124,17 +121,17 @@ namespace SVC
                         SvcWindow.currentForm.SetActivateButtonText("Stop voice commands");
                         break;
                 }
-                
+
             }
         }
 
-        private Choices getChoiceLibrary()
+        private Choices GetChoiceLibrary()
         {
             Choices myChoices = new Choices();
             var lines = File.ReadAllLines(currentDirectory + "/gameslist.txt");
             foreach (String line in lines)
             {
-                if(line.Contains("Game Name: "))
+                if (line.Contains("Game Name: "))
                 {
                     String gameName = line;
                     gameName = gameName.TextAfter("Game Name: ");
