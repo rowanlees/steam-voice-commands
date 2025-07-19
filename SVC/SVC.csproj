@@ -72,16 +72,16 @@
       <DependentUpon>FormListOfInstalledGames.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Services\Exceptions\SteamInstallationLocatorException.cs" />
-    <Compile Include="src\Services\FileReader.cs" />
+    <Compile Include="src\SystemInterop\FileReader.cs" />
     <Compile Include="src\Services\GameManifestParser.cs" />
-    <Compile Include="src\Services\Interfaces\IFileReader.cs" />
+    <Compile Include="src\SystemInterop\Interface\IFileReader.cs" />
     <Compile Include="src\Services\Interfaces\IGameManifestParser.cs" />
     <Compile Include="src\Services\Interfaces\IGameRepository.cs" />
-    <Compile Include="src\Services\Interfaces\IProcess.cs" />
+    <Compile Include="src\SystemInterop\Interface\IProcess.cs" />
     <Compile Include="src\Services\Interfaces\ISteamInstallationLocator.cs" />
     <Compile Include="src\Services\Interfaces\ISteamLibraryReader.cs" />
     <Compile Include="src\Services\SteamInstallationLocator.cs" />
-    <Compile Include="src\Services\ProcessWrapper.cs" />
+    <Compile Include="src\SystemInterop\ProcessWrapper.cs" />
     <Compile Include="src\Services\SteamLibraryReader.cs" />
     <Compile Include="src\VoiceRecognition.cs" />
     <Compile Include="src\Extensions\StringExtension.cs" />

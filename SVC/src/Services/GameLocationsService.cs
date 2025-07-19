@@ -1,7 +1,5 @@
-﻿using SVC.src.Services;
-using SVC.src.Services.Interfaces;
+﻿using SVC.src.Services.Interfaces;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace SVC
@@ -25,7 +23,7 @@ namespace SVC
         public void QuerySteamInstallLocation()
         {
             var steamFolderPath = _steamInstallationLocator.GetSteamFolderPath();
-            List<string> libraryFolders =  _steamLibraryReader.GetLibraryFolders(steamFolderPath);
+            List<string> libraryFolders = _steamLibraryReader.GetLibraryFolders(steamFolderPath);
             ReadManifestFiles(libraryFolders);
         }
 

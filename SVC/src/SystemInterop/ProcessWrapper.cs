@@ -1,6 +1,5 @@
 ﻿using SVC.src.Services.Interfaces;
 using System.Diagnostics;
-using System.IO;
 
 namespace SVC.src.Services
 {
