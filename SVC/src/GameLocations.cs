@@ -4,7 +4,7 @@ using System.IO;
 
 namespace SVC
 {
-    internal class GameLocations
+    public class GameLocations
     {
         public const string GamesListFileName = "gameslist.txt";
         private const string SteamInstallLocationFileName = "steaminstalllocation.txt";
@@ -73,21 +73,8 @@ namespace SVC
                 string[] acfFiles = Directory.GetFiles(library + Path.DirectorySeparatorChar + "steamapps" + Path.DirectorySeparatorChar, "*.acf");
                 foreach (string acfFile in acfFiles)
                 {
-                    var lines = File.ReadAllText(acfFile);
-                    string appid = lines.TextAfter("appid");
-                    appid = appid.GetUntilOrEmpty("\n");
-                    appid = appid.Trim();
-                    appid = appid.Replace("\"", "");
-                    appid = appid.Trim();
-                    appid = appid.Insert(0, "App ID: ");
-                    string gameName = lines.TextAfter("steam.exe");
-                    gameName = gameName.TextAfter("name");
-                    gameName = gameName.GetUntilOrEmpty("\n");
-                    gameName = gameName.Replace("\"", "");
-                    gameName = gameName.Trim();
-                    gameName = gameName.Insert(0, "Game Name: ");
-
-                    _gamesList.Add(gameName, appid);
+                    var acfFileLines = File.ReadAllText(acfFile);
+                    AddGameDetailsFromAcfToList(acfFileLines, _gamesList);
                 }
             }
             using (StreamWriter file = new StreamWriter(_currentDirectory + Path.DirectorySeparatorChar + GamesListFileName))
@@ -95,5 +82,26 @@ namespace SVC
                     file.WriteLine("{0}\n{1}", entry.Key, entry.Value);
         }
 
+        public void AddGameDetailsFromAcfToList(string acfFileLines, Dictionary<string, string> gamesList)
+        {
+            if (string.IsNullOrWhiteSpace(acfFileLines))
+            {
+                return; // No content to process
+            }
+            string appid = acfFileLines.TextAfter("appid");
+            appid = appid.GetUntilOrEmpty("\n");
+            appid = appid.Trim();
+            appid = appid.Replace("\"", "");
+            appid = appid.Trim();
+            appid = appid.Insert(0, "App ID: ");
+            string gameName = acfFileLines.TextAfter("steam.exe");
+            gameName = gameName.TextAfter("name");
+            gameName = gameName.GetUntilOrEmpty("\n");
+            gameName = gameName.Replace("\"", "");
+            gameName = gameName.Trim();
+            gameName = gameName.Insert(0, "Game Name: ");
+
+            gamesList.Add(gameName, appid);
+        }
     }
 }
