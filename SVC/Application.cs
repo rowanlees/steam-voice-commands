@@ -16,7 +16,7 @@ namespace SVC
         static void Main()
         {
             GameLocations gameLocations = new GameLocations();
-            gameLocations.querySteamInstallLocation();
+            gameLocations.QuerySteamInstallLocation();
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
             System.Windows.Forms.Application.Run(new SvcWindow());
