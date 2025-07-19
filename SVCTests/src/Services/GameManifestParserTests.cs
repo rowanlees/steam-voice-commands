@@ -1,6 +1,6 @@
 using SVC.src.Services;
 
-namespace SVCTests
+namespace SVCTests.src.Services
 {
     [TestClass]
     public class GameManifestParserTests

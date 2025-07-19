@@ -15,7 +15,8 @@ namespace SVC
             GameLocationsService gameLocations = new GameLocationsService(
                 new GameManifestParser(),
                 //10 second timeout looking for steam installation directory
-                new SteamInstallationLocator(new ProcessWrapper(new System.Diagnostics.Process()), 10000)
+                new SteamInstallationLocator(new ProcessWrapper(new System.Diagnostics.Process()), 10000),
+                new SteamLibraryReader(new FileReader())
             );
             gameLocations.QuerySteamInstallLocation();
             System.Windows.Forms.Application.EnableVisualStyles();

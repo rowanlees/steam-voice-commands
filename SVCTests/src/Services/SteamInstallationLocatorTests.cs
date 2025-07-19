@@ -4,7 +4,7 @@ using SVC.src.Services.Exceptions;
 using SVC.src.Services.Interfaces;
 using System.Diagnostics;
 
-namespace SVCTests
+namespace SVCTests.src.Services
 {
     [TestClass]
     public class SteamInstallationLocatorTests

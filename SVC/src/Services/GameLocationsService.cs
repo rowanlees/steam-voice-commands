@@ -1,4 +1,5 @@
-﻿using SVC.src.Services.Interfaces;
+﻿using SVC.src.Services;
+using SVC.src.Services.Interfaces;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,43 +11,27 @@ namespace SVC
         public const string GamesListFileName = "gameslist.txt";
         private readonly string _currentDirectory = Directory.GetCurrentDirectory();
         private readonly Dictionary<string, string> _gamesList = new Dictionary<string, string>();
-        private readonly List<string> _libraryFolders = new List<string>();
         private readonly IGameManifestParser _gameManifestParser;
         private readonly ISteamInstallationLocator _steamInstallationLocator;
+        private readonly ISteamLibraryReader _steamLibraryReader;
 
-        public GameLocationsService(IGameManifestParser gameManifestParser, ISteamInstallationLocator steamInstallationLocator)
+        public GameLocationsService(IGameManifestParser gameManifestParser, ISteamInstallationLocator steamInstallationLocator, ISteamLibraryReader steamLibraryReader)
         {
             _gameManifestParser = gameManifestParser;
             _steamInstallationLocator = steamInstallationLocator;
+            _steamLibraryReader = steamLibraryReader;
         }
 
         public void QuerySteamInstallLocation()
         {
-            ReadLibraryFolders();
-            ReadManifestFiles();
+            var steamFolderPath = _steamInstallationLocator.GetSteamFolderPath();
+            List<string> libraryFolders =  _steamLibraryReader.GetLibraryFolders(steamFolderPath);
+            ReadManifestFiles(libraryFolders);
         }
 
-        private void ReadLibraryFolders()
+        private void ReadManifestFiles(List<string> libraryFolders)
         {
-            var lines = File.ReadLines(_steamInstallationLocator.GetSteamFolderPath() + "/steamapps/libraryfolders.vdf");
-            foreach (string line in lines)
-            {
-                if (line.Contains("path"))
-                {
-                    string path = line.TextAfter("path");
-                    path = path.TextAfter("\"");
-                    path = path.Trim();
-                    path = path.Replace("\"", "");
-                    _libraryFolders.Add(path);
-                }
-            }
-            string libraryFoldersCombined = string.Join(",", _libraryFolders);
-            File.WriteAllText(_currentDirectory + Path.DirectorySeparatorChar + "steamlibraryfolders.txt", libraryFoldersCombined);
-        }
-
-        private void ReadManifestFiles()
-        {
-            foreach (string library in _libraryFolders)
+            foreach (string library in libraryFolders)
             {
                 string[] acfFiles = Directory.GetFiles(library + Path.DirectorySeparatorChar + "steamapps" + Path.DirectorySeparatorChar, "*.acf");
                 foreach (string acfFile in acfFiles)
