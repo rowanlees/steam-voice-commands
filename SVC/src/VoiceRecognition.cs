@@ -86,15 +86,15 @@ namespace SVC
                         break;
                     default:
                         int forEachIndexNo = 0;
-                        foreach (String line in _gamesList)
+                        foreach (string line in _gamesList)
                         {
                             if (line.Contains("Game Name: "))
                             {
-                                String gameName = line;
+                                string gameName = line;
                                 gameName = gameName.TextAfter("Game Name: ");
                                 if (speechArgs.Result.Text.Equals("open " + gameName))
                                 {
-                                    String appid = (string)_gamesList[forEachIndexNo + 1];
+                                    string appid = (string)_gamesList[forEachIndexNo + 1];
                                     appid = appid.TextAfter("App ID: ");
                                     appid = appid.Trim();
                                     System.Diagnostics.Process.Start(@"steam://run/" + appid);
@@ -129,11 +129,11 @@ namespace SVC
         {
             Choices choices = new Choices();
             var lines = File.ReadAllLines(_currentDirectory + Path.DirectorySeparatorChar + GameLocations.GamesListFileName);
-            foreach (String line in lines)
+            foreach (string line in lines)
             {
                 if (line.Contains("Game Name: "))
                 {
-                    String gameName = line;
+                    string gameName = line;
                     gameName = gameName.TextAfter("Game Name: ");
                     choices.Add("open " + gameName);
                 }
