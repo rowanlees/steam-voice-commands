@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SVC.src.Services.Implementations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,7 +18,7 @@ namespace SVC
         public FormListOfInstalledGames()
         {
             InitializeComponent();
-            var gamesList = File.ReadAllLines(currentDirectory + Path.DirectorySeparatorChar + GameLocationsService.GamesListFileName).OrderByDescending(item => item, StringComparer.Ordinal);
+            var gamesList = File.ReadAllLines(currentDirectory + Path.DirectorySeparatorChar + GameRepository.GamesListFileName).OrderByDescending(item => item, StringComparer.Ordinal);
             
             
             String games = "";

@@ -73,9 +73,10 @@
     </Compile>
     <Compile Include="src\Model\Game.cs" />
     <Compile Include="src\Services\Exceptions\SteamInstallationLocatorException.cs" />
-    <Compile Include="src\SystemInterop\Implementations\FileReader.cs" />
+    <Compile Include="src\Services\Implementations\GameRepository.cs" />
+    <Compile Include="src\SystemInterop\Implementations\FileSystem.cs" />
     <Compile Include="src\Services\Implementations\GameManifestParser.cs" />
-    <Compile Include="src\SystemInterop\Interface\IFileReader.cs" />
+    <Compile Include="src\SystemInterop\Interface\IFileSystem.cs" />
     <Compile Include="src\Services\Interfaces\IGameManifestParser.cs" />
     <Compile Include="src\Services\Interfaces\IGameRepository.cs" />
     <Compile Include="src\SystemInterop\Interface\IProcess.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="src\Services\Implementations\SteamLibraryReader.cs" />
     <Compile Include="src\VoiceRecognition.cs" />
     <Compile Include="src\Extensions\StringExtension.cs" />
-    <Compile Include="src\Services\Implementations\GameLocationsService.cs" />
+    <Compile Include="src\Services\GameLocationsService.cs" />
     <Compile Include="src\Forms\SvcWindow.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SVC.src.Services.Implementations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Speech.Recognition;
@@ -32,7 +33,7 @@ namespace SVC
 
             _recognizer.RecognizeAsync(RecognizeMode.Multiple);
 
-            _gamesList.AddRange(File.ReadAllLines(_currentDirectory + Path.DirectorySeparatorChar + GameLocationsService.GamesListFileName));
+            _gamesList.AddRange(File.ReadAllLines(_currentDirectory + Path.DirectorySeparatorChar + GameRepository.GamesListFileName));
         }
 
         public void Cancel()
@@ -128,7 +129,7 @@ namespace SVC
         private Choices GetChoiceLibrary()
         {
             Choices choices = new Choices();
-            var lines = File.ReadAllLines(_currentDirectory + Path.DirectorySeparatorChar + GameLocationsService.GamesListFileName);
+            var lines = File.ReadAllLines(_currentDirectory + Path.DirectorySeparatorChar + GameRepository.GamesListFileName);
             foreach (string line in lines)
             {
                 if (line.Contains("Game Name: "))

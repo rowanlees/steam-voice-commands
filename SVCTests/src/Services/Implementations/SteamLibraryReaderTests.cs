@@ -11,7 +11,7 @@ namespace SVCTests.src.Services.Implementations
         public void GetLibraryFolders_ReturnsCorrectPaths()
         {
             // Arrange
-            var mockFileReader = new Mock<IFileReader>();
+            var mockFileReader = new Mock<IFileSystem>();
             var sampleFile = """
                                 "libraryfolders"
                 {

@@ -1,4 +1,5 @@
 ﻿using SVC.src.Services;
+using SVC.src.Services.Implementations;
 using System;
 
 
@@ -12,13 +13,15 @@ namespace SVC
         [STAThread]
         static void Main()
         {
+            var fileSystem = new FileSystem();
             GameLocationsService gameLocations = new GameLocationsService(
                 new GameManifestParser(),
                 //10 second timeout looking for steam installation directory
                 new SteamInstallationLocator(new ProcessWrapper(new System.Diagnostics.Process()), 10000),
-                new SteamLibraryReader(new FileReader())
+                new SteamLibraryReader(fileSystem),
+                new GameRepository(fileSystem)
             );
-            gameLocations.QuerySteamInstallLocation();
+            gameLocations.BuildGameList();
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
             System.Windows.Forms.Application.Run(new SvcWindow());

@@ -5,8 +5,8 @@ namespace SVC.src.Services
 {
     public class SteamLibraryReader : ISteamLibraryReader
     {
-        private readonly IFileReader _fileReader;
-        public SteamLibraryReader(IFileReader fileReader)
+        private readonly IFileSystem _fileReader;
+        public SteamLibraryReader(IFileSystem fileReader)
         {
             _fileReader = fileReader;
         }

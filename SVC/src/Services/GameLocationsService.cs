@@ -7,27 +7,33 @@ namespace SVC
 {
     public class GameLocationsService
     {
-        public const string GamesListFileName = "gameslist.txt";
-        private readonly string _currentDirectory = Directory.GetCurrentDirectory();
         private readonly IGameManifestParser _gameManifestParser;
         private readonly ISteamInstallationLocator _steamInstallationLocator;
         private readonly ISteamLibraryReader _steamLibraryReader;
+        private readonly IGameRepository _gameRepository;
 
-        public GameLocationsService(IGameManifestParser gameManifestParser, ISteamInstallationLocator steamInstallationLocator, ISteamLibraryReader steamLibraryReader)
+        public GameLocationsService(
+            IGameManifestParser gameManifestParser,
+            ISteamInstallationLocator steamInstallationLocator,
+            ISteamLibraryReader steamLibraryReader,
+            IGameRepository gameRepository
+            )
         {
             _gameManifestParser = gameManifestParser;
             _steamInstallationLocator = steamInstallationLocator;
             _steamLibraryReader = steamLibraryReader;
+            _gameRepository = gameRepository;
         }
 
-        public void QuerySteamInstallLocation()
+        public void BuildGameList()
         {
             var steamFolderPath = _steamInstallationLocator.GetSteamFolderPath();
             List<string> libraryFolders = _steamLibraryReader.GetLibraryFolders(steamFolderPath);
-            ReadManifestFiles(libraryFolders);
+            var games = GetGamesList(libraryFolders);
+            _gameRepository.SaveGames(games);
         }
 
-        private void ReadManifestFiles(List<string> libraryFolders)
+        private List<Game> GetGamesList(List<string> libraryFolders)
         {
             List<Game> games = new List<Game>();
             foreach (string library in libraryFolders)
@@ -43,9 +49,7 @@ namespace SVC
                     }
                 }
             }
-            using (StreamWriter file = new StreamWriter(_currentDirectory + Path.DirectorySeparatorChar + GamesListFileName))
-                foreach (var game in games)
-                    file.WriteLine("{0}\n{1}", "Game Name: " + game.GameName, "App ID: " + game.AppId);
+            return games;
         }
     }
 }
