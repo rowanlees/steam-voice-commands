@@ -76,14 +76,14 @@ namespace SVC
                 {
                     var lines = File.ReadAllText(acfFile);
                     string appid = lines.TextAfter("appid");
-                    appid = appid.GetUntilOrEmpty("Universe");
+                    appid = appid.GetUntilOrEmpty("\n");
                     appid = appid.Trim();
                     appid = appid.Replace("\"", "");
                     appid = appid.Trim();
                     appid = appid.Insert(0, "App ID: ");
                     string gameName = lines.TextAfter("steam.exe");
                     gameName = gameName.TextAfter("name");
-                    gameName = gameName.GetUntilOrEmpty("StateFlags");
+                    gameName = gameName.GetUntilOrEmpty("\n");
                     gameName = gameName.Replace("\"", "");
                     gameName = gameName.Trim();
                     gameName = gameName.Insert(0, "Game Name: ");
