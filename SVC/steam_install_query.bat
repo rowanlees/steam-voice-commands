@@ -1,1 +1,0 @@
-start cmd /c REG QUERY HKCU\SOFTWARE\Valve\Steam /f SteamExe

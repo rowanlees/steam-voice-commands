@@ -12,18 +12,18 @@ namespace SVC
         String steamFolderLocation;
         private readonly String currentDirectory = Directory.GetCurrentDirectory();
         bool fileExists = false;
-        private readonly String steamInstallQueryBat = "cmd /c REG QUERY HKCU\\SOFTWARE\\Valve\\Steam /f SteamExe >steaminstalllocation.txt";
+        private readonly String _steamInstallRegQuery = "cmd /c REG QUERY HKCU\\SOFTWARE\\Valve\\Steam /f SteamExe >steaminstalllocation.txt";
         Dictionary<String, String> gamesList = new Dictionary<String, String>();
         private readonly List<String> libraryFolders = new List<String>();
 
         public void QuerySteamInstallLocation()
         {
-            File.WriteAllText(currentDirectory + "\\steam_install_query.bat", steamInstallQueryBat);
             Process process = new Process();
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.WorkingDirectory = currentDirectory;
-            process.StartInfo.FileName = "steam_install_query.bat";
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.Arguments = _steamInstallRegQuery;
             process.Start();
             while (fileExists == false)
             {
