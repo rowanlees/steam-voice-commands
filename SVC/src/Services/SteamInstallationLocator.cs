@@ -29,7 +29,8 @@ namespace SVC.src.Services
             {
                 throw new SteamInstallationLocatorException("Process timed out when trying to get Steam installation location from registry.");
             }
-            return _process.StandardOutputReadToEnd();
+            var result = _process.StandardOutputReadToEnd();
+            return result.TextAfter("SZ").GetUntilOrEmpty("End of search").Trim().GetUntilOrEmpty("/steam.exe");
         }
     }
 }

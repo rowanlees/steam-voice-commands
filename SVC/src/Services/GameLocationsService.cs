@@ -8,8 +8,6 @@ namespace SVC
     public class GameLocationsService
     {
         public const string GamesListFileName = "gameslist.txt";
-        private string _steamExeLocation;
-        private string _steamFolderLocation;
         private readonly string _currentDirectory = Directory.GetCurrentDirectory();
         private readonly Dictionary<string, string> _gamesList = new Dictionary<string, string>();
         private readonly List<string> _libraryFolders = new List<string>();
@@ -24,24 +22,13 @@ namespace SVC
 
         public void QuerySteamInstallLocation()
         {
-            WriteSteamInstallLocation();
             ReadLibraryFolders();
             ReadManifestFiles();
         }
 
-        private void WriteSteamInstallLocation()
-        {
-            _steamExeLocation = _steamInstallationLocator.GetSteamFolderPath();
-            _steamExeLocation = _steamExeLocation.TextAfter("SZ");
-            _steamExeLocation = _steamExeLocation.GetUntilOrEmpty("End of search");
-            _steamExeLocation = _steamExeLocation.Trim();
-            _steamFolderLocation = _steamExeLocation.GetUntilOrEmpty("/steam.exe");
-            File.WriteAllText(_currentDirectory + Path.DirectorySeparatorChar + "steamfolderlocation.txt", _steamFolderLocation);
-        }
-
         private void ReadLibraryFolders()
         {
-            var lines = File.ReadLines(_steamFolderLocation + "/steamapps/libraryfolders.vdf");
+            var lines = File.ReadLines(_steamInstallationLocator.GetSteamFolderPath() + "/steamapps/libraryfolders.vdf");
             foreach (string line in lines)
             {
                 if (line.Contains("path"))

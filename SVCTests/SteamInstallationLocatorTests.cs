@@ -39,7 +39,7 @@ namespace SVCTests
             var steamPath = _steamInstallationLocator.GetSteamFolderPath();
 
             Assert.IsFalse(string.IsNullOrEmpty(steamPath));
-            Assert.AreEqual(content, steamPath);
+            Assert.AreEqual("g:/steam", steamPath);
         }
 
         [TestMethod]
@@ -49,7 +49,7 @@ namespace SVCTests
             MemoryStream memoryStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(content));
             _mockProcess.Setup(p => p.WaitForExit(_timeoutMs)).Returns(false);
 
-            Assert.ThrowsException<SteamInstallationLocatorException>(() => _steamInstallationLocator.GetSteamFolderPath());
+            Assert.ThrowsException<SteamInstallationLocatorException>(_steamInstallationLocator.GetSteamFolderPath);
         }
     }
 }
