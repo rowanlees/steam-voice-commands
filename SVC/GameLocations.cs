@@ -13,9 +13,9 @@ namespace SVC
         private string _steamFolderLocation;
         private readonly string _currentDirectory = Directory.GetCurrentDirectory();
         private bool _fileExists = false;
-        private readonly string _steamInstallRegQuery = "cmd /c REG QUERY HKCU\\SOFTWARE\\Valve\\Steam /f SteamExe >steaminstalllocation.txt";
+        private const string SteamInstallRegQuery = "cmd /c REG QUERY HKCU\\SOFTWARE\\Valve\\Steam /f SteamExe >steaminstalllocation.txt";
         private readonly Dictionary<string, string> _gamesList = new Dictionary<string, string>();
-        private readonly List<string> libraryFolders = new List<string>();
+        private readonly List<string> _libraryFolders = new List<string>();
 
         public void QuerySteamInstallLocation()
         {
@@ -24,7 +24,7 @@ namespace SVC
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.WorkingDirectory = _currentDirectory;
             process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.Arguments = _steamInstallRegQuery;
+            process.StartInfo.Arguments = SteamInstallRegQuery;
             process.Start();
             while (_fileExists == false)
             {
@@ -60,16 +60,16 @@ namespace SVC
                     path = path.TextAfter("\"");
                     path = path.Trim();
                     path = path.Replace("\"", "");
-                    libraryFolders.Add(path);
+                    _libraryFolders.Add(path);
                 }
             }
-            string libraryFoldersCombined = string.Join(",", libraryFolders);
+            string libraryFoldersCombined = string.Join(",", _libraryFolders);
             File.WriteAllText(_currentDirectory + Path.DirectorySeparatorChar + "steamlibraryfolders.txt", libraryFoldersCombined);
         }
 
         private void ReadManifestFiles()
         {
-            foreach (string library in libraryFolders)
+            foreach (string library in _libraryFolders)
             {
                 string[] acfFiles = Directory.GetFiles(library + Path.DirectorySeparatorChar + "steamapps" + Path.DirectorySeparatorChar, "*.acf");
                 foreach (string acfFile in acfFiles)
