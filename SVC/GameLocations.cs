@@ -7,6 +7,7 @@ namespace SVC
 {
     internal class GameLocations
     {
+        public const string GamesListFileName = "gameslist.txt";
         String steamExeLocation;
         String steamFolderLocation;
         private readonly String currentDirectory = Directory.GetCurrentDirectory();
@@ -89,7 +90,7 @@ namespace SVC
                     gamesList.Add(gameName, appid);
                 }
             }
-            using (StreamWriter file = new StreamWriter(currentDirectory + "\\gameslist.txt"))
+            using (StreamWriter file = new StreamWriter(currentDirectory + Path.DirectorySeparatorChar + GamesListFileName))
                 foreach (var entry in gamesList)
                     file.WriteLine("{0}\n{1}", entry.Key, entry.Value);
         }

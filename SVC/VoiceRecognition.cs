@@ -32,7 +32,7 @@ namespace SVC
 
             _recognizer.RecognizeAsync(RecognizeMode.Multiple);
 
-            _gamesList.AddRange(File.ReadAllLines(_currentDirectory + "/gameslist.txt"));
+            _gamesList.AddRange(File.ReadAllLines(_currentDirectory + Path.DirectorySeparatorChar + GameLocations.GamesListFileName));
         }
 
         public void Cancel()
@@ -128,7 +128,7 @@ namespace SVC
         private Choices GetChoiceLibrary()
         {
             Choices choices = new Choices();
-            var lines = File.ReadAllLines(_currentDirectory + "/gameslist.txt");
+            var lines = File.ReadAllLines(_currentDirectory + Path.DirectorySeparatorChar + GameLocations.GamesListFileName);
             foreach (String line in lines)
             {
                 if (line.Contains("Game Name: "))
