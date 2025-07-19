@@ -8,13 +8,13 @@ namespace SVC
     internal class GameLocations
     {
         public const string GamesListFileName = "gameslist.txt";
-        String steamExeLocation;
-        String steamFolderLocation;
-        private readonly String currentDirectory = Directory.GetCurrentDirectory();
-        bool fileExists = false;
-        private readonly String _steamInstallRegQuery = "cmd /c REG QUERY HKCU\\SOFTWARE\\Valve\\Steam /f SteamExe >steaminstalllocation.txt";
-        Dictionary<String, String> gamesList = new Dictionary<String, String>();
-        private readonly List<String> libraryFolders = new List<String>();
+        string steamExeLocation;
+        string steamFolderLocation;
+        private readonly string currentDirectory = Directory.GetCurrentDirectory();
+        private bool _fileExists = false;
+        private readonly string _steamInstallRegQuery = "cmd /c REG QUERY HKCU\\SOFTWARE\\Valve\\Steam /f SteamExe >steaminstalllocation.txt";
+        private Dictionary<string, string> _gamesList = new Dictionary<string, string>();
+        private readonly List<string> libraryFolders = new List<string>();
 
         public void QuerySteamInstallLocation()
         {
@@ -25,11 +25,11 @@ namespace SVC
             process.StartInfo.FileName = "cmd.exe";
             process.StartInfo.Arguments = _steamInstallRegQuery;
             process.Start();
-            while (fileExists == false)
+            while (_fileExists == false)
             {
                 if (File.Exists(currentDirectory + "\\steaminstalllocation.txt"))
                 {
-                    fileExists = true;
+                    _fileExists = true;
                     process.WaitForExit();
                 }
             }
@@ -51,47 +51,47 @@ namespace SVC
         private void ReadLibraryFolders()
         {
             var lines = File.ReadLines(steamFolderLocation + "/steamapps/libraryfolders.vdf");
-            foreach (String line in lines)
+            foreach (string line in lines)
             {
                 if (line.Contains("path"))
                 {
-                    String path = line.TextAfter("path");
+                    string path = line.TextAfter("path");
                     path = path.TextAfter("\"");
                     path = path.Trim();
                     path = path.Replace("\"", "");
                     libraryFolders.Add(path);
                 }
             }
-            String libraryFoldersCombined = String.Join(",", libraryFolders);
+            string libraryFoldersCombined = string.Join(",", libraryFolders);
             File.WriteAllText(currentDirectory + "\\steamlibraryfolders.txt", libraryFoldersCombined);
         }
 
         private void ReadManifestFiles()
         {
-            foreach (String library in libraryFolders)
+            foreach (string library in libraryFolders)
             {
                 string[] acfFiles = Directory.GetFiles(library + "\\\\" + "steamapps" + "\\\\", "*.acf");
-                foreach (String acfFile in acfFiles)
+                foreach (string acfFile in acfFiles)
                 {
                     var lines = File.ReadAllText(acfFile);
-                    String appid = lines.TextAfter("appid");
+                    string appid = lines.TextAfter("appid");
                     appid = appid.GetUntilOrEmpty("Universe");
                     appid = appid.Trim();
                     appid = appid.Replace("\"", "");
                     appid = appid.Trim();
                     appid = appid.Insert(0, "App ID: ");
-                    String gameName = lines.TextAfter("steam.exe");
+                    string gameName = lines.TextAfter("steam.exe");
                     gameName = gameName.TextAfter("name");
                     gameName = gameName.GetUntilOrEmpty("StateFlags");
                     gameName = gameName.Replace("\"", "");
                     gameName = gameName.Trim();
                     gameName = gameName.Insert(0, "Game Name: ");
 
-                    gamesList.Add(gameName, appid);
+                    _gamesList.Add(gameName, appid);
                 }
             }
             using (StreamWriter file = new StreamWriter(currentDirectory + Path.DirectorySeparatorChar + GamesListFileName))
-                foreach (var entry in gamesList)
+                foreach (var entry in _gamesList)
                     file.WriteLine("{0}\n{1}", entry.Key, entry.Value);
         }
 
