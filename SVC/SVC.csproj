@@ -85,7 +85,7 @@
     <Compile Include="src\Services\Implementations\SteamInstallationLocator.cs" />
     <Compile Include="src\SystemInterop\Implementations\ProcessWrapper.cs" />
     <Compile Include="src\Services\Implementations\SteamLibraryReader.cs" />
-    <Compile Include="src\VoiceRecognition.cs" />
+    <Compile Include="src\Services\VoiceRecognitionService.cs" />
     <Compile Include="src\Extensions\StringExtension.cs" />
     <Compile Include="src\Services\GameLocationsService.cs" />
     <Compile Include="src\Forms\SvcWindow.cs">

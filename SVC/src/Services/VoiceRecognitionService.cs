@@ -6,9 +6,9 @@ using System.Speech.Recognition;
 
 namespace SVC
 {
-    internal class VoiceRecognition
+    public class VoiceRecognitionService
     {
-        private SpeechRecognitionEngine _recognizer;
+        private readonly SpeechRecognitionEngine _recognizer = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
         private bool _voiceRecognitionActive = true;
         private readonly string _currentDirectory = Directory.GetCurrentDirectory();
         private readonly List<string> _gamesList = new List<string>();
@@ -20,8 +20,6 @@ namespace SVC
 
         public void LoadSpeechRecognition()
         {
-            _recognizer = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
-
             var c = GetChoiceLibrary();
             var gb = new GrammarBuilder(c);
             var g = new Grammar(gb);

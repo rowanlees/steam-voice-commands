@@ -22,9 +22,10 @@ namespace SVC
                 new GameRepository(fileSystem)
             );
             gameLocationsService.BuildGameList();
+            VoiceRecognitionService voiceRecognition = new VoiceRecognitionService();
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-            System.Windows.Forms.Application.Run(new SvcWindow());
+            System.Windows.Forms.Application.Run(new SvcWindow(voiceRecognition));
         }
 
     }
