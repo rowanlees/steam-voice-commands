@@ -46,7 +46,7 @@ namespace SVC
             _steamExeLocation = _steamExeLocation.GetUntilOrEmpty("End of search");
             _steamExeLocation = _steamExeLocation.Trim();
             _steamFolderLocation = _steamExeLocation.GetUntilOrEmpty("/steam.exe");
-            File.WriteAllText(_currentDirectory + "\\steamfolderlocation.txt", _steamFolderLocation);
+            File.WriteAllText(_currentDirectory + Path.DirectorySeparatorChar + "steamfolderlocation.txt", _steamFolderLocation);
         }
 
         private void ReadLibraryFolders()
@@ -64,14 +64,14 @@ namespace SVC
                 }
             }
             string libraryFoldersCombined = string.Join(",", libraryFolders);
-            File.WriteAllText(_currentDirectory + "\\steamlibraryfolders.txt", libraryFoldersCombined);
+            File.WriteAllText(_currentDirectory + Path.DirectorySeparatorChar + "steamlibraryfolders.txt", libraryFoldersCombined);
         }
 
         private void ReadManifestFiles()
         {
             foreach (string library in libraryFolders)
             {
-                string[] acfFiles = Directory.GetFiles(library + "\\\\" + "steamapps" + "\\\\", "*.acf");
+                string[] acfFiles = Directory.GetFiles(library + Path.DirectorySeparatorChar + "steamapps" + Path.DirectorySeparatorChar, "*.acf");
                 foreach (string acfFile in acfFiles)
                 {
                     var lines = File.ReadAllText(acfFile);
