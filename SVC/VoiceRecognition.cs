@@ -81,11 +81,11 @@ namespace SVC
                         break;
                     case "stop voice recognition":
                         voiceRecognitionActive = false;
-                        SvcWindow.currentForm.setActivateButtonText("Start voice commands");
+                        SvcWindow.currentForm.SetActivateButtonText("Start voice commands");
                         break;
                     case "stop voice commands":
                         voiceRecognitionActive = false;
-                        SvcWindow.currentForm.setActivateButtonText("Start voice commands");
+                        SvcWindow.currentForm.SetActivateButtonText("Start voice commands");
                         break;
                     default:
                         int forEachIndexNo = 0;
@@ -117,11 +117,11 @@ namespace SVC
                 {
                     case "start voice recognition":
                         voiceRecognitionActive = true;
-                        SvcWindow.currentForm.setActivateButtonText("Stop voice commands");
+                        SvcWindow.currentForm.SetActivateButtonText("Stop voice commands");
                         break;
                     case "start voice commands":
                         voiceRecognitionActive = true;
-                        SvcWindow.currentForm.setActivateButtonText("Stop voice commands");
+                        SvcWindow.currentForm.SetActivateButtonText("Stop voice commands");
                         break;
                 }
                 
