@@ -8,38 +8,22 @@ namespace SVC
     public class GameLocationsService
     {
         public const string GamesListFileName = "gameslist.txt";
-        private const string SteamInstallLocationFileName = "steaminstalllocation.txt";
         private string _steamExeLocation;
         private string _steamFolderLocation;
         private readonly string _currentDirectory = Directory.GetCurrentDirectory();
-        private bool _fileExists = false;
-        private const string SteamInstallRegQuery = "cmd /c REG QUERY HKCU\\SOFTWARE\\Valve\\Steam /f SteamExe >steaminstalllocation.txt";
         private readonly Dictionary<string, string> _gamesList = new Dictionary<string, string>();
         private readonly List<string> _libraryFolders = new List<string>();
         private readonly IGameManifestParser _gameManifestParser;
+        private readonly ISteamInstallationLocator _steamInstallationLocator;
 
-        public GameLocationsService(IGameManifestParser gameManifestParser)
+        public GameLocationsService(IGameManifestParser gameManifestParser, ISteamInstallationLocator steamInstallationLocator)
         {
             _gameManifestParser = gameManifestParser;
+            _steamInstallationLocator = steamInstallationLocator;
         }
 
         public void QuerySteamInstallLocation()
         {
-            Process process = new Process();
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.WorkingDirectory = _currentDirectory;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.Arguments = SteamInstallRegQuery;
-            process.Start();
-            while (_fileExists == false)
-            {
-                if (File.Exists(_currentDirectory + Path.DirectorySeparatorChar + SteamInstallLocationFileName))
-                {
-                    _fileExists = true;
-                    process.WaitForExit();
-                }
-            }
             WriteSteamInstallLocation();
             ReadLibraryFolders();
             ReadManifestFiles();
@@ -47,7 +31,7 @@ namespace SVC
 
         private void WriteSteamInstallLocation()
         {
-            _steamExeLocation = File.ReadAllText(_currentDirectory + Path.DirectorySeparatorChar + SteamInstallLocationFileName);
+            _steamExeLocation = _steamInstallationLocator.GetSteamFolderPath();
             _steamExeLocation = _steamExeLocation.TextAfter("SZ");
             _steamExeLocation = _steamExeLocation.GetUntilOrEmpty("End of search");
             _steamExeLocation = _steamExeLocation.Trim();
