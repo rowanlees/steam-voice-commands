@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Speech.Recognition;
 
@@ -7,59 +7,59 @@ namespace SVC
 {
     internal class VoiceRecognition
     {
-        private SpeechRecognitionEngine recognizer;
-        private bool voiceRecognitionActive = true;
-        private readonly String currentDirectory = Directory.GetCurrentDirectory();
-        private readonly ArrayList gamesList = new ArrayList();
+        private SpeechRecognitionEngine _recognizer;
+        private bool _voiceRecognitionActive = true;
+        private readonly string _currentDirectory = Directory.GetCurrentDirectory();
+        private readonly List<string> _gamesList = new List<string>();
 
         public bool GetVoiceRecognitionActive()
         {
-            return voiceRecognitionActive;
+            return _voiceRecognitionActive;
         }
 
         public void LoadSpeechRecognition()
         {
-            recognizer = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
+            _recognizer = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
 
             var c = GetChoiceLibrary();
             var gb = new GrammarBuilder(c);
             var g = new Grammar(gb);
-            recognizer.LoadGrammar(g);
+            _recognizer.LoadGrammar(g);
 
-            recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Recognizer_SpeechRecognized);
+            _recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Recognizer_SpeechRecognized);
 
-            recognizer.SetInputToDefaultAudioDevice();
+            _recognizer.SetInputToDefaultAudioDevice();
 
-            recognizer.RecognizeAsync(RecognizeMode.Multiple);
+            _recognizer.RecognizeAsync(RecognizeMode.Multiple);
 
-            gamesList.AddRange(File.ReadAllLines(currentDirectory + "/gameslist.txt"));
+            _gamesList.AddRange(File.ReadAllLines(_currentDirectory + "/gameslist.txt"));
         }
 
         public void Cancel()
         {
-            recognizer.RecognizeAsyncCancel();
+            _recognizer.RecognizeAsyncCancel();
         }
 
         public void Start()
         {
-            voiceRecognitionActive = true;
+            _voiceRecognitionActive = true;
         }
 
         public void Stop()
         {
-            voiceRecognitionActive = false;
+            _voiceRecognitionActive = false;
         }
 
 
-        private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs speechArgs)
         {
 
-            SvcWindow.currentForm.SetCurrentVoiceCommandLabelText("Current voice command: " + e.Result.Text);
+            SvcWindow.currentForm.SetCurrentVoiceCommandLabelText("Current voice command: " + speechArgs.Result.Text);
 
-            if (voiceRecognitionActive)
+            if (_voiceRecognitionActive)
             {
 
-                switch (e.Result.Text)
+                switch (speechArgs.Result.Text)
                 {
                     case "open library":
                         System.Diagnostics.Process.Start(@"steam://open/games");
@@ -77,24 +77,24 @@ namespace SVC
                         System.Diagnostics.Process.Start(@"steam://open/downloads");
                         break;
                     case "stop voice recognition":
-                        voiceRecognitionActive = false;
+                        _voiceRecognitionActive = false;
                         SvcWindow.currentForm.SetActivateButtonText("Start voice commands");
                         break;
                     case "stop voice commands":
-                        voiceRecognitionActive = false;
+                        _voiceRecognitionActive = false;
                         SvcWindow.currentForm.SetActivateButtonText("Start voice commands");
                         break;
                     default:
                         int forEachIndexNo = 0;
-                        foreach (String line in gamesList)
+                        foreach (String line in _gamesList)
                         {
                             if (line.Contains("Game Name: "))
                             {
                                 String gameName = line;
                                 gameName = gameName.TextAfter("Game Name: ");
-                                if (e.Result.Text.Equals("open " + gameName))
+                                if (speechArgs.Result.Text.Equals("open " + gameName))
                                 {
-                                    String appid = (string)gamesList[forEachIndexNo + 1];
+                                    String appid = (string)_gamesList[forEachIndexNo + 1];
                                     appid = appid.TextAfter("App ID: ");
                                     appid = appid.Trim();
                                     System.Diagnostics.Process.Start(@"steam://run/" + appid);
@@ -108,16 +108,16 @@ namespace SVC
 
 
             }
-            if (!voiceRecognitionActive)
+            if (!_voiceRecognitionActive)
             {
-                switch (e.Result.Text)
+                switch (speechArgs.Result.Text)
                 {
                     case "start voice recognition":
-                        voiceRecognitionActive = true;
+                        _voiceRecognitionActive = true;
                         SvcWindow.currentForm.SetActivateButtonText("Stop voice commands");
                         break;
                     case "start voice commands":
-                        voiceRecognitionActive = true;
+                        _voiceRecognitionActive = true;
                         SvcWindow.currentForm.SetActivateButtonText("Stop voice commands");
                         break;
                 }
@@ -127,27 +127,27 @@ namespace SVC
 
         private Choices GetChoiceLibrary()
         {
-            Choices myChoices = new Choices();
-            var lines = File.ReadAllLines(currentDirectory + "/gameslist.txt");
+            Choices choices = new Choices();
+            var lines = File.ReadAllLines(_currentDirectory + "/gameslist.txt");
             foreach (String line in lines)
             {
                 if (line.Contains("Game Name: "))
                 {
                     String gameName = line;
                     gameName = gameName.TextAfter("Game Name: ");
-                    myChoices.Add("open " + gameName);
+                    choices.Add("open " + gameName);
                 }
             }
-            myChoices.Add("open library");
-            myChoices.Add("open store");
-            myChoices.Add("open friends");
-            myChoices.Add("open settings");
-            myChoices.Add("open downloads");
-            myChoices.Add("start voice recognition");
-            myChoices.Add("start voice commands");
-            myChoices.Add("stop voice recognition");
-            myChoices.Add("stop voice commands");
-            return myChoices;
+            choices.Add("open library");
+            choices.Add("open store");
+            choices.Add("open friends");
+            choices.Add("open settings");
+            choices.Add("open downloads");
+            choices.Add("start voice recognition");
+            choices.Add("start voice commands");
+            choices.Add("stop voice recognition");
+            choices.Add("stop voice commands");
+            return choices;
         }
     }
 }
