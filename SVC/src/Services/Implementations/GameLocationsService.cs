@@ -1,4 +1,5 @@
-﻿using SVC.src.Services.Interfaces;
+﻿using SVC.src.Model;
+using SVC.src.Services.Interfaces;
 using System.Collections.Generic;
 using System.IO;
 
@@ -8,7 +9,6 @@ namespace SVC
     {
         public const string GamesListFileName = "gameslist.txt";
         private readonly string _currentDirectory = Directory.GetCurrentDirectory();
-        private readonly Dictionary<string, string> _gamesList = new Dictionary<string, string>();
         private readonly IGameManifestParser _gameManifestParser;
         private readonly ISteamInstallationLocator _steamInstallationLocator;
         private readonly ISteamLibraryReader _steamLibraryReader;
@@ -29,18 +29,23 @@ namespace SVC
 
         private void ReadManifestFiles(List<string> libraryFolders)
         {
+            List<Game> games = new List<Game>();
             foreach (string library in libraryFolders)
             {
                 string[] acfFiles = Directory.GetFiles(library + Path.DirectorySeparatorChar + "steamapps" + Path.DirectorySeparatorChar, "*.acf");
                 foreach (string acfFile in acfFiles)
                 {
                     var acfFileLines = File.ReadAllText(acfFile);
-                    _gameManifestParser.ParseAcfFile(acfFileLines, _gamesList);
+                    var game = _gameManifestParser.ParseAcfFile(acfFileLines);
+                    if (game != null)
+                    {
+                        games.Add(game);
+                    }
                 }
             }
             using (StreamWriter file = new StreamWriter(_currentDirectory + Path.DirectorySeparatorChar + GamesListFileName))
-                foreach (var entry in _gamesList)
-                    file.WriteLine("{0}\n{1}", entry.Key, entry.Value);
+                foreach (var game in games)
+                    file.WriteLine("{0}\n{1}", "Game Name: " + game.GameName, "App ID: " + game.AppId);
         }
     }
 }

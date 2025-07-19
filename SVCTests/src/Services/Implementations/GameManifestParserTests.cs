@@ -1,6 +1,6 @@
 using SVC.src.Services;
 
-namespace SVCTests.src.Services
+namespace SVCTests.src.Services.Implementations
 {
     [TestClass]
     public class GameManifestParserTests
@@ -16,13 +16,12 @@ namespace SVCTests.src.Services
 	            ""LauncherPath""		""C:\\Program Files (x86)\\Steam\\steam.exe""
 	            ""name""		""Test Game""
             ";
-            var gamesList = new Dictionary<string, string>();
 
-            _gameManifestParser.ParseAcfFile(acfContent, gamesList);
+            var game = _gameManifestParser.ParseAcfFile(acfContent);
 
-            Assert.AreEqual(1, gamesList.Count);
-            Assert.IsTrue(gamesList.ContainsKey("Game Name: Test Game"));
-            Assert.AreEqual("App ID: 987654", gamesList["Game Name: Test Game"]);
+            Assert.IsNotNull(game);
+            Assert.AreEqual("Test Game", game.GameName);
+            Assert.AreEqual("987654", game.AppId);
         }
 
         [TestMethod]
@@ -34,13 +33,11 @@ namespace SVCTests.src.Services
 	            ""LauncherPath""		""C:\\Program Files (x86)\\Steam\\steam.exe""
                 ""name""    ""  Another Game  ""
             ";
-            var gamesList = new Dictionary<string, string>();
 
-            _gameManifestParser.ParseAcfFile(acfContent, gamesList);
+            var game = _gameManifestParser.ParseAcfFile(acfContent);
 
-            Assert.AreEqual(1, gamesList.Count);
-            Assert.IsTrue(gamesList.ContainsKey("Game Name: Another Game"));
-            Assert.AreEqual("App ID: 987654", gamesList["Game Name: Another Game"]);
+            Assert.AreEqual("Another Game", game.GameName);
+            Assert.AreEqual("987654", game.AppId);
         }
 
         [TestMethod]
@@ -49,10 +46,9 @@ namespace SVCTests.src.Services
             var acfContent = "";
             var gamesList = new Dictionary<string, string>();
 
-            _gameManifestParser.ParseAcfFile(acfContent, gamesList);
+            var game = _gameManifestParser.ParseAcfFile(acfContent);
 
-            Assert.IsFalse(gamesList.ContainsKey("Game Name: "));
-            Assert.AreEqual(0, gamesList.Count);
+            Assert.IsNull(game);
         }
     }
 }

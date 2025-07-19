@@ -2,7 +2,7 @@
 using SVC.src.Services;
 using SVC.src.Services.Interfaces;
 
-namespace SVCTests.src.Services
+namespace SVCTests.src.Services.Implementations
 {
     [TestClass]
     public class SteamLibraryReaderTests
