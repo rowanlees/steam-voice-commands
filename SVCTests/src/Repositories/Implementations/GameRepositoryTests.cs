@@ -3,7 +3,7 @@ using SVC.src.Model;
 using SVC.src.Services.Implementations;
 using SVC.src.Services.Interfaces;
 
-namespace SVCTests.src.Services.Implementations
+namespace SVCTests.src.Repositories.Implementations
 {
     [TestClass]
     public class GameRepositoryTests
