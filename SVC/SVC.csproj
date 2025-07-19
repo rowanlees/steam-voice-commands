@@ -72,7 +72,7 @@
       <DependentUpon>FormListOfInstalledGames.cs</DependentUpon>
     </Compile>
     <Compile Include="src\VoiceRecognition.cs" />
-    <Compile Include="src\Extension.cs" />
+    <Compile Include="src\Extensions\Extension.cs" />
     <Compile Include="src\GameLocations.cs" />
     <Compile Include="src\SvcWindow.cs">
       <SubType>Form</SubType>
@@ -129,7 +129,7 @@
     <Content Include="SVC_icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="test\" />
+    <Folder Include="src\Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

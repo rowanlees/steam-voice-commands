@@ -2,7 +2,7 @@
 
 namespace SVC
 {
-    public static class Extension
+    public static class StringExtension
     {
         public static string TextAfter(this string value, string search)
         {
