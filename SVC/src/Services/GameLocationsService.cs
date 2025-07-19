@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using SVC.src.Services.Interfaces;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
 namespace SVC
 {
-    public class GameLocations
+    public class GameLocationsService
     {
         public const string GamesListFileName = "gameslist.txt";
         private const string SteamInstallLocationFileName = "steaminstalllocation.txt";
@@ -15,6 +16,12 @@ namespace SVC
         private const string SteamInstallRegQuery = "cmd /c REG QUERY HKCU\\SOFTWARE\\Valve\\Steam /f SteamExe >steaminstalllocation.txt";
         private readonly Dictionary<string, string> _gamesList = new Dictionary<string, string>();
         private readonly List<string> _libraryFolders = new List<string>();
+        private readonly IGameManifestParser _gameManifestParser;
+
+        public GameLocationsService(IGameManifestParser gameManifestParser)
+        {
+            _gameManifestParser = gameManifestParser;
+        }
 
         public void QuerySteamInstallLocation()
         {
@@ -74,7 +81,7 @@ namespace SVC
                 foreach (string acfFile in acfFiles)
                 {
                     var acfFileLines = File.ReadAllText(acfFile);
-                    AddGameDetailsFromAcfToList(acfFileLines, _gamesList);
+                    _gameManifestParser.ParseAcfFile(acfFileLines, _gamesList);
                 }
             }
             using (StreamWriter file = new StreamWriter(_currentDirectory + Path.DirectorySeparatorChar + GamesListFileName))

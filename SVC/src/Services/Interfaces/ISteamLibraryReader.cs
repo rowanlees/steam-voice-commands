@@ -2,7 +2,7 @@
 
 namespace SVC.src.Services.Interfaces
 {
-    internal interface ISteamLibraryReader
+    public interface ISteamLibraryReader
     {
         List<string> GetLibraryFolders(string steamFolderPath);
     }

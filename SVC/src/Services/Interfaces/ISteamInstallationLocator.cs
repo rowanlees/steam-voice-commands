@@ -1,6 +1,6 @@
 ﻿namespace SVC.src.Services.Interfaces
 {
-    internal interface ISteamInstallationLocator
+    public interface ISteamInstallationLocator
     {
         string GetSteamFolderPath();
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SVC.src.Services.Interfaces
 {
-    internal interface IGameRepository
+    public interface IGameRepository
     {
         void SaveGames(Dictionary<string, string> games);
     }

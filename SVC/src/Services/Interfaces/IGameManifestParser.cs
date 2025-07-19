@@ -2,8 +2,8 @@
 
 namespace SVC.src.Services.Interfaces
 {
-    internal interface IGameManifestParser
+    public interface IGameManifestParser
     {
-        Dictionary<string, string> ParseAcfFile(string acfContent);
+        void ParseAcfFile(string acfContent, Dictionary<string, string> dictionary);
     }
 }

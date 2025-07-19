@@ -17,7 +17,7 @@ namespace SVC
         public FormListOfInstalledGames()
         {
             InitializeComponent();
-            var gamesList = File.ReadAllLines(currentDirectory + Path.DirectorySeparatorChar + GameLocations.GamesListFileName).OrderByDescending(item => item, StringComparer.Ordinal);
+            var gamesList = File.ReadAllLines(currentDirectory + Path.DirectorySeparatorChar + GameLocationsService.GamesListFileName).OrderByDescending(item => item, StringComparer.Ordinal);
             
             
             String games = "";

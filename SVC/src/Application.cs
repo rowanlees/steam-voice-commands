@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SVC.src.Services;
+using System;
 
 
 namespace SVC
@@ -11,7 +12,7 @@ namespace SVC
         [STAThread]
         static void Main()
         {
-            GameLocations gameLocations = new GameLocations();
+            GameLocationsService gameLocations = new GameLocationsService(new GameManifestParser());
             gameLocations.QuerySteamInstallLocation();
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);

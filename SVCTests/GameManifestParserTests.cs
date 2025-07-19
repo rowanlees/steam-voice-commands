@@ -1,14 +1,14 @@
-using SVC;
+using SVC.src.Services;
 
 namespace SVCTests
 {
     [TestClass]
-    public class GameLocationsTests
+    public class GameManifestParserTests
     {
-        private readonly GameLocations _gameLocations = new GameLocations();
+        private readonly GameManifestParser _gameManifestParser = new GameManifestParser();
 
         [TestMethod]
-        public void AddGameDetailsFromAcfToList_ParsesAppIdAndGameName_Correctly()
+        public void ParseAcfFile_ParsesAppIdAndGameName_Correctly()
         {
             var acfContent = @"
                 ""appid""		""987654""
@@ -18,7 +18,7 @@ namespace SVCTests
             ";
             var gamesList = new Dictionary<string, string>();
 
-            _gameLocations.AddGameDetailsFromAcfToList(acfContent, gamesList);
+            _gameManifestParser.ParseAcfFile(acfContent, gamesList);
 
             Assert.AreEqual(1, gamesList.Count);
             Assert.IsTrue(gamesList.ContainsKey("Game Name: Test Game"));
@@ -26,7 +26,7 @@ namespace SVCTests
         }
 
         [TestMethod]
-        public void AddGameDetailsFromAcfToList_HandlesExtraWhitespaceAndQuotes()
+        public void ParseAcfFile_HandlesExtraWhitespaceAndQuotes()
         {
             var acfContent = @"
                 ""appid""    "" 987654 ""
@@ -36,7 +36,7 @@ namespace SVCTests
             ";
             var gamesList = new Dictionary<string, string>();
 
-            _gameLocations.AddGameDetailsFromAcfToList(acfContent, gamesList);
+            _gameManifestParser.ParseAcfFile(acfContent, gamesList);
 
             Assert.AreEqual(1, gamesList.Count);
             Assert.IsTrue(gamesList.ContainsKey("Game Name: Another Game"));
@@ -44,12 +44,12 @@ namespace SVCTests
         }
 
         [TestMethod]
-        public void AddGameDetailsFromAcfToList_EmptyInput_DoesNotAdd()
+        public void ParseAcfFile_EmptyInput_DoesNotAdd()
         {
             var acfContent = "";
             var gamesList = new Dictionary<string, string>();
 
-            _gameLocations.AddGameDetailsFromAcfToList(acfContent, gamesList);
+            _gameManifestParser.ParseAcfFile(acfContent, gamesList);
 
             Assert.IsFalse(gamesList.ContainsKey("Game Name: "));
             Assert.AreEqual(0, gamesList.Count);

@@ -71,13 +71,14 @@
     <Compile Include="src\Forms\FormListOfInstalledGames.Designer.cs">
       <DependentUpon>FormListOfInstalledGames.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\Services\GameManifestParser.cs" />
     <Compile Include="src\Services\Interfaces\IGameManifestParser.cs" />
     <Compile Include="src\Services\Interfaces\IGameRepository.cs" />
     <Compile Include="src\Services\Interfaces\ISteamInstallationLocator.cs" />
     <Compile Include="src\Services\Interfaces\ISteamLibraryReader.cs" />
     <Compile Include="src\VoiceRecognition.cs" />
     <Compile Include="src\Extensions\StringExtension.cs" />
-    <Compile Include="src\Services\GameLocations.cs" />
+    <Compile Include="src\Services\GameLocationsService.cs" />
     <Compile Include="src\Forms\SvcWindow.cs">
       <SubType>Form</SubType>
     </Compile>
