@@ -29,51 +29,51 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SvcWindow));
-            this.ActivateButton = new System.Windows.Forms.Button();
-            this.buttonListVoiceCommands = new System.Windows.Forms.Button();
-            this.buttonListInstalledGames = new System.Windows.Forms.Button();
+            this.ButtonActivate = new System.Windows.Forms.Button();
+            this.ButtonListVoiceCommands = new System.Windows.Forms.Button();
+            this.ButtonListInstalledGames = new System.Windows.Forms.Button();
             this.currentVoiceCommandLabel = new System.Windows.Forms.Label();
-            this.saveKeybindButton = new System.Windows.Forms.Button();
-            this.keybindTextBox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.savedKeybindLabel = new System.Windows.Forms.Label();
-            this.autoListenCheckBox = new System.Windows.Forms.CheckBox();
+            this.ButtonSaveKeybind = new System.Windows.Forms.Button();
+            this.TextBoxKeybind = new System.Windows.Forms.TextBox();
+            this.ButtonClearKeybindInput = new System.Windows.Forms.Button();
+            this.LabelSpecifyKeybind = new System.Windows.Forms.Label();
+            this.LabelSavedKeybind = new System.Windows.Forms.Label();
+            this.CheckBoxAutoListen = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // ActivateButton
+            // ButtonActivate
             // 
-            this.ActivateButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ActivateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ActivateButton.Location = new System.Drawing.Point(0, 304);
-            this.ActivateButton.Name = "ActivateButton";
-            this.ActivateButton.Size = new System.Drawing.Size(800, 76);
-            this.ActivateButton.TabIndex = 0;
-            this.ActivateButton.Text = "Stop voice commands";
-            this.ActivateButton.UseVisualStyleBackColor = true;
-            this.ActivateButton.Click += new System.EventHandler(this.ActivateButton_Click);
+            this.ButtonActivate.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ButtonActivate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ButtonActivate.Location = new System.Drawing.Point(0, 304);
+            this.ButtonActivate.Name = "ButtonActivate";
+            this.ButtonActivate.Size = new System.Drawing.Size(800, 76);
+            this.ButtonActivate.TabIndex = 0;
+            this.ButtonActivate.Text = "Stop voice commands";
+            this.ButtonActivate.UseVisualStyleBackColor = true;
+            this.ButtonActivate.Click += new System.EventHandler(this.ActivateButton_Click);
             // 
-            // buttonListVoiceCommands
+            // ButtonListVoiceCommands
             // 
-            this.buttonListVoiceCommands.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.buttonListVoiceCommands.Location = new System.Drawing.Point(12, 12);
-            this.buttonListVoiceCommands.Name = "buttonListVoiceCommands";
-            this.buttonListVoiceCommands.Size = new System.Drawing.Size(208, 93);
-            this.buttonListVoiceCommands.TabIndex = 1;
-            this.buttonListVoiceCommands.Text = "Open list of currently available voice commands";
-            this.buttonListVoiceCommands.UseVisualStyleBackColor = true;
-            this.buttonListVoiceCommands.Click += new System.EventHandler(this.ButtonListVoiceCommands_Click);
+            this.ButtonListVoiceCommands.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.ButtonListVoiceCommands.Location = new System.Drawing.Point(12, 12);
+            this.ButtonListVoiceCommands.Name = "ButtonListVoiceCommands";
+            this.ButtonListVoiceCommands.Size = new System.Drawing.Size(208, 93);
+            this.ButtonListVoiceCommands.TabIndex = 1;
+            this.ButtonListVoiceCommands.Text = "Open list of currently available voice commands";
+            this.ButtonListVoiceCommands.UseVisualStyleBackColor = true;
+            this.ButtonListVoiceCommands.Click += new System.EventHandler(this.ButtonListVoiceCommands_Click);
             // 
-            // buttonListInstalledGames
+            // ButtonListInstalledGames
             // 
-            this.buttonListInstalledGames.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.buttonListInstalledGames.Location = new System.Drawing.Point(580, 12);
-            this.buttonListInstalledGames.Name = "buttonListInstalledGames";
-            this.buttonListInstalledGames.Size = new System.Drawing.Size(208, 93);
-            this.buttonListInstalledGames.TabIndex = 2;
-            this.buttonListInstalledGames.Text = "Open list of installed games";
-            this.buttonListInstalledGames.UseVisualStyleBackColor = true;
-            this.buttonListInstalledGames.Click += new System.EventHandler(this.ButtonListInstalledGames_Click);
+            this.ButtonListInstalledGames.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.ButtonListInstalledGames.Location = new System.Drawing.Point(580, 12);
+            this.ButtonListInstalledGames.Name = "ButtonListInstalledGames";
+            this.ButtonListInstalledGames.Size = new System.Drawing.Size(208, 93);
+            this.ButtonListInstalledGames.TabIndex = 2;
+            this.ButtonListInstalledGames.Text = "Open list of installed games";
+            this.ButtonListInstalledGames.UseVisualStyleBackColor = true;
+            this.ButtonListInstalledGames.Click += new System.EventHandler(this.ButtonListInstalledGames_Click);
             // 
             // currentVoiceCommandLabel
             // 
@@ -88,69 +88,69 @@
             this.currentVoiceCommandLabel.TabIndex = 3;
             this.currentVoiceCommandLabel.Text = "Current voice command: ";
             // 
-            // saveKeybindButton
+            // ButtonSaveKeybind
             // 
-            this.saveKeybindButton.Location = new System.Drawing.Point(298, 129);
-            this.saveKeybindButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.saveKeybindButton.Name = "saveKeybindButton";
-            this.saveKeybindButton.Size = new System.Drawing.Size(86, 33);
-            this.saveKeybindButton.TabIndex = 4;
-            this.saveKeybindButton.Text = "Save keybind";
-            this.saveKeybindButton.UseVisualStyleBackColor = true;
-            this.saveKeybindButton.Click += new System.EventHandler(this.SaveKeybindButton_Click);
+            this.ButtonSaveKeybind.Location = new System.Drawing.Point(298, 129);
+            this.ButtonSaveKeybind.Margin = new System.Windows.Forms.Padding(2);
+            this.ButtonSaveKeybind.Name = "ButtonSaveKeybind";
+            this.ButtonSaveKeybind.Size = new System.Drawing.Size(86, 33);
+            this.ButtonSaveKeybind.TabIndex = 4;
+            this.ButtonSaveKeybind.Text = "Save keybind";
+            this.ButtonSaveKeybind.UseVisualStyleBackColor = true;
+            this.ButtonSaveKeybind.Click += new System.EventHandler(this.SaveKeybindButton_Click);
             // 
-            // keybindTextBox
+            // TextBoxKeybind
             // 
-            this.keybindTextBox.Location = new System.Drawing.Point(12, 136);
-            this.keybindTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.keybindTextBox.Name = "keybindTextBox";
-            this.keybindTextBox.ReadOnly = true;
-            this.keybindTextBox.Size = new System.Drawing.Size(200, 20);
-            this.keybindTextBox.TabIndex = 5;
-            this.keybindTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeybindTextBox_KeyDown);
+            this.TextBoxKeybind.Location = new System.Drawing.Point(12, 136);
+            this.TextBoxKeybind.Margin = new System.Windows.Forms.Padding(2);
+            this.TextBoxKeybind.Name = "TextBoxKeybind";
+            this.TextBoxKeybind.ReadOnly = true;
+            this.TextBoxKeybind.Size = new System.Drawing.Size(200, 20);
+            this.TextBoxKeybind.TabIndex = 5;
+            this.TextBoxKeybind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeybindTextBox_KeyDown);
             // 
-            // button1
+            // ButtonClearKeybindInput
             // 
-            this.button1.Location = new System.Drawing.Point(212, 129);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(82, 33);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Clear input";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.ButtonClearKeybindInput.Location = new System.Drawing.Point(212, 129);
+            this.ButtonClearKeybindInput.Margin = new System.Windows.Forms.Padding(2);
+            this.ButtonClearKeybindInput.Name = "ButtonClearKeybindInput";
+            this.ButtonClearKeybindInput.Size = new System.Drawing.Size(82, 33);
+            this.ButtonClearKeybindInput.TabIndex = 6;
+            this.ButtonClearKeybindInput.Text = "Clear input";
+            this.ButtonClearKeybindInput.UseVisualStyleBackColor = true;
+            this.ButtonClearKeybindInput.Click += new System.EventHandler(this.ButtonClearKeybindInput_Click);
             // 
-            // label1
+            // LabelSpecifyKeybind
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 120);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Specify keybind:";
+            this.LabelSpecifyKeybind.AutoSize = true;
+            this.LabelSpecifyKeybind.Location = new System.Drawing.Point(12, 120);
+            this.LabelSpecifyKeybind.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.LabelSpecifyKeybind.Name = "LabelSpecifyKeybind";
+            this.LabelSpecifyKeybind.Size = new System.Drawing.Size(85, 13);
+            this.LabelSpecifyKeybind.TabIndex = 7;
+            this.LabelSpecifyKeybind.Text = "Specify keybind:";
             // 
-            // savedKeybindLabel
+            // LabelSavedKeybind
             // 
-            this.savedKeybindLabel.AutoSize = true;
-            this.savedKeybindLabel.Location = new System.Drawing.Point(12, 166);
-            this.savedKeybindLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.savedKeybindLabel.Name = "savedKeybindLabel";
-            this.savedKeybindLabel.Size = new System.Drawing.Size(81, 13);
-            this.savedKeybindLabel.TabIndex = 8;
-            this.savedKeybindLabel.Text = "Saved keybind:";
+            this.LabelSavedKeybind.AutoSize = true;
+            this.LabelSavedKeybind.Location = new System.Drawing.Point(12, 166);
+            this.LabelSavedKeybind.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.LabelSavedKeybind.Name = "LabelSavedKeybind";
+            this.LabelSavedKeybind.Size = new System.Drawing.Size(81, 13);
+            this.LabelSavedKeybind.TabIndex = 8;
+            this.LabelSavedKeybind.Text = "Saved keybind:";
             // 
-            // autoListenCheckBox
+            // CheckBoxAutoListen
             // 
-            this.autoListenCheckBox.AutoSize = true;
-            this.autoListenCheckBox.Location = new System.Drawing.Point(486, 118);
-            this.autoListenCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.autoListenCheckBox.Name = "autoListenCheckBox";
-            this.autoListenCheckBox.Size = new System.Drawing.Size(300, 17);
-            this.autoListenCheckBox.TabIndex = 9;
-            this.autoListenCheckBox.Text = "Automatically start listening for voice commands on launch";
-            this.autoListenCheckBox.UseVisualStyleBackColor = true;
-            this.autoListenCheckBox.CheckedChanged += new System.EventHandler(this.AutoListenCheckBox_CheckedChanged);
+            this.CheckBoxAutoListen.AutoSize = true;
+            this.CheckBoxAutoListen.Location = new System.Drawing.Point(486, 118);
+            this.CheckBoxAutoListen.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBoxAutoListen.Name = "CheckBoxAutoListen";
+            this.CheckBoxAutoListen.Size = new System.Drawing.Size(300, 17);
+            this.CheckBoxAutoListen.TabIndex = 9;
+            this.CheckBoxAutoListen.Text = "Automatically start listening for voice commands on launch";
+            this.CheckBoxAutoListen.UseVisualStyleBackColor = true;
+            this.CheckBoxAutoListen.CheckedChanged += new System.EventHandler(this.AutoListenCheckBox_CheckedChanged);
             // 
             // SvcWindow
             // 
@@ -158,16 +158,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(800, 380);
-            this.Controls.Add(this.autoListenCheckBox);
-            this.Controls.Add(this.savedKeybindLabel);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.keybindTextBox);
-            this.Controls.Add(this.saveKeybindButton);
+            this.Controls.Add(this.CheckBoxAutoListen);
+            this.Controls.Add(this.LabelSavedKeybind);
+            this.Controls.Add(this.LabelSpecifyKeybind);
+            this.Controls.Add(this.ButtonClearKeybindInput);
+            this.Controls.Add(this.TextBoxKeybind);
+            this.Controls.Add(this.ButtonSaveKeybind);
             this.Controls.Add(this.currentVoiceCommandLabel);
-            this.Controls.Add(this.buttonListInstalledGames);
-            this.Controls.Add(this.buttonListVoiceCommands);
-            this.Controls.Add(this.ActivateButton);
+            this.Controls.Add(this.ButtonListInstalledGames);
+            this.Controls.Add(this.ButtonListVoiceCommands);
+            this.Controls.Add(this.ButtonActivate);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SvcWindow";
             this.Text = "Steam Voice Commands";
@@ -178,16 +178,16 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonListVoiceCommands;
-        private System.Windows.Forms.Button ActivateButton;
-        private System.Windows.Forms.Button buttonListInstalledGames;
+        private System.Windows.Forms.Button ButtonListVoiceCommands;
+        private System.Windows.Forms.Button ButtonActivate;
+        private System.Windows.Forms.Button ButtonListInstalledGames;
         private System.Windows.Forms.Label currentVoiceCommandLabel;
-        private System.Windows.Forms.Button saveKeybindButton;
-        private System.Windows.Forms.TextBox keybindTextBox;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label savedKeybindLabel;
-        private System.Windows.Forms.CheckBox autoListenCheckBox;
+        private System.Windows.Forms.Button ButtonSaveKeybind;
+        private System.Windows.Forms.TextBox TextBoxKeybind;
+        private System.Windows.Forms.Button ButtonClearKeybindInput;
+        private System.Windows.Forms.Label LabelSpecifyKeybind;
+        private System.Windows.Forms.Label LabelSavedKeybind;
+        private System.Windows.Forms.CheckBox CheckBoxAutoListen;
     }
 }
 

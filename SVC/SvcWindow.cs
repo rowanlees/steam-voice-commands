@@ -29,27 +29,27 @@ namespace SVC
             currentForm = this;
             InitializeComponent();
             SetGlobalHotkey();
-            if (ActivateButton.Text.Equals("Stop voice commands"))
+            if (ButtonActivate.Text.Equals("Stop voice commands"))
             {
                 this.Icon = Resources.SVCRecording;
             }
             if (Settings.Default.AutoListenOnLaunch == false)
             {
-                autoListenCheckBox.Checked = false;
-                ActivateButton.Text = "Start voice commands";
+                CheckBoxAutoListen.Checked = false;
+                ButtonActivate.Text = "Start voice commands";
                 voiceRecognition.stop();
                 this.Icon = Resources.SVCIcon;
             }
             if (Settings.Default.AutoListenOnLaunch == true)
             {
-                autoListenCheckBox.Checked = true;
-                ActivateButton.Text = "Stop voice commands";
+                CheckBoxAutoListen.Checked = true;
+                ButtonActivate.Text = "Stop voice commands";
                 voiceRecognition.start();
                 this.Icon = Resources.SVCRecording;
             }
             if (Settings.Default.VoiceActivateKeybindModifiers != null && Settings.Default.VoiceActivateKeybindKey != null && Settings.Default.KeyBindLabel != null)
             {
-                savedKeybindLabel.Text = Settings.Default.KeyBindLabel;
+                LabelSavedKeybind.Text = Settings.Default.KeyBindLabel;
             }
         }
 
@@ -123,7 +123,7 @@ namespace SVC
 
         public void SetActivateButtonText(String text)
         {
-            ActivateButton.Text = text;
+            ButtonActivate.Text = text;
         }
 
         public void SetCurrentVoiceCommandLabelText(String text)
@@ -140,15 +140,15 @@ namespace SVC
 
         private void ToggleStopAndStartVoiceCommands()
         {
-            if (ActivateButton.Text == "Stop voice commands")
+            if (ButtonActivate.Text == "Stop voice commands")
             {
-                ActivateButton.Text = "Start voice commands";
+                ButtonActivate.Text = "Start voice commands";
                 voiceRecognition.stop();
                 this.Icon = Resources.SVCIcon;
             }
-            else if (ActivateButton.Text == "Start voice commands")
+            else if (ButtonActivate.Text == "Start voice commands")
             {
-                ActivateButton.Text = "Stop voice commands";
+                ButtonActivate.Text = "Stop voice commands";
                 voiceRecognition.start();
                 this.Icon = Resources.SVCRecording;
 
@@ -175,7 +175,7 @@ namespace SVC
 
         private void KeybindTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            var currentKeys = keybindTextBox.Text.Split('+');
+            var currentKeys = TextBoxKeybind.Text.Split('+');
             if (currentKeys.Length == 3)
             {
                 return;
@@ -188,9 +188,9 @@ namespace SVC
             {
                 return;
             }
-            if (!keybindTextBox.Text.Equals(""))
+            if (!TextBoxKeybind.Text.Equals(""))
             {
-                keybindTextBox.AppendText("+" + e.KeyCode.ToString());
+                TextBoxKeybind.AppendText("+" + e.KeyCode.ToString());
                 if (KeyIsNotModifier(e.KeyCode.ToString()))
                 {
                     keyBindValue.Add(e.KeyCode);
@@ -201,9 +201,9 @@ namespace SVC
                 }
 
             }
-            if (keybindTextBox.Text.Equals(""))
+            if (TextBoxKeybind.Text.Equals(""))
             {
-                keybindTextBox.AppendText(e.KeyCode.ToString());
+                TextBoxKeybind.AppendText(e.KeyCode.ToString());
                 if (KeyIsNotModifier(e.KeyCode.ToString()))
                 {
                     keyBindValue.Add(e.KeyCode);
@@ -217,9 +217,9 @@ namespace SVC
 
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void ButtonClearKeybindInput_Click(object sender, EventArgs e)
         {
-            keybindTextBox.Clear();
+            TextBoxKeybind.Clear();
             keyBindValue.Clear();
             keyBindModifierValues.Clear();
         }
@@ -227,13 +227,13 @@ namespace SVC
         private void SaveKeybindButton_Click(object sender, EventArgs e)
         {
 
-            if (keybindTextBox.Text.Equals(""))
+            if (TextBoxKeybind.Text.Equals(""))
             {
                 return;
             }
             if (keyBindModifierValues.Count == 0 || keyBindValue.Count == 0)
             {
-                savedKeybindLabel.Text = "Keybind must contain at least one modifier key (e.g. SHIFT) and one regular key";
+                LabelSavedKeybind.Text = "Keybind must contain at least one modifier key (e.g. SHIFT) and one regular key";
                 return;
             }
             SaveKeybindKeyAndModifiersToProperties();
@@ -254,19 +254,19 @@ namespace SVC
             {
                 convertedSavedKeybind.Add(keysConverter.ConvertToString(value));
             }
-            savedKeybindLabel.Text = "Saved keybind: ";
+            LabelSavedKeybind.Text = "Saved keybind: ";
             foreach (var key in convertedSavedKeybind)
             {
-                if (!savedKeybindLabel.Text.Equals("Saved keybind: "))
+                if (!LabelSavedKeybind.Text.Equals("Saved keybind: "))
                 {
-                    savedKeybindLabel.Text = savedKeybindLabel.Text + "+ " + key;
+                    LabelSavedKeybind.Text = LabelSavedKeybind.Text + "+ " + key;
                 }
-                if (savedKeybindLabel.Text.Equals("Saved keybind: "))
+                if (LabelSavedKeybind.Text.Equals("Saved keybind: "))
                 {
-                    savedKeybindLabel.Text = savedKeybindLabel.Text + key;
+                    LabelSavedKeybind.Text = LabelSavedKeybind.Text + key;
                 }
             }
-            Settings.Default.KeyBindLabel = savedKeybindLabel.Text;
+            Settings.Default.KeyBindLabel = LabelSavedKeybind.Text;
             Settings.Default.Save();
         }
 
@@ -314,7 +314,7 @@ namespace SVC
 
         private void AutoListenCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            CheckState checkState = autoListenCheckBox.CheckState;
+            CheckState checkState = CheckBoxAutoListen.CheckState;
             switch (checkState)
             {
                 case CheckState.Unchecked:
