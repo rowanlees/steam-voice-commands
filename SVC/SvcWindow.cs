@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Speech.Recognition;
-using System.IO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Runtime.InteropServices;
+﻿using SVC.Properties;
+using System;
 using System.Collections;
-using SVC.Properties;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace SVC
 {
@@ -38,7 +29,7 @@ namespace SVC
             currentForm = this;
             InitializeComponent();
             setGlobalHotkey();
-            if(ActivateButton.Text.Equals("Stop voice commands"))
+            if (ActivateButton.Text.Equals("Stop voice commands"))
             {
                 this.Icon = Resources.SVCRecording;
             }
@@ -49,7 +40,7 @@ namespace SVC
                 voiceRecognition.stop();
                 this.Icon = Resources.SVCIcon;
             }
-            if(Settings.Default.AutoListenOnLaunch == true)
+            if (Settings.Default.AutoListenOnLaunch == true)
             {
                 autoListenCheckBox.Checked = true;
                 ActivateButton.Text = "Stop voice commands";
@@ -71,7 +62,7 @@ namespace SVC
                 KeysConverter keysConverter = new KeysConverter();
                 foreach (var item in Settings.Default.VoiceActivateKeybindModifiers)
                 {
-                    Keys keyconverted = (Keys)keysConverter.ConvertFromString(item.ToString());    
+                    Keys keyconverted = (Keys)keysConverter.ConvertFromString(item.ToString());
                     switch (keyconverted)
                     {
                         case (Keys.Alt):
@@ -101,7 +92,7 @@ namespace SVC
                         case (Keys.Shift):
                             modifierSumValue += 4;
                             break;
-                        case (Keys.ShiftKey): 
+                        case (Keys.ShiftKey):
                             modifierSumValue += 4;
                             break;
                         case (Keys.LShiftKey):
@@ -113,7 +104,7 @@ namespace SVC
                         default:
                             break;
                     }
-                    
+
                 }
                 RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, modifierSumValue, key);
             }
@@ -160,7 +151,7 @@ namespace SVC
                 ActivateButton.Text = "Stop voice commands";
                 voiceRecognition.start();
                 this.Icon = Resources.SVCRecording;
-                
+
             }
         }
 
@@ -194,7 +185,7 @@ namespace SVC
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void keybindTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -250,7 +241,7 @@ namespace SVC
 
         private void saveKeybindButton_Click(object sender, EventArgs e)
         {
-            
+
             if (keybindTextBox.Text.Equals(""))
             {
                 return;
@@ -296,7 +287,7 @@ namespace SVC
 
         private bool keyIsNotModifier(string item)
         {
-            KeysConverter keysConverter= new KeysConverter();
+            KeysConverter keysConverter = new KeysConverter();
             Keys key = (Keys)keysConverter.ConvertFromString(item);
             switch (key)
             {
@@ -331,9 +322,9 @@ namespace SVC
 
         private void saveKeybindKeyAndModifiersToProperties()
         {
-                Settings.Default.VoiceActivateKeybindModifiers = keyBindModifierValues;
-                Settings.Default.VoiceActivateKeybindKey = keyBindValue;
-                Settings.Default.Save();
+            Settings.Default.VoiceActivateKeybindModifiers = keyBindModifierValues;
+            Settings.Default.VoiceActivateKeybindKey = keyBindValue;
+            Settings.Default.Save();
         }
 
         private void label2_Click(object sender, EventArgs e)
