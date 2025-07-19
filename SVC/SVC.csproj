@@ -65,37 +65,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormListOfInstalledGames.cs">
+    <Compile Include="src\FormListOfInstalledGames.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormListOfInstalledGames.Designer.cs">
+    <Compile Include="src\FormListOfInstalledGames.Designer.cs">
       <DependentUpon>FormListOfInstalledGames.cs</DependentUpon>
     </Compile>
-    <Compile Include="VoiceRecognition.cs" />
-    <Compile Include="Extension.cs" />
-    <Compile Include="GameLocations.cs" />
-    <Compile Include="SvcWindow.cs">
+    <Compile Include="src\VoiceRecognition.cs" />
+    <Compile Include="src\Extension.cs" />
+    <Compile Include="src\GameLocations.cs" />
+    <Compile Include="src\SvcWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SvcWindow.Designer.cs">
+    <Compile Include="src\SvcWindow.Designer.cs">
       <DependentUpon>SvcWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Application.cs" />
+    <Compile Include="src\Application.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormListOfInstalledGames.resx">
+    <EmbeddedResource Include="src\FormListOfInstalledGames.resx">
       <DependentUpon>FormListOfInstalledGames.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SvcWindow.resx">
+    <EmbeddedResource Include="src\SvcWindow.resx">
       <DependentUpon>SvcWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -137,6 +128,8 @@
     <None Include="resources\SVCRecording.ico" />
     <Content Include="SVC_icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="test\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
