@@ -1,12 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using SVC.Core.Services;
+using SVC.WPF.src;
+using SVC.WPF.Views;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-using SVC.Core.Services;
-using SVC.WPF.src.Views;
-using SVC.WPF.src;
-using System.ComponentModel;
 
-namespace SVC.WPF.src.ViewModels
+namespace SVC.WPF.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
@@ -83,7 +83,6 @@ namespace SVC.WPF.src.ViewModels
             ClearKeybindCommand = new RelayCommand(_ => ClearKeybind());
             ToggleVoiceRecognitionCommand = new RelayCommand(_ => ToggleVoiceRecognition());
             ShowInstalledGamesCommand = new RelayCommand(_ => ShowInstalledGames());
-            ShowVoiceCommandsCommand = new RelayCommand(_ => ShowVoiceCommands());
 
             LoadSettings();
 
@@ -134,11 +133,6 @@ namespace SVC.WPF.src.ViewModels
         {
             var gamesWindow = new InstalledGamesWindow();
             gamesWindow.Show();
-        }
-
-        private void ShowVoiceCommands()
-        {
-            // Open your voice command list window (not yet implemented here)
         }
 
         public void OnKeyDown(KeyEventArgs e)
