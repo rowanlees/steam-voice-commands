@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <!-- Reference to your core project -->
-    <ProjectReference Include="..\SVC\SVC.Core.csproj" />
+    <ProjectReference Include="..\SVC.Core\SVC.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SVC\SVC.Core.csproj" />
+    <ProjectReference Include="..\SVC.Core\SVC.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
