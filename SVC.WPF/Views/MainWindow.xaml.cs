@@ -1,7 +1,6 @@
 ﻿using SVC.WPF.ViewModels;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace SVC.WPF.Views

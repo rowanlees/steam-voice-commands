@@ -20,10 +20,10 @@ namespace SVC.WPF
 
             // Initialize services and load game locations
             var gameLocationsService = new GameLocationsService(
-            new GameManifestParser(),
-            new SteamInstallationLocator(new ProcessWrapper(new Process()), 10000), // 10 seconds timeout
-            new SteamLibraryReader(new FileSystem()),
-            new GameRepository(new FileSystem())
+                new GameManifestParser(),
+                new SteamInstallationLocator(new ProcessWrapper(new Process()), 10000), // 10 seconds timeout
+                new SteamLibraryReader(new FileSystem()),
+                new GameRepository(new FileSystem())
             );
 
             try
