@@ -1,6 +1,7 @@
 ﻿using Moq;
+using Newtonsoft.Json;
+using SVC.Core.Services.Implementations;
 using SVC.src.Model;
-using SVC.src.Services.Implementations;
 using SVC.src.Services.Interfaces;
 
 namespace SVCTests.src.Repositories.Implementations
@@ -22,15 +23,28 @@ namespace SVCTests.src.Repositories.Implementations
                 .Returns(mockWriter.Object);
 
             var repository = new GameRepository(mockFileSystem.Object);
-            var games = new List<Game> { new(appId: "123", gameName: "Test Game") };
+            var game = new Game(appId: "123", gameName: "Test Game");
+            var games = new List<Game> { game };
 
             // Act
             repository.SaveGames(games);
 
             // Assert
             mockFileSystem.Verify(fs => fs.CreateTextWriter("C:\\Test\\gameslist.txt"), Times.Once);
-            mockWriter.Verify(w => w.WriteLine("Game Name: Test Game"), Times.Once);
-            mockWriter.Verify(w => w.WriteLine("App ID: 123"), Times.Once);
+            mockWriter.Verify(w => w.WriteLine(JsonConvert.SerializeObject(game)), Times.Once);
+        }
+
+        [TestMethod]
+        public void ReadGameFromJsonObject_ParsesJsonStringCorrectly()
+        {
+            // Arrange
+            var repository = new GameRepository(Mock.Of<IFileSystem>());
+            var json = "{\"GameName\": \"Test Game: A Game Name Containing \\\"Symbols\\\"!£$%^&*()-_=+{[}]:;@'~#|<,>.?/\", \"AppID\": \"123\"}";
+            // Act
+            var game = repository.ReadGameFromJsonObject(json);
+            // Assert
+            Assert.AreEqual("123", game.AppId);
+            Assert.AreEqual("Test Game: A Game Name Containing \"Symbols\"!£$%^&*()-_=+{[}]:;@'~#|<,>.?/", game.GameName);
         }
     }
 }

@@ -5,10 +5,10 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1F4CD566-1D56-451E-977E-C7276370576A}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>SVC</RootNamespace>
     <AssemblyName>SVC</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -27,6 +27,7 @@
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,10 +51,14 @@
   <PropertyGroup>
     <ApplicationIcon>SVC_icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Speech" />
@@ -66,17 +71,16 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\Forms\FormListOfInstalledGames.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\Forms\FormListOfInstalledGames.Designer.cs">
-      <DependentUpon>FormListOfInstalledGames.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="src\Model\Game.cs" />
     <Compile Include="src\Services\Exceptions\SteamInstallationLocatorException.cs" />
     <Compile Include="src\Repositories\Implementations\GameRepository.cs" />
+    <Compile Include="src\Services\HotkeyService.cs" />
+    <Compile Include="src\Services\KeybindService.cs" />
+    <Compile Include="src\Services\SettingsService.cs" />
     <Compile Include="src\SystemInterop\Implementations\FileSystem.cs" />
     <Compile Include="src\Services\Implementations\GameManifestParser.cs" />
     <Compile Include="src\SystemInterop\Interface\IFileSystem.cs" />
@@ -91,20 +95,7 @@
     <Compile Include="src\Services\VoiceRecognitionService.cs" />
     <Compile Include="src\Extensions\StringExtension.cs" />
     <Compile Include="src\Services\GameLocationsService.cs" />
-    <Compile Include="src\Forms\SvcWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\Forms\SvcWindow.Designer.cs">
-      <DependentUpon>SvcWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\Application.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="src\Forms\FormListOfInstalledGames.resx">
-      <DependentUpon>FormListOfInstalledGames.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\Forms\SvcWindow.resx">
-      <DependentUpon>SvcWindow.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -115,6 +106,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -145,6 +137,8 @@
     <None Include="resources\SVCRecording.ico" />
     <Content Include="SVC_icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="src\Forms\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

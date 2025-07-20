@@ -9,5 +9,6 @@
             AppId = appId;
             GameName = gameName;
         }
+        public Game() { }
     }
 }

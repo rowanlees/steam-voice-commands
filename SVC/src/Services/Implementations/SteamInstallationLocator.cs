@@ -2,7 +2,7 @@
 using SVC.src.Services.Interfaces;
 using System.IO;
 
-namespace SVC.src.Services
+namespace SVC.Core.Services.Implementations
 {
     public class SteamInstallationLocator : ISteamInstallationLocator
     {

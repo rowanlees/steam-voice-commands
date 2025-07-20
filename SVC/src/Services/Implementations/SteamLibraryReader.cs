@@ -1,7 +1,7 @@
 ﻿using SVC.src.Services.Interfaces;
 using System.Collections.Generic;
 
-namespace SVC.src.Services
+namespace SVC.Core.Services.Implementations
 {
     public class SteamLibraryReader : ISteamLibraryReader
     {

@@ -1,9 +1,10 @@
-﻿using SVC.src.Model;
+﻿using Newtonsoft.Json;
+using SVC.src.Model;
 using SVC.src.Services.Interfaces;
 using System.Collections.Generic;
 using System.IO;
 
-namespace SVC.src.Services.Implementations
+namespace SVC.Core.Services.Implementations
 {
     public class GameRepository : IGameRepository
     {
@@ -21,10 +22,28 @@ namespace SVC.src.Services.Implementations
             {
                 foreach (var game in games)
                 {
-                    file.WriteLine("Game Name: " + game.GameName);
-                    file.WriteLine("App ID: " + game.AppId);
+                    file.WriteLine(JsonConvert.SerializeObject(game));
                 }
             }
+        }
+
+        public List<Game> LoadGames()
+        {
+            var path = Path.Combine(_fileSystem.GetCurrentDirectory(), GamesListFileName);
+            var lines = _fileSystem.ReadLines(path);
+            var games = new List<Game>();
+            {
+                foreach (var line in lines)
+                {
+                    games.Add(ReadGameFromJsonObject(line));
+                }
+            }
+            return games;
+        }
+
+        public Game ReadGameFromJsonObject(string json)
+        {
+            return JsonConvert.DeserializeObject<Game>(json);
         }
     }
 }

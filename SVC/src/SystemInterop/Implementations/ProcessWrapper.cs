@@ -1,7 +1,7 @@
 ﻿using SVC.src.Services.Interfaces;
 using System.Diagnostics;
 
-namespace SVC.src.Services
+namespace SVC.Core.SystemInterop.Implementations
 {
     public class ProcessWrapper : IProcess
     {

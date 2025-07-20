@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace SVC.src.Services
+namespace SVC.Core.SystemInterop.Implementations
 {
-    internal class FileSystem : IFileSystem
+    public class FileSystem : IFileSystem
     {
         public TextWriter CreateTextWriter(string path)
         {

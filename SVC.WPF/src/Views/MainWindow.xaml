@@ -1,0 +1,43 @@
+﻿<Window x:Class="SVC.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SVC.WPF"
+        mc:Ignorable="d"
+        Title="Steam Voice Commands" Height="450" Width="800">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Label: Current Voice Command -->
+        <Label Grid.Row="0" Grid.Column="0" Content="Recognised Command:"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="RecognisedCommandText" FontWeight="Bold"/>
+
+        <!-- Text Field: Keybind -->
+        <Label Grid.Row="1" Grid.Column="0" Content="Set Keybind:"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <TextBox x:Name="KeybindTextBox" Width="100" Margin="0,0,5,0"/>
+            <Button Content="Save" Click="SaveKeybind_Click" Margin="0,0,5,0"/>
+            <Button Content="Clear" Click="ClearKeybind_Click"/>
+        </StackPanel>
+
+        <!-- CheckBox: Auto-start listening -->
+        <CheckBox Grid.Row="2" Grid.Column="1" x:Name="AutoStartCheckbox" Content="Start listening on launch"/>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="0,20,0,0">
+            <Button Content="Show Voice Commands" Click="ShowCommands_Click" Height="40" Margin="0,0,0,10"/>
+            <Button Content="Show Installed Games" Click="ShowGames_Click" Height="40" Margin="0,0,0,10"/>
+            <Button Content="Toggle Voice Recognition" Click="ToggleRecognition_Click" Height="40"/>
+        </StackPanel>
+    </Grid>
+</Window>

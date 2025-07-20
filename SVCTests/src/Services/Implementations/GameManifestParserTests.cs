@@ -1,4 +1,4 @@
-using SVC.src.Services;
+using SVC.Core.Services.Implementations;
 
 namespace SVCTests.src.Services.Implementations
 {

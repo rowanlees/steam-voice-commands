@@ -1,5 +1,5 @@
 ﻿using Moq;
-using SVC.src.Services;
+using SVC.Core.Services.Implementations;
 using SVC.src.Services.Exceptions;
 using SVC.src.Services.Interfaces;
 using System.Diagnostics;

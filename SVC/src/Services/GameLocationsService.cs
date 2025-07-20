@@ -3,7 +3,7 @@ using SVC.src.Services.Interfaces;
 using System.Collections.Generic;
 using System.IO;
 
-namespace SVC
+namespace SVC.Core.Services
 {
     public class GameLocationsService
     {

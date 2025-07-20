@@ -1,10 +1,10 @@
-﻿using SVC.src.Services.Implementations;
+﻿using SVC.Core.Services.Implementations;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Speech.Recognition;
 
-namespace SVC
+namespace SVC.Core.Services
 {
     public class VoiceRecognitionService
     {
@@ -12,6 +12,7 @@ namespace SVC
         private bool _voiceRecognitionActive = true;
         private readonly string _currentDirectory = Directory.GetCurrentDirectory();
         private readonly List<string> _gamesList = new List<string>();
+        public event Action<string> CommandRecognized;
 
         public bool GetVoiceRecognitionActive()
         {
@@ -25,7 +26,7 @@ namespace SVC
             var g = new Grammar(gb);
             _recognizer.LoadGrammar(g);
 
-            _recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(Recognizer_SpeechRecognized);
+            _recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(OnSpeechRecognized);
 
             _recognizer.SetInputToDefaultAudioDevice();
 
@@ -50,10 +51,10 @@ namespace SVC
         }
 
 
-        private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs speechArgs)
+        private void OnSpeechRecognized(object sender, SpeechRecognizedEventArgs speechArgs)
         {
 
-            SvcWindow.currentForm.SetCurrentVoiceCommandLabelText("Current voice command: " + speechArgs.Result.Text);
+            CommandRecognized?.Invoke("Current voice command: " + speechArgs.Result.Text);
 
             if (_voiceRecognitionActive)
             {
@@ -77,11 +78,9 @@ namespace SVC
                         break;
                     case "stop voice recognition":
                         _voiceRecognitionActive = false;
-                        SvcWindow.currentForm.SetActivateButtonText("Start voice commands");
                         break;
                     case "stop voice commands":
                         _voiceRecognitionActive = false;
-                        SvcWindow.currentForm.SetActivateButtonText("Start voice commands");
                         break;
                     default:
                         int forEachIndexNo = 0;
@@ -113,11 +112,9 @@ namespace SVC
                 {
                     case "start voice recognition":
                         _voiceRecognitionActive = true;
-                        SvcWindow.currentForm.SetActivateButtonText("Stop voice commands");
                         break;
                     case "start voice commands":
                         _voiceRecognitionActive = true;
-                        SvcWindow.currentForm.SetActivateButtonText("Stop voice commands");
                         break;
                 }
 
