@@ -11,6 +11,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -22,19 +24,37 @@
         <Label Grid.Row="0" Grid.Column="0" Content="Recognised Command:"/>
         <TextBlock Grid.Row="0" Grid.Column="1" x:Name="RecognisedCommandText" FontWeight="Bold"/>
 
-        <!-- Text Field: Keybind -->
+        <!-- Row 1: Keybind input + buttons -->
         <Label Grid.Row="1" Grid.Column="0" Content="Set Keybind:"/>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-            <TextBox x:Name="KeybindTextBox" Width="100" Margin="0,0,5,0"/>
-            <Button Content="Save" Click="SaveKeybind_Click" Margin="0,0,5,0"/>
-            <Button Content="Clear" Click="ClearKeybind_Click"/>
+            <TextBox x:Name="KeybindTextBox"
+             Width="200"
+             Margin="0,0,5,0"
+             PreviewKeyDown="KeybindTextBox_PreviewKeyDown"
+             PreviewKeyUp="KeybindTextBox_PreviewKeyUp"
+             Text="{Binding KeybindDisplayText, Mode=OneWay}" 
+             IsReadOnly="True" />
+            <Button Content="Save" Click="SaveKeybind_Click"
+            IsEnabled="{Binding CanSaveKeybind}" Margin="0,0,5,0"/>
+            <Button Content="Clear" Click="ClearKeybind_Click" Margin="0,0,5,0"/>
+            <Button Content="Delete Saved" Click="DeleteSavedKeybind_Click"/>
         </StackPanel>
 
+        <!-- Row 2: Save confirmation -->
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding KeybindSaveMessage}" 
+           Foreground="Green" FontWeight="Bold" Margin="0,5,0,0"/>
+
         <!-- CheckBox: Auto-start listening -->
-        <CheckBox Grid.Row="2" Grid.Column="1" x:Name="AutoStartCheckbox" Content="Start listening on launch"/>
+        <CheckBox Grid.Row="3" Grid.Column="1" x:Name="AutoStartCheckbox" Content="Start listening on launch"/>
+
+        <!-- Row 4: Display currently saved keybind -->
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="0,5,0,0">
+            <TextBlock Text="Saved Keybind:" FontWeight="Bold" Margin="0,0,5,0"/>
+            <TextBlock Text="{Binding SavedKeybindDisplayText}" />
+        </StackPanel>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="0,20,0,0">
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="0,20,0,0">
             <Button Content="Show Voice Commands" Click="ShowCommands_Click" Height="40" Margin="0,0,0,10"/>
             <Button Content="Show Installed Games" Click="ShowGames_Click" Height="40" Margin="0,0,0,10"/>
             <Button Content="Toggle Voice Recognition" Click="ToggleRecognition_Click" Height="40"/>

@@ -1,19 +1,97 @@
-﻿using SVC.WPF.ViewModels;
+﻿using SVC.Core.Services;
+using SVC.WPF.ViewModels;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace SVC.WPF.Views
 {
     public partial class MainWindow : Window
     {
+        private const int HOTKEY_ID = 9000; // Any unique ID
+        private HotkeyService _hotkeyService = new HotkeyService();
         private readonly MainViewModel _viewModel;
 
         public MainWindow()
         {
             InitializeComponent();
+            KeybindTextBox.PreviewKeyDown += KeybindTextBox_PreviewKeyDown;
+            KeybindTextBox.PreviewKeyUp += KeybindTextBox_PreviewKeyUp;
+            Loaded += (s, e) =>
+            {
+                RegisterGlobalHotkey();
+                ComponentDispatcher.ThreadPreprocessMessage += ThreadPreprocessMessageMethod;
+            };
+            Unloaded += (s, e) =>
+            {
+                UnregisterGlobalHotkey();
+                ComponentDispatcher.ThreadPreprocessMessage -= ThreadPreprocessMessageMethod;
+            };
             _viewModel = new MainViewModel();
             DataContext = _viewModel;
+        }
+
+        private void KeybindTextBox_PreviewKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            _viewModel.OnKeyUp(e);
+        }
+
+        private void ThreadPreprocessMessageMethod(ref MSG msg, ref bool handled)
+        {
+            const int WM_HOTKEY = 0x0312;
+            if (msg.message == WM_HOTKEY && (int)msg.wParam == HOTKEY_ID)
+            {
+                _viewModel.ToggleVoiceRecognitionCommand.Execute(null);
+                handled = true;
+            }
+        }
+
+        private void RegisterGlobalHotkey()
+        {
+            var helper = new System.Windows.Interop.WindowInteropHelper(this);
+            var modifiers = GetModifierKeys(_viewModel.InputModifierKeys);
+            if (_viewModel.InputKeybindKeys.Count > 0)
+            {
+                var mainKey = KeyInterop.VirtualKeyFromKey(_viewModel.InputKeybindKeys[0]);
+                _hotkeyService.RegisterHotkey(helper.Handle, HOTKEY_ID, modifiers, mainKey);
+            }
+        }
+
+        private void UnregisterGlobalHotkey()
+        {
+            var helper = new System.Windows.Interop.WindowInteropHelper(this);
+            _hotkeyService.UnregisterHotkey(helper.Handle, HOTKEY_ID);
+        }
+
+        private int GetModifierKeys(ObservableCollection<Key> modifiers)
+        {
+            int result = 0;
+            foreach (var key in modifiers)
+            {
+                switch (key)
+                {
+                    case Key.LeftCtrl:
+                    case Key.RightCtrl:
+                        result |= 0x0002; // MOD_CONTROL
+                        break;
+                    case Key.LeftAlt:
+                    case Key.RightAlt:
+                        result |= 0x0001; // MOD_ALT
+                        break;
+                    case Key.LeftShift:
+                    case Key.RightShift:
+                        result |= 0x0004; // MOD_SHIFT
+                        break;
+                    case Key.LWin:
+                    case Key.RWin:
+                        result |= 0x0008; // MOD_WIN
+                        break;
+                }
+            }
+            return result;
         }
 
         private void KeybindTextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -30,6 +108,8 @@ namespace SVC.WPF.Views
         private void SaveKeybind_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.SaveKeybindCommand.Execute(null);
+            UnregisterGlobalHotkey();
+            RegisterGlobalHotkey();
         }
 
         private void ClearKeybind_Click(object sender, RoutedEventArgs e)
@@ -76,6 +156,12 @@ namespace SVC.WPF.Views
         private void ShowGames_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.ShowInstalledGamesCommand.Execute(null);
+        }
+
+        private void DeleteSavedKeybind_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.DeleteSavedKeybindCommand.Execute(null);
+            UnregisterGlobalHotkey();
         }
     }
 }
