@@ -21,18 +21,19 @@
 
         <!-- Keybind input + buttons -->
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBlock Text="Set Keybind:" Margin="0,0,5,0" />
+            <TextBlock Text="Set Keybind:" Margin="0,0,5,0" VerticalAlignment="Center"/>
             <TextBox x:Name="KeybindTextBox"
              Width="200"
              Margin="0,0,5,0"
              PreviewKeyDown="KeybindTextBox_PreviewKeyDown"
              PreviewKeyUp="KeybindTextBox_PreviewKeyUp"
-             Text="{Binding KeybindDisplayText, Mode=OneWay}" 
-             IsReadOnly="True" />
+             Text="{Binding KeybindDisplayText, Mode=OneWay}"
+             IsReadOnly="True"
+             />
             <Button Content="Save" Click="SaveKeybind_Click"
-            IsEnabled="{Binding CanSaveKeybind}" Margin="0,0,5,0" Padding="10,5"/>
-            <Button Content="Clear" Click="ClearKeybind_Click" Margin="0,0,5,0" Padding="10,5"/>
-            <Button Content="Delete Saved" Click="DeleteSavedKeybind_Click" Padding="10,5"/>
+            IsEnabled="{Binding CanSaveKeybind}" Margin="0,0,5,0" Padding="10,5" VerticalAlignment="Center"/>
+            <Button Content="Clear" Click="ClearKeybind_Click" Margin="0,0,5,0" Padding="10,5" VerticalAlignment="Center"/>
+            <Button Content="Delete Saved" Click="DeleteSavedKeybind_Click" Padding="10,5" VerticalAlignment="Center"/>
         </StackPanel>
 
         <!-- Save confirmation -->
