@@ -12,21 +12,16 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Label: Current Voice Command -->
-        <Label Grid.Row="0" Grid.Column="0" Content="Recognised Command:"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="RecognisedCommandText" FontWeight="Bold"/>
-
-        <!-- Row 1: Keybind input + buttons -->
-        <Label Grid.Row="1" Grid.Column="0" Content="Set Keybind:"/>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+        <!-- Keybind input + buttons -->
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Text="Set Keybind:" Margin="0,0,5,0" />
             <TextBox x:Name="KeybindTextBox"
              Width="200"
              Margin="0,0,5,0"
@@ -35,23 +30,23 @@
              Text="{Binding KeybindDisplayText, Mode=OneWay}" 
              IsReadOnly="True" />
             <Button Content="Save" Click="SaveKeybind_Click"
-            IsEnabled="{Binding CanSaveKeybind}" Margin="0,0,5,0"/>
-            <Button Content="Clear" Click="ClearKeybind_Click" Margin="0,0,5,0"/>
-            <Button Content="Delete Saved" Click="DeleteSavedKeybind_Click"/>
+            IsEnabled="{Binding CanSaveKeybind}" Margin="0,0,5,0" Padding="10,5"/>
+            <Button Content="Clear" Click="ClearKeybind_Click" Margin="0,0,5,0" Padding="10,5"/>
+            <Button Content="Delete Saved" Click="DeleteSavedKeybind_Click" Padding="10,5"/>
         </StackPanel>
 
-        <!-- Row 2: Save confirmation -->
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding KeybindSaveMessage}" 
-           Foreground="Green" FontWeight="Bold" Margin="0,5,0,0"/>
+        <!-- Save confirmation -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding KeybindSaveMessage}" 
+           Foreground="Green" FontWeight="Bold" Margin="0,5,0,5" HorizontalAlignment="Right"/>
 
+        <!-- Display currently saved keybind -->
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Right">
+            <TextBlock Text="{Binding PrefixSavedKeybindDisplayText}" Margin="0,0,5,0"/>
+            <TextBlock Text="{Binding SavedKeybindDisplayText}" Margin="0,0,5,0"/>
+        </StackPanel>
+        
         <!-- CheckBox: Auto-start listening -->
-        <CheckBox Grid.Row="3" Grid.Column="1" x:Name="AutoStartCheckbox" Content="Start listening on launch"/>
-
-        <!-- Row 4: Display currently saved keybind -->
-        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="0,5,0,0">
-            <TextBlock Text="Saved Keybind:" FontWeight="Bold" Margin="0,0,5,0"/>
-            <TextBlock Text="{Binding SavedKeybindDisplayText}" />
-        </StackPanel>
+        <CheckBox Grid.Row="3" Grid.Column="0" x:Name="AutoStartCheckbox" Content="Start listening on launch" Margin="0,5,5,5" HorizontalAlignment="Right"/>
 
         <!-- Buttons -->
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="0,20,0,0">
@@ -59,5 +54,9 @@
             <Button Content="Show Installed Games" Click="ShowGames_Click" Height="40" Margin="0,0,0,10"/>
             <Button Content="Toggle Voice Recognition" Click="ToggleRecognition_Click" Height="40"/>
         </StackPanel>
+
+        <!-- Label: Current Voice Command -->
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="Recognised Command:"/>
+        <TextBlock Grid.Row="6" Grid.Column="0" x:Name="RecognisedCommandText" FontWeight="Bold"/>
     </Grid>
 </Window>

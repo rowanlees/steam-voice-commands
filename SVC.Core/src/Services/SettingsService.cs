@@ -28,6 +28,13 @@ namespace SVC.Core.Services
             Settings.Default.Save();
         }
 
+        public void DeleteKeybind()
+        {
+            Settings.Default.VoiceActivateKeybindModifiers = new StringCollection();
+            Settings.Default.VoiceActivateKeybindKey = new StringCollection();
+            Settings.Default.Save();
+        }
+
         public (List<Key> Modifiers, List<Key> Keys) LoadKeybind()
         {
             var modifierKeys = new List<Key>();

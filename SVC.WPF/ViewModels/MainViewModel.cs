@@ -99,6 +99,20 @@ namespace SVC.WPF.ViewModels
             }
         }
 
+        private string _prefixSavedKeybindDisplayText;
+        public string PrefixSavedKeybindDisplayText
+        {
+            get => _prefixSavedKeybindDisplayText;
+            set
+            {
+                if (_prefixSavedKeybindDisplayText != value)
+                {
+                    _prefixSavedKeybindDisplayText = value;
+                    OnPropertyChanged(nameof(PrefixSavedKeybindDisplayText));
+                }
+            }
+        }
+
         private string _keybindSaveMessage;
         public string KeybindSaveMessage
         {
@@ -180,18 +194,28 @@ namespace SVC.WPF.ViewModels
             InputKeybindKeys.Clear();
             foreach (var key in modifiers)
             {
-                InputModifierKeys.Add(key);
                 SavedModifierKeys.Add(key);
             }
             foreach (var key in keys)
             {
-                InputKeybindKeys.Add(key);
                 SavedModifierKeys.Add(key);
             }
-
             UpdateKeybindDisplayText();
+            UpdatePrefixSavedKeybindText();
             UpdateSavedKeybindDisplayText();
             UpdateCanSaveKeybind();
+        }
+
+        private void UpdatePrefixSavedKeybindText()
+        {
+            if (SavedModifierKeys.Count > 0 || SavedKeybindKeys.Count > 0)
+            {
+                PrefixSavedKeybindDisplayText = "Current saved keybind:";
+            }
+            else
+            {
+                PrefixSavedKeybindDisplayText = "No saved keybind.";
+            }
         }
 
         private void OnVoiceCommandRecognized(string command)
@@ -212,6 +236,7 @@ namespace SVC.WPF.ViewModels
             {
                 SavedKeybindKeys.Add(key);
             }
+            UpdatePrefixSavedKeybindText();
             UpdateSavedKeybindDisplayText();
             KeybindSaveMessage = "Keybind saved!";
             _saveMessageTimer.Stop();
@@ -220,6 +245,10 @@ namespace SVC.WPF.ViewModels
 
         public void DeleteSavedKeybind()
         {
+            _settingsService.DeleteKeybind();
+            SavedModifierKeys.Clear();
+            SavedKeybindKeys.Clear();
+            UpdatePrefixSavedKeybindText();
             SavedKeybindDisplayText = string.Empty;
             KeybindSaveMessage = "Saved keybind deleted.";
             _saveMessageTimer.Stop();
