@@ -49,9 +49,30 @@ namespace SVC.WPF.ViewModels
                     OnPropertyChanged(nameof(IsVoiceRecognitionActive));
 
                     if (value)
+                    {
                         _voiceRecognitionService.Start();
+                        VoiceRecognitionActiveLabel = "ACTIVE";
+                    }
                     else
+                    {
                         _voiceRecognitionService.Stop();
+                        VoiceRecognitionActiveLabel = "INACTIVE";
+                    }
+
+                }
+            }
+        }
+
+        private string _voiceRecognitionActiveLabel;
+        public string VoiceRecognitionActiveLabel
+        {
+            get => _voiceRecognitionActiveLabel;
+            set
+            {
+                if (_voiceRecognitionActiveLabel != value)
+                {
+                    _voiceRecognitionActiveLabel = value;
+                    OnPropertyChanged(nameof(VoiceRecognitionActiveLabel));
                 }
             }
         }
@@ -174,8 +195,13 @@ namespace SVC.WPF.ViewModels
             {
                 IsVoiceRecognitionActive = true;
                 _voiceRecognitionService.Start();
+                VoiceRecognitionActiveLabel = "ACTIVE";
             }
-
+            else
+            {
+                IsVoiceRecognitionActive = false;
+                VoiceRecognitionActiveLabel = "INACTIVE";
+            }
             _voiceRecognitionService.LoadSpeechRecognition();
         }
 

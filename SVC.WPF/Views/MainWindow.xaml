@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SVC.WPF.Views"
+        xmlns:local="clr-namespace:SVC.WPF.Views" xmlns:viewmodels="clr-namespace:SVC.WPF.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
         Title="Steam Voice Commands" Height="450" Width="800">
     <Grid Margin="20">
@@ -50,10 +50,36 @@
         <CheckBox Grid.Row="3" Grid.Column="0" x:Name="AutoStartCheckbox" Content="Start listening on launch" Margin="0,5,5,5" HorizontalAlignment="Right"/>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="0,20,0,0">
+        <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Vertical" Margin="0,20,0,0">
             <Button Content="Show Voice Commands" Click="ShowCommands_Click" Height="40" Margin="0,0,0,10"/>
             <Button Content="Show Installed Games" Click="ShowGames_Click" Height="40" Margin="0,0,0,10"/>
-            <Button Content="Toggle Voice Recognition" Click="ToggleRecognition_Click" Height="40"/>
+            <Button Content="Toggle Voice Recognition" Click="ToggleRecognition_Click" Height="40" Margin="0,0,0,10"/>
+            <Grid Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".25*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Voice recognition status:"/>
+                <TextBlock Grid.Column="1" Text="{Binding VoiceRecognitionActiveLabel}">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding VoiceRecognitionActiveLabel}" Value="ACTIVE">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding VoiceRecognitionActiveLabel}" Value="INACTIVE">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="FontWeight" Value="Normal"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
         </StackPanel>
 
         <!-- Label: Current Voice Command -->

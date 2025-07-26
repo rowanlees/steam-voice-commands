@@ -9,16 +9,16 @@ namespace SVC.Core.Services
     public class VoiceRecognitionService
     {
         private readonly SpeechRecognitionEngine _recognizer = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
-        private bool _voiceRecognitionActive = true;
+        private bool _voiceRecognitionActive = false;
         private readonly string _currentDirectory = Directory.GetCurrentDirectory();
         private readonly List<string> _gamesList = new List<string>();
         public event Action<string> CommandRecognized;
 
-        public bool GetVoiceRecognitionActive()
-        {
-            return _voiceRecognitionActive;
-        }
-
+        /*
+         * Loads the speech recognition engine with the grammar for voice commands.
+         * It does not set _voiceRecognitionActive to true, that is done in Start().
+         * However, it is still listening, as it will still accept start and stop commands, just not any other commands.
+         */
         public void LoadSpeechRecognition()
         {
             var c = GetChoiceLibrary();
