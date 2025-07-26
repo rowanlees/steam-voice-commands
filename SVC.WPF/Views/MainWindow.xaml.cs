@@ -2,6 +2,7 @@
 using SVC.WPF.ViewModels;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -17,6 +18,7 @@ namespace SVC.WPF.Views
 
         public MainWindow()
         {
+            _viewModel = new MainViewModel();
             InitializeComponent();
             KeybindTextBox.PreviewKeyDown += KeybindTextBox_PreviewKeyDown;
             KeybindTextBox.PreviewKeyUp += KeybindTextBox_PreviewKeyUp;
@@ -30,7 +32,6 @@ namespace SVC.WPF.Views
                 UnregisterGlobalHotkey();
                 ComponentDispatcher.ThreadPreprocessMessage -= ThreadPreprocessMessageMethod;
             };
-            _viewModel = new MainViewModel();
             DataContext = _viewModel;
         }
 
@@ -162,6 +163,24 @@ namespace SVC.WPF.Views
         {
             _viewModel.DeleteSavedKeybindCommand.Execute(null);
             UnregisterGlobalHotkey();
+        }
+
+        private void AutoStartCheckbox_Click(object sender, RoutedEventArgs e)
+        {
+            if (e.Source is System.Windows.Controls.CheckBox checkBox)
+            {
+                _viewModel.AutoStartListening = (bool) checkBox.IsChecked;
+
+            }
+        }
+
+        private void AutoStartCheckbox_Initialized(object sender, System.EventArgs e)
+        {
+            if (sender is System.Windows.Controls.CheckBox checkBox)
+            {
+                checkBox.IsChecked = _viewModel.AutoStartListening;
+            }
+
         }
     }
 }
