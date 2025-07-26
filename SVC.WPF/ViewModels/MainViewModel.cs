@@ -17,6 +17,7 @@ namespace SVC.WPF.ViewModels
         private readonly KeybindService _keybindService;
         private bool _wasKeyUp = true; // tracks if keys were released
         private readonly DispatcherTimer _saveMessageTimer;
+        private readonly HotkeyService _hotkeyService;
 
         public ObservableCollection<Key> InputModifierKeys { get; } = new ObservableCollection<Key>();
         public ObservableCollection<Key> InputKeybindKeys { get; } = new ObservableCollection<Key>();
@@ -180,6 +181,7 @@ namespace SVC.WPF.ViewModels
             _voiceRecognitionService = new VoiceRecognitionService();
             _settingsService = new SettingsService();
             _keybindService = new KeybindService();
+            _hotkeyService = new HotkeyService();
 
             _voiceRecognitionService.CommandRecognized += OnVoiceCommandRecognized;
 
@@ -205,6 +207,49 @@ namespace SVC.WPF.ViewModels
             _voiceRecognitionService.LoadSpeechRecognition();
         }
 
+        private int GetModifierKeys(ObservableCollection<Key> modifiers)
+        {
+            int result = 0;
+            foreach (var key in modifiers)
+            {
+                switch (key)
+                {
+                    case Key.LeftCtrl:
+                    case Key.RightCtrl:
+                        result |= 0x0002; // MOD_CONTROL
+                        break;
+                    case Key.LeftAlt:
+                    case Key.RightAlt:
+                        result |= 0x0001; // MOD_ALT
+                        break;
+                    case Key.LeftShift:
+                    case Key.RightShift:
+                        result |= 0x0004; // MOD_SHIFT
+                        break;
+                    case Key.LWin:
+                    case Key.RWin:
+                        result |= 0x0008; // MOD_WIN
+                        break;
+                }
+            }
+            return result;
+        }
+
+        public void RegisterGlobalHotkey(IntPtr windowHandle)
+        {
+            var modifiers = GetModifierKeys(SavedModifierKeys);
+            if (SavedKeybindKeys.Count > 0)
+            {
+                var mainKey = KeyInterop.VirtualKeyFromKey(SavedKeybindKeys[0]);
+                _hotkeyService.RegisterHotkey(windowHandle, 9000, modifiers, mainKey);
+            }
+        }
+
+        public void UnregisterGlobalHotkey(IntPtr windowHandle)
+        {
+            _hotkeyService.UnregisterHotkey(windowHandle, 9000);
+        }
+
         private void UpdateCanSaveKeybind()
         {
             // You can tweak the logic to enforce minimum or maximum modifiers
@@ -224,7 +269,7 @@ namespace SVC.WPF.ViewModels
             }
             foreach (var key in keys)
             {
-                SavedModifierKeys.Add(key);
+                SavedKeybindKeys.Add(key);
             }
             UpdateKeybindDisplayText();
             UpdatePrefixSavedKeybindText();
