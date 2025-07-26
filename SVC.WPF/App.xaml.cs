@@ -1,4 +1,5 @@
-﻿using SVC.Core.Repositories.Implementations;
+﻿using Microsoft.Win32;
+using SVC.Core.Repositories.Implementations;
 using SVC.Core.Services;
 using SVC.Core.Services.Implementations;
 using SVC.Core.SystemInterop.Implementations;
@@ -18,7 +19,14 @@ namespace SVC.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            DetectThemeAndMergeResourceDictionary();
+            BuildGamesList();
+            var mainWindow = new Views.MainWindow();
+            mainWindow.Show();
+        }
 
+        private static void BuildGamesList()
+        {
             // Initialize services and load game locations
             var gameLocationsService = new GameLocationsService(
                 new GameManifestParser(),
@@ -36,6 +44,28 @@ namespace SVC.WPF
             }
 
             // Then continue loading main window, etc.
+        }
+
+        private void DetectThemeAndMergeResourceDictionary()
+        {
+            bool isLightTheme = true;
+            try
+            {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
+                {
+                    if (key != null)
+                    {
+                        object value = key.GetValue("AppsUseLightTheme");
+                        if (value is int intValue)
+                            isLightTheme = intValue == 1;
+                    }
+                }
+            }
+            catch { /* Handle exceptions if needed */ }
+
+            string themeDict = isLightTheme ? "Themes/LightTheme.xaml" : "Themes/DarkTheme.xaml";
+            var dict = new ResourceDictionary { Source = new Uri(themeDict, UriKind.Relative) };
+            Resources.MergedDictionaries.Add(dict);
         }
     }
 }

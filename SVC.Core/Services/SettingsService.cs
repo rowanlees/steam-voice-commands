@@ -1,14 +1,18 @@
-﻿using System;
+﻿using SVC.Core.Events;
+using SVC.Properties; // Adjust namespace if needed
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Windows.Input;
-using SVC.Properties; // Adjust namespace if needed
 
 namespace SVC.Core.Services
 {
     public class SettingsService
     {
+        private static readonly Lazy<SettingsService> _instance = new Lazy<SettingsService>(() => new SettingsService());
+        public static SettingsService Instance => _instance.Value;
+
+        public event EventHandler<KeybindChangedEventArgs> KeybindChanged;
         public void SaveKeybind(List<Key> modifierKeys, List<Key> normalKeys)
         {
             var modifierCollection = new StringCollection();
@@ -26,6 +30,8 @@ namespace SVC.Core.Services
             Settings.Default.VoiceActivateKeybindKey = keyCollection;
 
             Settings.Default.Save();
+
+            KeybindChanged?.Invoke(this, new KeybindChangedEventArgs(modifierKeys, normalKeys));
         }
 
         public void DeleteKeybind()
