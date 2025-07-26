@@ -1,4 +1,5 @@
-﻿using SVC.Core.Services;
+﻿using SVC.Core.Constants;
+using SVC.Core.Services;
 using SVC.WPF.ViewModels;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -108,6 +109,8 @@ namespace SVC.WPF.Views
         private void DeleteSavedKeybind_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.DeleteSavedKeybindCommand.Execute(null);
+            var handle = new WindowInteropHelper(this).Handle;
+            _viewModel.UnregisterGlobalHotkey(handle);
         }
 
         private void AutoStartCheckbox_Click(object sender, RoutedEventArgs e)
@@ -137,7 +140,7 @@ namespace SVC.WPF.Views
         private void ThreadPreprocessMessageMethod(ref MSG msg, ref bool handled)
         {
             const int WM_HOTKEY = 0x0312;
-            if (msg.message == WM_HOTKEY && (int)msg.wParam == 9000)
+            if (msg.message == WM_HOTKEY && (int)msg.wParam == HotkeyIds.VoiceRecognitionToggle)
             {
                 _viewModel.ToggleVoiceRecognitionCommand.Execute(null);
                 handled = true;

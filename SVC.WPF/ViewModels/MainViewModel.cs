@@ -1,4 +1,5 @@
-﻿using SVC.Core.Services;
+﻿using SVC.Core.Constants;
+using SVC.Core.Services;
 using SVC.WPF.src;
 using SVC.WPF.Views;
 using System;
@@ -241,13 +242,13 @@ namespace SVC.WPF.ViewModels
             if (SavedKeybindKeys.Count > 0)
             {
                 var mainKey = KeyInterop.VirtualKeyFromKey(SavedKeybindKeys[0]);
-                _hotkeyService.RegisterHotkey(windowHandle, 9000, modifiers, mainKey);
+                _hotkeyService.RegisterHotkey(windowHandle, HotkeyIds.VoiceRecognitionToggle, modifiers, mainKey);
             }
         }
 
         public void UnregisterGlobalHotkey(IntPtr windowHandle)
         {
-            _hotkeyService.UnregisterHotkey(windowHandle, 9000);
+            _hotkeyService.UnregisterHotkey(windowHandle, HotkeyIds.VoiceRecognitionToggle);
         }
 
         private void UpdateCanSaveKeybind()
