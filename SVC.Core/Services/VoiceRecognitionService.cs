@@ -55,32 +55,37 @@ namespace SVC.Core.Services
         private void OnSpeechRecognized(object sender, SpeechRecognizedEventArgs speechArgs)
         {
 
-            CommandRecognized?.Invoke("Current voice command: " + speechArgs.Result.Text);
-
             if (_voiceRecognitionActive)
             {
 
                 switch (speechArgs.Result.Text)
                 {
                     case "open library":
+                        CommandRecognized?.Invoke(speechArgs.Result.Text);
                         System.Diagnostics.Process.Start(@"steam://open/games");
                         break;
                     case "open store":
+                        CommandRecognized?.Invoke(speechArgs.Result.Text);
                         System.Diagnostics.Process.Start(@"steam://store");
                         break;
                     case "open friends":
+                        CommandRecognized?.Invoke(speechArgs.Result.Text);
                         System.Diagnostics.Process.Start(@"steam://open/friends");
                         break;
                     case "open settings":
+                        CommandRecognized?.Invoke(speechArgs.Result.Text);
                         System.Diagnostics.Process.Start(@"steam://open/settings");
                         break;
                     case "open downloads":
+                        CommandRecognized?.Invoke(speechArgs.Result.Text);
                         System.Diagnostics.Process.Start(@"steam://open/downloads");
                         break;
                     case "stop voice recognition":
+                        CommandRecognized?.Invoke(speechArgs.Result.Text);
                         _voiceRecognitionActive = false;
                         break;
                     case "stop voice commands":
+                        CommandRecognized?.Invoke(speechArgs.Result.Text);
                         _voiceRecognitionActive = false;
                         break;
                     default:
@@ -93,6 +98,7 @@ namespace SVC.Core.Services
                                 gameName = gameName.TextAfter("Game Name: ");
                                 if (speechArgs.Result.Text.Equals("open " + gameName))
                                 {
+                                    CommandRecognized?.Invoke(speechArgs.Result.Text);
                                     string appid = (string)_gamesList[forEachIndexNo + 1];
                                     appid = appid.TextAfter("App ID: ");
                                     appid = appid.Trim();
@@ -112,9 +118,11 @@ namespace SVC.Core.Services
                 switch (speechArgs.Result.Text)
                 {
                     case "start voice recognition":
+                        CommandRecognized?.Invoke(speechArgs.Result.Text);
                         _voiceRecognitionActive = true;
                         break;
                     case "start voice commands":
+                        CommandRecognized?.Invoke(speechArgs.Result.Text);
                         _voiceRecognitionActive = true;
                         break;
                 }

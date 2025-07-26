@@ -82,8 +82,17 @@
             </Grid>
         </StackPanel>
 
-        <!-- Label: Current Voice Command -->
-        <TextBlock Grid.Row="6" Grid.Column="0" Text="Recognised Command:"/>
-        <TextBlock Grid.Row="6" Grid.Column="0" x:Name="RecognisedCommandText" FontWeight="Bold"/>
+        <!-- Current Voice Command -->
+        <Grid Grid.Row="5" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".25*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Recognised Command:"/>
+            <TextBlock Grid.Column="1" Text="{Binding RecognizedCommand}" FontWeight="Bold"/>
+        </Grid>
     </Grid>
 </Window>

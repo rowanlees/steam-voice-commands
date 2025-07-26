@@ -292,7 +292,17 @@ namespace SVC.WPF.ViewModels
 
         private void OnVoiceCommandRecognized(string command)
         {
-            RecognizedCommand = $"Current voice command: {command}";
+            RecognizedCommand = command;
+            var normalized = command.Trim().ToLowerInvariant();
+
+            if (normalized.Contains("stop voice recognition") || normalized.Contains("stop voice commands"))
+            {
+                IsVoiceRecognitionActive = false;
+            }
+            else if (normalized.Contains("start voice recognition") || normalized.Contains("start voice commands"))
+            {
+                IsVoiceRecognitionActive = true;
+            }
         }
 
         private void SaveKeybind()
