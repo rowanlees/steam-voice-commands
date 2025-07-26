@@ -295,11 +295,11 @@ namespace SVC.WPF.ViewModels
             RecognizedCommand = command;
             var normalized = command.Trim().ToLowerInvariant();
 
-            if (normalized.Contains("stop voice recognition") || normalized.Contains("stop voice commands"))
+            if (normalized.Equals(VoiceCommands.StopVoiceRecognition) || normalized.Equals(VoiceCommands.StopVoiceCommands))
             {
                 IsVoiceRecognitionActive = false;
             }
-            else if (normalized.Contains("start voice recognition") || normalized.Contains("start voice commands"))
+            else if (normalized.Equals(VoiceCommands.StartVoiceCommands) || normalized.Equals(VoiceCommands.StartVoiceRecognition))
             {
                 IsVoiceRecognitionActive = true;
             }

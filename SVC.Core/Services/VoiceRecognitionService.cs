@@ -1,4 +1,5 @@
-﻿using SVC.Core.Extensions;
+﻿using SVC.Core.Constants;
+using SVC.Core.Extensions;
 using SVC.Core.Repositories.Implementations;
 using System;
 using System.Collections.Generic;
@@ -60,31 +61,31 @@ namespace SVC.Core.Services
 
                 switch (speechArgs.Result.Text)
                 {
-                    case "open library":
+                    case VoiceCommands.OpenLibrary:
                         CommandRecognized?.Invoke(speechArgs.Result.Text);
                         System.Diagnostics.Process.Start(@"steam://open/games");
                         break;
-                    case "open store":
+                    case VoiceCommands.OpenStore:
                         CommandRecognized?.Invoke(speechArgs.Result.Text);
                         System.Diagnostics.Process.Start(@"steam://store");
                         break;
-                    case "open friends":
+                    case VoiceCommands.OpenFriends:
                         CommandRecognized?.Invoke(speechArgs.Result.Text);
                         System.Diagnostics.Process.Start(@"steam://open/friends");
                         break;
-                    case "open settings":
+                    case VoiceCommands.OpenSettings:
                         CommandRecognized?.Invoke(speechArgs.Result.Text);
                         System.Diagnostics.Process.Start(@"steam://open/settings");
                         break;
-                    case "open downloads":
+                    case VoiceCommands.OpenDownloads:
                         CommandRecognized?.Invoke(speechArgs.Result.Text);
                         System.Diagnostics.Process.Start(@"steam://open/downloads");
                         break;
-                    case "stop voice recognition":
+                    case VoiceCommands.StopVoiceRecognition:
                         CommandRecognized?.Invoke(speechArgs.Result.Text);
                         _voiceRecognitionActive = false;
                         break;
-                    case "stop voice commands":
+                    case VoiceCommands.StopVoiceCommands:
                         CommandRecognized?.Invoke(speechArgs.Result.Text);
                         _voiceRecognitionActive = false;
                         break;
@@ -117,11 +118,11 @@ namespace SVC.Core.Services
             {
                 switch (speechArgs.Result.Text)
                 {
-                    case "start voice recognition":
+                    case VoiceCommands.StartVoiceRecognition:
                         CommandRecognized?.Invoke(speechArgs.Result.Text);
                         _voiceRecognitionActive = true;
                         break;
-                    case "start voice commands":
+                    case VoiceCommands.StartVoiceCommands:
                         CommandRecognized?.Invoke(speechArgs.Result.Text);
                         _voiceRecognitionActive = true;
                         break;
@@ -143,15 +144,15 @@ namespace SVC.Core.Services
                     choices.Add("open " + gameName);
                 }
             }
-            choices.Add("open library");
-            choices.Add("open store");
-            choices.Add("open friends");
-            choices.Add("open settings");
-            choices.Add("open downloads");
-            choices.Add("start voice recognition");
-            choices.Add("start voice commands");
-            choices.Add("stop voice recognition");
-            choices.Add("stop voice commands");
+            choices.Add(VoiceCommands.OpenLibrary);
+            choices.Add(VoiceCommands.OpenStore);
+            choices.Add(VoiceCommands.OpenFriends);
+            choices.Add(VoiceCommands.OpenSettings);
+            choices.Add(VoiceCommands.OpenDownloads);
+            choices.Add(VoiceCommands.StartVoiceRecognition);
+            choices.Add(VoiceCommands.StartVoiceCommands);
+            choices.Add(VoiceCommands.StopVoiceRecognition);
+            choices.Add(VoiceCommands.StopVoiceCommands);
             return choices;
         }
     }
