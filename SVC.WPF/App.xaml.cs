@@ -1,4 +1,5 @@
-﻿using SVC.Core.Services;
+﻿using SVC.Core.Repositories.Implementations;
+using SVC.Core.Services;
 using SVC.Core.Services.Implementations;
 using SVC.Core.SystemInterop.Implementations;
 using System;
@@ -25,14 +26,13 @@ namespace SVC.WPF
                 new SteamLibraryReader(new FileSystem()),
                 new GameRepository(new FileSystem())
             );
-
             try
             {
                 gameLocationsService.BuildGameList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Log or show error but don’t crash app
+                // TODO: Log or show error but don’t crash app
             }
 
             // Then continue loading main window, etc.

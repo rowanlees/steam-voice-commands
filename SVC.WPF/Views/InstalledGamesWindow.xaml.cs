@@ -1,6 +1,6 @@
-﻿using SVC.Core.Services.Implementations;
+﻿using SVC.Core.Model;
+using SVC.Core.Repositories.Implementations;
 using SVC.Core.SystemInterop.Implementations;
-using SVC.src.Model;
 using System;
 using System.Collections.Generic;
 using System.Windows;
