@@ -137,7 +137,7 @@ namespace SVC.WPF.ViewModels
         public MainViewModel()
         {
             _voiceRecognitionService = new VoiceRecognitionService();
-            _settingsService = new SettingsService();
+            _settingsService = SettingsService.Instance;
             _keybindService = new KeybindService();
             _hotkeyService = new HotkeyService();
 
@@ -222,6 +222,8 @@ namespace SVC.WPF.ViewModels
 
         private void UpdateSavedKeybinds(System.Collections.Generic.List<Key> modifiers, System.Collections.Generic.List<Key> keys)
         {
+            SavedModifierKeys.Clear();
+            SavedKeybindKeys.Clear();
             foreach (var key in modifiers)
             {
                 SavedModifierKeys.Add(key);
@@ -279,6 +281,14 @@ namespace SVC.WPF.ViewModels
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        internal void DeleteSavedKeybindFields()
+        {
+            SavedModifierKeys.Clear();
+            SavedKeybindKeys.Clear();
+            UpdatePrefixSavedKeybindText();
+            UpdateSavedKeybindDisplayText();
         }
     }
 }

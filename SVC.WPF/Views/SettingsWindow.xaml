@@ -8,7 +8,7 @@
         Title="Settings" Height="450" Width="800"
         Style="{DynamicResource {x:Type Window}}"
         >
-    <Grid>
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

@@ -138,7 +138,7 @@ namespace SVC.WPF.ViewModels
                 KeybindSaveMessage = string.Empty;
                 _saveMessageTimer.Stop();
             };
-            _settingsService = new SettingsService();
+            _settingsService = SettingsService.Instance;
             _keybindService = new KeybindService();
             _hotkeyService = new HotkeyService();
 

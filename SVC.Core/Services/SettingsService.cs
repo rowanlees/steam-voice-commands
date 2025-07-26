@@ -13,6 +13,12 @@ namespace SVC.Core.Services
         public static SettingsService Instance => _instance.Value;
 
         public event EventHandler<KeybindChangedEventArgs> KeybindChanged;
+        public event EventHandler<KeybindDeletedEventArgs> KeybindDeleted;
+
+        private SettingsService()
+        {
+            // Private constructor to prevent instantiation
+        }
         public void SaveKeybind(List<Key> modifierKeys, List<Key> normalKeys)
         {
             var modifierCollection = new StringCollection();
@@ -39,6 +45,7 @@ namespace SVC.Core.Services
             Settings.Default.VoiceActivateKeybindModifiers = new StringCollection();
             Settings.Default.VoiceActivateKeybindKey = new StringCollection();
             Settings.Default.Save();
+            KeybindDeleted?.Invoke(this, new KeybindDeletedEventArgs());
         }
 
         public (List<Key> Modifiers, List<Key> Keys) LoadKeybind()

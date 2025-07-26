@@ -2,6 +2,7 @@
 using SVC.Core.Events;
 using SVC.Core.Services;
 using SVC.WPF.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
@@ -18,6 +19,7 @@ namespace SVC.WPF.Views
             _viewModel = new MainViewModel();
             InitializeComponent();
             SettingsService.Instance.KeybindChanged += SettingsService_KeybindChanged;
+            SettingsService.Instance.KeybindDeleted += SettingsService_KeybindDeleted;
             DataContext = _viewModel;
             Loaded += (s, e) =>
             {
@@ -31,6 +33,13 @@ namespace SVC.WPF.Views
                 _viewModel.UnregisterGlobalHotkey(handle);
                 ComponentDispatcher.ThreadPreprocessMessage -= ThreadPreprocessMessageMethod;
             };
+        }
+
+        private void SettingsService_KeybindDeleted(object sender, KeybindDeletedEventArgs e)
+        {
+            var handle = new WindowInteropHelper(this).Handle;
+            _viewModel.UnregisterGlobalHotkey(handle);
+            _viewModel.DeleteSavedKeybindFields();
         }
 
         private void SettingsService_KeybindChanged(object sender, KeybindChangedEventArgs e)
