@@ -1,6 +1,5 @@
 ﻿using SVC.WPF.ViewModels;
 using System.Windows;
-using System.Windows.Interop;
 
 namespace SVC.WPF.Views
 {
@@ -34,9 +33,6 @@ namespace SVC.WPF.Views
         private void SaveKeybind_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.SaveKeybindCommand.Execute(null);
-            var handle = new WindowInteropHelper(this).Handle;
-            _viewModel.UnregisterGlobalHotkey(handle);
-            _viewModel.RegisterGlobalHotkey(handle);
         }
 
         private void ClearKeybind_Click(object sender, RoutedEventArgs e)
@@ -47,8 +43,6 @@ namespace SVC.WPF.Views
         private void DeleteSavedKeybind_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.DeleteSavedKeybindCommand.Execute(null);
-            var handle = new WindowInteropHelper(this).Handle;
-            _viewModel.UnregisterGlobalHotkey(handle);
         }
 
         private void AutoStartCheckbox_Click(object sender, RoutedEventArgs e)
