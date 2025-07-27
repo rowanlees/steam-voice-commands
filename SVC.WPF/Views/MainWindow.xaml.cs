@@ -44,8 +44,8 @@ namespace SVC.WPF.Views
         private void SettingsService_KeybindChanged(object sender, KeybindChangedEventArgs e)
         {
             var handle = new WindowInteropHelper(this).Handle;
-            _viewModel.RegisterGlobalHotkey(handle);
             _viewModel.UpdateSavedKeybindFields(e.ModifierKeys, e.NormalKeys);
+            _viewModel.RegisterGlobalHotkey(handle);
         }
 
         private void ToggleRecognition_Click(object sender, RoutedEventArgs e)

@@ -16,7 +16,6 @@ namespace SVC.WPF.ViewModels
         private readonly KeybindService _keybindService;
         private bool _wasKeyUp = true; // tracks if keys were released
         private readonly DispatcherTimer _saveMessageTimer;
-        private readonly HotkeyService _hotkeyService;
 
         public ObservableCollection<Key> InputModifierKeys { get; } = new ObservableCollection<Key>();
         public ObservableCollection<Key> InputKeybindKeys { get; } = new ObservableCollection<Key>();
@@ -139,7 +138,6 @@ namespace SVC.WPF.ViewModels
             };
             _settingsService = SettingsService.Instance;
             _keybindService = new KeybindService();
-            _hotkeyService = new HotkeyService();
 
             SaveKeybindCommand = new RelayCommand(_ => SaveKeybind());
             ClearKeybindCommand = new RelayCommand(_ => ClearKeybind());
@@ -174,21 +172,6 @@ namespace SVC.WPF.ViewModels
                 }
             }
             return result;
-        }
-
-        public void RegisterGlobalHotkey(IntPtr windowHandle)
-        {
-            var modifiers = GetModifierKeys(SavedModifierKeys);
-            if (SavedKeybindKeys.Count > 0)
-            {
-                var mainKey = KeyInterop.VirtualKeyFromKey(SavedKeybindKeys[0]);
-                _hotkeyService.RegisterHotkey(windowHandle, HotkeyIds.VoiceRecognitionToggle, modifiers, mainKey);
-            }
-        }
-
-        public void UnregisterGlobalHotkey(IntPtr windowHandle)
-        {
-            _hotkeyService.UnregisterHotkey(windowHandle, HotkeyIds.VoiceRecognitionToggle);
         }
 
         private void UpdateCanSaveKeybind()

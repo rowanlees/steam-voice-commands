@@ -217,6 +217,7 @@ namespace SVC.WPF.ViewModels
 
         public void RegisterGlobalHotkey(IntPtr windowHandle)
         {
+            _hotkeyService.UnregisterHotkey(windowHandle, HotkeyIds.VoiceRecognitionToggle);
             var modifiers = GetModifierKeys(SavedModifierKeys);
             if (SavedKeybindKeys.Count > 0)
             {
