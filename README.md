@@ -71,6 +71,8 @@ Windows application to control some functionality within Steam with your voice.
 
 Requires .NET Framework 4.8.1 - uses Windows Speech Recognition so you will get best results if you do the initial configuration of Windows Speech Recognition to train the voice model. Will start listening for commands once you start the application.
 
+Follows system dark/light mode theme.
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
