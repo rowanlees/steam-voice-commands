@@ -8,9 +8,13 @@
 	<AssemblyTitle>Steam Voice Commands</AssemblyTitle>
     <AssemblyName>SVC</AssemblyName>
 	<AssemblyVersion>0.5.0.0</AssemblyVersion>
-    <ApplicationIcon>resources\SVCIcon.ico</ApplicationIcon>
+    <ApplicationIcon>resources\svcicon.ico</ApplicationIcon>
     <StartupObject>SVC.WPF.App</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="resources\svcicon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <!-- NuGet package references -->
@@ -32,12 +36,6 @@
 
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- Resources -->
-    <Resource Include="resources\SVCIcon.ico" />
-    <Resource Include="resources\SVCRecording.ico" />
   </ItemGroup>
 
 </Project>
