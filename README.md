@@ -69,7 +69,7 @@
 
 Windows application to control some functionality within Steam with your voice.
 
-Requires .NET Framework 4.8 - uses Windows Speech Recognition so you will get best results if you do the initial configuration of Windows Speech Recognition to train the voice model. Will start listening for commands once you start the application.
+Requires .NET Framework 4.8.1 - uses Windows Speech Recognition so you will get best results if you do the initial configuration of Windows Speech Recognition to train the voice model. Will start listening for commands once you start the application.
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -79,7 +79,8 @@ Requires .NET Framework 4.8 - uses Windows Speech Recognition so you will get be
 ### Built With
 
 * [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
-* [.NET Windows System Speech Recognition API](https://docs.microsoft.com/en-us/dotnet/api/system.speech.recognition?view=netframework-4.8)
+* [.NET Framework Windows System Speech Recognition API](https://learn.microsoft.com/en-us/dotnet/api/system.speech.recognition?view=netframework-4.8.1)
+* WPF
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -91,8 +92,8 @@ Requires .NET Framework 4.8 - uses Windows Speech Recognition so you will get be
 
 ### Prerequisites
 
-* [.NET Framework 4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48)
-* You should train the Windows Speech Recognition model before you use this application. See here: https://support.microsoft.com/en-us/windows/use-voice-recognition-in-windows-83ff75bd-63eb-0b6c-18d4-6fae94050571
+* [.NET Framework 4.8.1](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net481)
+* Optional: train the Windows Speech Recognition model before you use this application. See here: https://support.microsoft.com/en-us/windows/use-voice-recognition-in-windows-83ff75bd-63eb-0b6c-18d4-6fae94050571
 
 ### Installation
 
@@ -105,18 +106,11 @@ Check the [releases](https://github.com/reden96/steam-voice-commands-net-framewo
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Upon opening the program it will immediately begin active voice recognition. To stop, click the 'stop voice commands' button.
-At the moment the program can handle the following speech inputs, more to follow later in development:
-- open library
-- open store
-- open friends
-- open settings
-- open downloads
-- open games (say "open [game name])"
+Click the 'Show Voice Commands' button in the program to see what voice commands are available.
 
-To see list of games detected on startup, click the "Open list of installed games" in the program
+To see list of games detected on startup, click the "Show Installed Games" in the program.
 
-You can also say "stop voice commands"/"stop voice recogntion" and "start voice commands"/"start voice recognition"; or use the button in the program; or bind a hotkey.
+Click the 'Toggle Voice Recognition' button to begin listening for commands, or bind a hotkey in the 'Settings' window and use that. There are also voice commands to start and stop voice recognition ("start voice recognition"/"start voice commands"/"stop voice recognition"/"stop voice commands")
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
