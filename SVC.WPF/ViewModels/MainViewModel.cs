@@ -6,6 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace SVC.WPF.ViewModels
@@ -49,11 +50,13 @@ namespace SVC.WPF.ViewModels
                     {
                         _voiceRecognitionService.Start();
                         VoiceRecognitionActiveLabel = "ACTIVE";
+                        VoiceRecognitionIcon = Material.Icons.MaterialIconKind.Microphone;
                     }
                     else
                     {
                         _voiceRecognitionService.Stop();
                         VoiceRecognitionActiveLabel = "INACTIVE";
+                        VoiceRecognitionIcon = Material.Icons.MaterialIconKind.MicrophoneOff;
                     }
 
                 }
@@ -130,6 +133,26 @@ namespace SVC.WPF.ViewModels
                 }
             }
         }
+
+        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(field, newValue))
+            {
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                return true;
+            }
+
+            return false;
+        }
+
+        private Material.Icons.MaterialIconKind voiceRecognitionIcon;
+
+        public Material.Icons.MaterialIconKind VoiceRecognitionIcon { 
+            get => voiceRecognitionIcon;
+            set => SetProperty(ref voiceRecognitionIcon, value); 
+        }
+
         public ICommand ToggleVoiceRecognitionCommand { get; }
         public ICommand ShowInstalledGamesCommand { get; }
         public ICommand ShowVoiceCommandsCommand { get; }
@@ -153,11 +176,13 @@ namespace SVC.WPF.ViewModels
                 IsVoiceRecognitionActive = true;
                 _voiceRecognitionService.Start();
                 VoiceRecognitionActiveLabel = "ACTIVE";
+                VoiceRecognitionIcon = Material.Icons.MaterialIconKind.Microphone;
             }
             else
             {
                 IsVoiceRecognitionActive = false;
                 VoiceRecognitionActiveLabel = "INACTIVE";
+                VoiceRecognitionIcon = Material.Icons.MaterialIconKind.MicrophoneOff;
             }
             _voiceRecognitionService.LoadSpeechRecognition();
         }
@@ -290,5 +315,7 @@ namespace SVC.WPF.ViewModels
             UpdatePrefixSavedKeybindText();
             UpdateSavedKeybindDisplayText();
         }
+
+
     }
 }

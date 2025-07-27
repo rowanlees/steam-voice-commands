@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="Steam Voice Commands" Height="450" Width="800"
         Style="{DynamicResource {x:Type Window}}"
+        xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
         >
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -42,7 +43,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="18" Text="&#xE713;" VerticalAlignment="Center" />
+                    <materialIcons:MaterialIcon Kind="Cog" VerticalAlignment="Center" />
                     <TextBlock Grid.Column="1" Text=" Settings" VerticalAlignment="Center"/>
                 </Grid>
             </Button>
@@ -55,9 +56,53 @@
 
         <!-- Buttons -->
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="0,20,0,0">
-            <Button Content="Show Voice Commands" Click="ShowCommands_Click" Height="40" Margin="0,0,0,10"/>
-            <Button Content="Show Installed Games" Click="ShowGames_Click" Height="40" Margin="0,0,0,10"/>
-            <Button Content="Toggle Voice Recognition" Click="ToggleRecognition_Click" Height="40" Margin="0,0,0,10"/>
+            
+            <!-- Show voice commands-->
+            <Button Click="ShowCommands_Click" Height="40" Margin="0,0,0,10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <materialIcons:MaterialIcon Grid.Column="0" Kind="ListBox" />
+                    <TextBlock Grid.Column="1" Text=" Show Voice Commands" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+
+            <!-- Show games-->
+            <Button Click="ShowGames_Click" Height="40" Margin="0,0,0,10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <materialIcons:MaterialIcon Grid.Column="0" Kind="GamepadClassic" />
+                    <TextBlock Grid.Column="1" Text=" Show Installed Games" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+
+            <!-- Toggle voice recognition-->
+            <Button Click="ToggleRecognition_Click" Height="40" Margin="0,0,0,10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <materialIcons:MaterialIcon Grid.Column="0" Kind="{Binding VoiceRecognitionIcon}" />
+                    <TextBlock Grid.Column="1" Text=" Toggle Voice Recognition" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+            
+            <!-- Voice recognition status -->
             <Grid Margin="0,0,0,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

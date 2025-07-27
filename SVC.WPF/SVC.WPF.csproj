@@ -15,6 +15,7 @@
   <ItemGroup>
     <!-- NuGet package references -->
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Material.Icons.WPF" Version="2.4.1" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
     <PackageReference Include="System.Buffers" Version="4.6.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
