@@ -1,7 +1,6 @@
 ﻿using SVC.Core.Constants;
 using SVC.Core.Services;
 using SVC.WPF.src;
-using SVC.WPF.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

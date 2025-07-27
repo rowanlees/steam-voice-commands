@@ -17,7 +17,7 @@ namespace SVC.WPF.Views
             InitializeComponent();
 
             // Setup service and load games
-            var fileSystem = new FileSystem(); // Your IFileSystem implementation
+            var fileSystem = new FileSystem();
             var gameRepo = new GameRepository(fileSystem);
 
             List<Game> games = gameRepo.LoadGames();

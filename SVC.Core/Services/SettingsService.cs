@@ -1,5 +1,5 @@
 ﻿using SVC.Core.Events;
-using SVC.Properties; // Adjust namespace if needed
+using SVC.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;

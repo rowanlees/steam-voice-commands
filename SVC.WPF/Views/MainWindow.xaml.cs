@@ -2,7 +2,6 @@
 using SVC.Core.Events;
 using SVC.Core.Services;
 using SVC.WPF.ViewModels;
-using System;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;

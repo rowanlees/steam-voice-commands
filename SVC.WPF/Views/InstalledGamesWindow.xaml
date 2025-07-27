@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SVC.WPF.Views"
         mc:Ignorable="d"
-        Title="Installed Games" Height="400" Width="600">
+        Title="Installed Games" Height="400" Width="600"
+        Style="{DynamicResource {x:Type Window}}"
+        >
     <Grid>
         <ListBox x:Name="GamesListBox" DisplayMemberPath="GameName" Margin="10"/>
     </Grid>

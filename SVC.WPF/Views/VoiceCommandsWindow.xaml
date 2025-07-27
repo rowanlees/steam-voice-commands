@@ -9,7 +9,7 @@
         Height="450" Width="450"
         ResizeMode="NoResize"
         WindowStartupLocation="Manual"
-        Background="#f5f5f5"
+        Style="{DynamicResource {x:Type Window}}"
         WindowStyle="SingleBorderWindow">
     <Border CornerRadius="10" Background="White" Padding="20" Margin="10" BorderBrush="#ddd" BorderThickness="1">
         <Grid>
