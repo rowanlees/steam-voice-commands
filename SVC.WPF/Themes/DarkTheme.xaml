@@ -22,4 +22,22 @@
     <!--Button mouse over background color-->
     <Color x:Key="ButtonMouseOverBackgroundColor">#737373</Color>
     <SolidColorBrush x:Key="ButtonMouseOverBackgroundBrush" Color="{StaticResource ButtonMouseOverBackgroundColor}" />
+    
+    <!--Border style-->
+    <Color x:Key="BorderBackgroundColor">#424242</Color>
+    <SolidColorBrush x:Key="BorderBackgroundBrush" Color="{StaticResource BorderBackgroundColor}" />
+    <Color x:Key="BorderBrushColor">#444444</Color>
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderBrushColor}" />
+    <Style TargetType="{x:Type Border}">
+        <Setter Property="Background" Value="{DynamicResource BorderBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+    </Style>
+    
+    <!--ListBox style-->
+    <Color x:Key="ListBoxBackgroundColor">#424242</Color>
+    <SolidColorBrush x:Key="ListBoxBackgroundBrush" Color="{StaticResource ListBoxBackgroundColor}" />
+    <Style TargetType="{x:Type ListBox}">
+        <Setter Property="Background" Value="{DynamicResource ListBoxBackgroundBrush}" />
+    </Style>
+
 </ResourceDictionary>
