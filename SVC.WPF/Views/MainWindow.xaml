@@ -1,0 +1,147 @@
+﻿<Window x:Class="SVC.WPF.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SVC.WPF.Views" xmlns:viewmodels="clr-namespace:SVC.WPF.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+        mc:Ignorable="d"
+        Title="Steam Voice Commands" Height="450" Width="800"
+        Style="{DynamicResource {x:Type Window}}"
+        xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+        >
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <!-- Display currently saved keybind -->
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Left">
+                <TextBlock Text="{Binding PrefixSavedKeybindDisplayText}" Margin="0,0,5,0"/>
+                <TextBlock Text="{Binding SavedKeybindDisplayText}" Margin="0,0,5,0"/>
+            </StackPanel>
+            <!-- Settings Button -->
+            <Button Grid.Column="1" Margin="0,0,5,0" HorizontalAlignment="Right" Click="SettingsButton_Click">
+                <Grid Margin="5,10,5,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <materialIcons:MaterialIcon Kind="Cog" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="1" Text=" Settings" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+
+
+        </Grid>
+        
+
+       
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Margin="0,20,0,0">
+            
+            <!-- Show voice commands-->
+            <Button Click="ShowCommands_Click" Height="40" Margin="0,0,0,10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <materialIcons:MaterialIcon Grid.Column="0" Kind="ListBox" />
+                    <TextBlock Grid.Column="1" Text=" Show Voice Commands" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+
+            <!-- Show games-->
+            <Button Click="ShowGames_Click" Height="40" Margin="0,0,0,10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <materialIcons:MaterialIcon Grid.Column="0" Kind="GamepadClassic" />
+                    <TextBlock Grid.Column="1" Text=" Show Installed Games" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+
+            <!-- Toggle voice recognition-->
+            <Button Click="ToggleRecognition_Click" Height="40" Margin="0,0,0,10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <materialIcons:MaterialIcon Grid.Column="0" Kind="{Binding VoiceRecognitionIcon}" />
+                    <TextBlock Grid.Column="1" Text=" Toggle Voice Recognition" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+            
+            <!-- Voice recognition status -->
+            <Grid Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".25*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Voice recognition status:"/>
+                <TextBlock Grid.Column="1" Text="{Binding VoiceRecognitionActiveLabel}">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding VoiceRecognitionActiveLabel}" Value="ACTIVE">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding VoiceRecognitionActiveLabel}" Value="INACTIVE">
+                                    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+                                    <Setter Property="FontWeight" Value="Normal"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </StackPanel>
+
+        <!-- Current Voice Command -->
+        <Grid Grid.Row="3" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".25*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Recognised Command:"/>
+            <TextBlock Grid.Column="1" Text="{Binding RecognizedCommand}" FontWeight="Bold"/>
+        </Grid>
+    </Grid>
+</Window>

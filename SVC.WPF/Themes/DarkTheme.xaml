@@ -1,0 +1,52 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+                    >
+    
+    <!--Background color-->
+    <Color x:Key="WindowBackgroundColor">#FF1E1E1E</Color>
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource WindowBackgroundColor}" />
+    <Style TargetType="{x:Type Window}">
+        <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}" />
+    </Style>
+
+    <!--Text color-->
+    <Color x:Key="TextColor">#FFFFFF</Color>
+    <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}" />
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+    </Style>
+
+    <!--Button background color-->
+    <Color x:Key="ButtonBackgroundColor">#545454</Color>
+    <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="{StaticResource ButtonBackgroundColor}" />
+
+    <!--Button mouse over background color-->
+    <Color x:Key="ButtonMouseOverBackgroundColor">#737373</Color>
+    <SolidColorBrush x:Key="ButtonMouseOverBackgroundBrush" Color="{StaticResource ButtonMouseOverBackgroundColor}" />
+    
+    <!--Border style-->
+    <Color x:Key="BorderBackgroundColor">#424242</Color>
+    <SolidColorBrush x:Key="BorderBackgroundBrush" Color="{StaticResource BorderBackgroundColor}" />
+    <Color x:Key="BorderBrushColor">#444444</Color>
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderBrushColor}" />
+    <Style TargetType="{x:Type Border}">
+        <Setter Property="Background" Value="{DynamicResource BorderBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+    </Style>
+    
+    <!--ListBox style-->
+    <Color x:Key="ListBoxBackgroundColor">#424242</Color>
+    <SolidColorBrush x:Key="ListBoxBackgroundBrush" Color="{StaticResource ListBoxBackgroundColor}" />
+    <Style TargetType="{x:Type ListBox}">
+        <Setter Property="Background" Value="{DynamicResource ListBoxBackgroundBrush}" />
+    </Style>
+
+    <!--Icons color-->
+    <Color x:Key="IconsColor">#E6E6E6</Color>
+    <SolidColorBrush x:Key="IconsBrush" Color="{StaticResource IconsColor}" />
+    <Style TargetType="materialIcons:MaterialIcon">
+        <Setter Property="Foreground" Value="{DynamicResource IconsBrush}" />
+    </Style>
+
+</ResourceDictionary>
