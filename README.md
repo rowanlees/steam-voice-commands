@@ -82,6 +82,7 @@ Follows system dark/light mode theme.
 
 * [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
 * [.NET Framework Windows System Speech Recognition API](https://learn.microsoft.com/en-us/dotnet/api/system.speech.recognition?view=netframework-4.8.1)
+* [.NET Framework 4.8.1 Developer Pack](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net481-developer-pack-offline-installer)
 * WPF
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -121,9 +122,7 @@ Click the 'Toggle Voice Recognition' button to begin listening for commands, or 
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Add more functions to respond to, such as opening big picture mode
-
-See the [open issues](https://github.com/reden96/steam-voice-commands-net-framework/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/reden96/steam-voice-commands-net-framework/issues) for a full list of proposed features (and known issues). Feel free to raise suggestions.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
