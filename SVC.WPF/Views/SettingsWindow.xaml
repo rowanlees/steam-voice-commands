@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:SVC.WPF.Views" xmlns:viewmodels="clr-namespace:SVC.WPF.ViewModels"
         d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
         mc:Ignorable="d"
-        Title="Settings" Height="450" Width="800"
+        Title="Settings" Height="450" Width="600"
+        ResizeMode="NoResize"
         Style="{DynamicResource {x:Type Window}}"
         >
     <Grid Margin="20">

@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="Steam Voice Commands" Height="450" Width="800"
         Style="{DynamicResource {x:Type Window}}"
+        ResizeMode="NoResize"
         xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
         >
     <Grid Margin="20">
